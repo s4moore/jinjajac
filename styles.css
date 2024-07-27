@@ -7,7 +7,7 @@ body, html {
     align-items: center;
     background: linear-gradient(45deg, #ffafbd, #ffc3a0, #ffcbf2, #e0c3fc, #a3e4db);
     background-size: 400% 400%;
-    animation: gradientAnimation 15s ease infinite;
+    animation: gradientAnimation 8s ease infinite;
 }
 
 @keyframes gradientAnimation {
@@ -22,11 +22,17 @@ body, html {
     background: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 90%; 
 }
 
 h1 {
-    margin: 20px 0;
-	color: #333;
+    color: #333;
+    font-size: 2em;
+}
+
+p {
+    color: #555;
+    font-size: 1.2em;
 }
 
 #gallery {
@@ -34,6 +40,7 @@ h1 {
     align-items: center;
     justify-content: center;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 #galleryImage {
@@ -44,4 +51,26 @@ h1 {
 button {
     padding: 10px;
     font-size: 16px;
+    flex: 1 1 auto; /* Allow buttons to resize based on available space */
+    margin: 5px; /* Add margin to ensure spacing between buttons */
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.5em;
+    }
+
+    p {
+        font-size: 1em;
+    }
+
+    #gallery {
+        flex-direction: column; /* Stack buttons vertically on small screens */
+    }
+
+    button {
+        width: 100%; /* Make buttons take full width on small screens */
+        padding: 10px;
+        font-size: 1.2em;
+    }
 }
