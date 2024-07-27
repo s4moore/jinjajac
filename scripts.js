@@ -7,23 +7,23 @@ document.addEventListener('DOMContentLoaded', () => {
     let images = [];
 
     function updateCarousel() {
-        // Calculate the offset for the current index
+        // Calculate the offset percentage based on the current index
         const offset = currentIndex * 100;
         console.log(`Updating carousel to index ${currentIndex}, translateX(-${offset}%)`); // Debug log
         carousel.style.transform = `translateX(-${offset}%)`;
     }
 
     function showPrevSlide() {
-        // Move to the previous slide or loop around if at the first slide
         if (images.length > 0) {
+            // Correctly handle wrap-around when moving to the previous slide
             currentIndex = (currentIndex - 1 + images.length) % images.length;
             updateCarousel();
         }
     }
 
     function showNextSlide() {
-        // Move to the next slide or loop around if at the last slide
         if (images.length > 0) {
+            // Correctly handle wrap-around when moving to the next slide
             currentIndex = (currentIndex + 1) % images.length;
             updateCarousel();
         }

@@ -16,15 +16,13 @@ body, html {
 
 .carousel-container {
     position: relative;
-    max-height: 90%;
+    width: 100%;
     max-width: 1000px;
     margin: auto;
     overflow: hidden;
-    /* height: 500px; Set a fixed height for the container */
+    height: 100vh; /* Ensure full height for vertical centering */
     display: flex;
-    align-items: center; /* Center content vertically */
-    justify-content: center; /* Center content horizontally */
-}
+    align-items: center; /* Center carousel vertically */}
 
 .carousel {
     display: flex;
@@ -33,16 +31,13 @@ body, html {
 }
 
 .carousel-slide {
-    max-width: 90%;
+    min-width: 100%; /* Ensure each slide takes up full width */
     box-sizing: border-box;
-    display: flex;
-    align-items: center; /* Center images vertically in slide */
-    justify-content: center; /* Center images horizontally in slide */
-}
+    display: flex; /* Center image horizontally */
+    justify-content: center; /* Center image horizontally */}
 
 .carousel-slide img {
-    max-width: 100%;
-    max-height: 100%
+    width: 100%;
     height: auto;
     display: block;
 }
