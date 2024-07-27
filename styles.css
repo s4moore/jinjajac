@@ -1,4 +1,3 @@
-/* styles.css */
 body, html {
     height: 100%;
     margin: 0;
@@ -6,6 +5,9 @@ body, html {
     background: linear-gradient(45deg, #ffafbd, #ffc3a0, #ffcbf2, #e0c3fc, #a3e4db);
     background-size: 400% 400%;
     animation: gradientAnimation 15s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @keyframes gradientAnimation {
@@ -16,27 +18,23 @@ body, html {
 
 .carousel-container {
     position: relative;
-    width: 100%;
-    max-width: 1000px;
-    margin: auto;
+    width: 90%;
+    max-width: 800px;
+    height: 500px; /* Adjust height as needed */
     overflow: hidden;
-    height: 100vh; /* Ensure full height for vertical centering */
     display: flex;
-    align-items: center; /* Center carousel vertically */
-    justify-content: center; /* Center carousel horizontally */
+    justify-content: center;
+    align-items: center;
 }
 
 .carousel {
     display: flex;
     transition: transform 0.5s ease-in-out;
-    width: 100%; /* Ensure full width */
-    overflow: hidden; /* Hide overflow to ensure only one slide is visible at a time */
 }
 
 .carousel-slide {
-    min-width: 100%; /* Ensure each slide takes up full width */
+    min-width: 100%;
     box-sizing: border-box;
-    flex-shrink: 0; /* Prevent slides from shrinking */
 }
 
 .carousel-slide img {

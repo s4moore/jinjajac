@@ -8,35 +8,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateCarousel() {
         const offset = currentIndex * 100;
-        console.log(`Updating carousel to index ${currentIndex}, translateX(-${offset}%)`); // Debug log
         carousel.style.transform = `translateX(-${offset}%)`;
     }
 
     function showPrevSlide() {
-        if (images.length > 0) {
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-            updateCarousel();
-        }
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        updateCarousel();
     }
 
     function showNextSlide() {
-        if (images.length > 0) {
-            currentIndex = (currentIndex + 1) % images.length;
-            updateCarousel();
-        }
+        currentIndex = (currentIndex + 1) % images.length;
+        updateCarousel();
     }
 
-    // Fetch image filenames from JSON file
     fetch('images.json')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
             images = data;
-            console.log('Images loaded:', images); // Debug log
             if (images.length > 0) {
                 images.forEach(image => {
                     const slide = document.createElement('div');
@@ -44,15 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     const img = document.createElement('img');
                     img.src = `images/${image}`;
                     img.alt = image;
-                    img.onerror = () => {
-                        console.error(`Image failed to load: images/${image}`);
-                    };
                     slide.appendChild(img);
                     carousel.appendChild(slide);
                 });
                 updateCarousel();
-            } else {
-                console.log('No images found in images.json');
             }
         })
         .catch(error => console.error('Error loading images:', error));
@@ -60,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
     prevButton.addEventListener('click', showPrevSlide);
     nextButton.addEventListener('click', showNextSlide);
 
-    // Swipe functionality for mobile
     let touchStartX = 0;
     let touchEndX = 0;
 
@@ -71,16 +53,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleTouchEnd(event) {
         touchEndX = event.changedTouches[0].screenX;
         if (touchStartX - touchEndX > 50) {
-            showNextSlide(); // Swipe left
+            showNextSlide();
         } else if (touchEndX - touchStartX > 50) {
-            showPrevSlide(); // Swipe right
+            showPrevSlide();
         }
     }
 
     carousel.addEventListener('touchstart', handleTouchStart);
     carousel.addEventListener('touchend', handleTouchEnd);
 
-    // Mouse drag functionality for desktop
     let isDragging = false;
     let startX = 0;
 
@@ -94,9 +75,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const deltaX = startX - event.clientX;
         if (Math.abs(deltaX) > 50) {
             if (deltaX > 0) {
-                showNextSlide(); // Drag left
+                showNextSlide();
             } else {
-                showPrevSlide(); // Drag right
+                showPrevSlide();
             }
             isDragging = false;
         }
