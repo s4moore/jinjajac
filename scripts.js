@@ -11,11 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showPrevSlide() {
+        // Move to the previous slide or wrap around if at the first slide
         currentIndex = (currentIndex - 1 + images.length) % images.length;
         updateCarousel();
     }
 
     function showNextSlide() {
+        // Move to the next slide or wrap around if at the last slide
         currentIndex = (currentIndex + 1) % images.length;
         updateCarousel();
     }

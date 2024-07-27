@@ -20,20 +20,29 @@ body, html {
     max-width: 1000px;
     margin: auto;
     overflow: hidden;
+    height: 500px; /* Set a fixed height for the container */
+    display: flex;
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
 }
 
 .carousel {
     display: flex;
     transition: transform 0.5s ease-in-out;
+    height: 100%;
 }
 
 .carousel-slide {
     min-width: 100%;
     box-sizing: border-box;
+    display: flex;
+    align-items: center; /* Center images vertically in slide */
+    justify-content: center; /* Center images horizontally in slide */
 }
 
 .carousel-slide img {
-    width: 100%;
+    max-width: 95%;
+    max-height: 95%
     height: auto;
     display: block;
 }
@@ -71,5 +80,8 @@ body, html {
     .carousel-control {
         font-size: 18px;
         padding: 8px;
+    }
+    .carousel-container {
+        height: 300px; /* Adjust height for smaller screens if needed */
     }
 }
