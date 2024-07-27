@@ -49,6 +49,8 @@ p {
 }
 
 button {
+    background: none;
+    border: none;
     padding: 10px;
     font-size: 16px;
     flex: 1 1 auto; /* Allow buttons to resize based on available space */
