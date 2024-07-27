@@ -70,10 +70,3 @@ body, html {
 .carousel-control:focus {
     outline: none;
 }
-
-@media (max-width: 600px) {
-    /* .carousel-control {
-        font-size: 18px;
-        padding: 10px;
-    } */
-}
