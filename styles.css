@@ -42,11 +42,12 @@ body, html {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.7);
-    border: none;
+    background: none; /* No background */
+    border: none; /* No border */
     padding: 10px;
     cursor: pointer;
     font-size: 20px;
+    color: white; /* Ensure text is visible */
 }
 
 .carousel-control.prev {
@@ -55,6 +56,10 @@ body, html {
 
 .carousel-control.next {
     right: 10px;
+}
+
+.carousel-control:hover {
+    opacity: 0.8; /* Slightly fade the buttons on hover */
 }
 
 @media (max-width: 600px) {
