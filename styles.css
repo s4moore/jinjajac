@@ -23,6 +23,7 @@ body, html {
     height: 100vh; /* Ensure full height for vertical centering */
     display: flex;
     align-items: center; /* Center carousel vertically */
+    justify-content: center;
 }
 
 .carousel {
@@ -34,8 +35,6 @@ body, html {
 .carousel-slide {
     min-width: 100%; /* Ensure each slide takes up full width */
     box-sizing: border-box;
-    display: flex; /* Center image horizontally */
-    justify-content: center; /* Center image horizontally */
 }
 
 .carousel-slide img {
