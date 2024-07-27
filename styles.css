@@ -22,19 +22,21 @@ body, html {
     overflow: hidden;
     height: 100vh; /* Ensure full height for vertical centering */
     display: flex;
-    align-items: center; /* Center carousel vertically */}
+    align-items: center; /* Center carousel vertically */
+}
 
 .carousel {
     display: flex;
     transition: transform 0.5s ease-in-out;
-    height: 100%;
+    width: 100%; /* Ensure full width */
 }
 
 .carousel-slide {
     min-width: 100%; /* Ensure each slide takes up full width */
     box-sizing: border-box;
     display: flex; /* Center image horizontally */
-    justify-content: center; /* Center image horizontally */}
+    justify-content: center; /* Center image horizontally */
+}
 
 .carousel-slide img {
     width: 100%;
@@ -75,8 +77,5 @@ body, html {
     .carousel-control {
         font-size: 18px;
         padding: 8px;
-    }
-    .carousel-container {
-        height: 300px; /* Adjust height for smaller screens if needed */
     }
 }
