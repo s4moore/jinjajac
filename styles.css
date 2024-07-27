@@ -17,26 +17,26 @@ body, html {
 .carousel-container {
     position: relative;
     width: 100%;
-    max-width: 95%;
+    max-width: 1000px;
     margin: auto;
     overflow: hidden;
     height: 100vh; /* Ensure full height for vertical centering */
     display: flex;
     align-items: center; /* Center carousel vertically */
-    justify-content: center;
+    justify-content: center; /* Center carousel horizontally */
 }
 
 .carousel {
     display: flex;
     transition: transform 0.5s ease-in-out;
     width: 100%; /* Ensure full width */
-    overflow: hidden;
+    overflow: hidden; /* Hide overflow to ensure only one slide is visible at a time */
 }
 
 .carousel-slide {
     min-width: 100%; /* Ensure each slide takes up full width */
     box-sizing: border-box;
-    /* flex-shrink: 0; */
+    flex-shrink: 0; /* Prevent slides from shrinking */
 }
 
 .carousel-slide img {
@@ -49,11 +49,13 @@ body, html {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.7);
-    border: none;
+    background: none; /* No background */
+    border: none; /* No border */
     padding: 10px;
     cursor: pointer;
     font-size: 20px;
+    color: white; /* Ensure text is visible */
+    z-index: 10;
 }
 
 .carousel-control.prev {
@@ -62,6 +64,14 @@ body, html {
 
 .carousel-control.next {
     right: 10px;
+}
+
+.carousel-control:hover {
+    opacity: 0.8; /* Slightly fade the buttons on hover */
+}
+
+.carousel-control:focus {
+    outline: none;
 }
 
 @media (max-width: 600px) {
