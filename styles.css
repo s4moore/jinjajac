@@ -72,8 +72,8 @@ body, html {
 }
 
 @media (max-width: 600px) {
-    .carousel-control {
+    /* .carousel-control {
         font-size: 18px;
         padding: 10px;
-    }
+    } */
 }
