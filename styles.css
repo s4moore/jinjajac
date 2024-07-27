@@ -1,3 +1,4 @@
+/* styles.css */
 body, html {
     height: 100%;
     margin: 0;
@@ -5,9 +6,6 @@ body, html {
     background: linear-gradient(45deg, #ffafbd, #ffc3a0, #ffcbf2, #e0c3fc, #a3e4db);
     background-size: 400% 400%;
     animation: gradientAnimation 15s ease infinite;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 @keyframes gradientAnimation {
@@ -18,13 +16,10 @@ body, html {
 
 .carousel-container {
     position: relative;
-    width: 90%;
-    max-width: 800px;
-    height: 500px; /* Adjust height as needed */
+    width: 100%;
+    max-width: 1000px;
+    margin: auto;
     overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .carousel {
