@@ -3,45 +3,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevButton = document.getElementById('prevButton');
     const nextButton = document.getElementById('nextButton');
 
+    let currentIndex = 0;
     let images = [];
-    let currentIndex = 1; // Start at the first actual slide
 
     function updateCarousel() {
-        const offset = currentIndex * 100;
-        carousel.style.transition = 'transform 0.5s ease-in-out';
-        carousel.style.transform = `translateX(-${offset}%)`;
-        
-        // Handle wrap-around
-        if (currentIndex === 0) {
-            setTimeout(() => {
-                carousel.style.transition = 'none';
-                currentIndex = images.length; // Show the actual last slide
-                carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
-            }, 500); // Match the transition duration
-        } else if (currentIndex === images.length + 1) {
-            setTimeout(() => {
-                carousel.style.transition = 'none';
-                currentIndex = 1; // Show the actual first slide
-                carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
-            }, 500); // Match the transition duration
-        }
+        const slides = document.querySelectorAll('.carousel-slide');
+        slides.forEach((slide, index) => {
+            if (index === currentIndex) {
+                slide.classList.add('active');
+            } else {
+                slide.classList.remove('active');
+            }
+        });
     }
 
     function showPrevSlide() {
         if (images.length > 0) {
-            currentIndex--;
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
             updateCarousel();
         }
     }
 
     function showNextSlide() {
         if (images.length > 0) {
-            currentIndex++;
+            currentIndex = (currentIndex + 1) % images.length;
             updateCarousel();
         }
     }
 
-    // Fetch image filenames from JSON file
     fetch('images.json')
         .then(response => {
             if (!response.ok) {
@@ -52,14 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             images = data;
             if (images.length > 0) {
-                // Add cloned slides
-                const slides = [
-                    images[images.length - 1], // Clone of the last slide
-                    ...images,
-                    images[0] // Clone of the first slide
-                ];
-
-                slides.forEach(image => {
+                images.forEach(image => {
                     const slide = document.createElement('div');
                     slide.className = 'carousel-slide';
                     const img = document.createElement('img');
@@ -68,8 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     slide.appendChild(img);
                     carousel.appendChild(slide);
                 });
-
                 updateCarousel();
+            } else {
+                console.log('No images found in images.json');
             }
         })
         .catch(error => console.error('Error loading images:', error));
