@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Gallery</title>
+    <title>Image Carousel</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="gallery">
-        <button id="prevButton">&laquo; Prev</button>
-        <img id="galleryImage" src="" alt="Gallery Image">
-        <button id="nextButton">Next &raquo;</button>
+    <div class="carousel-container">
+        <div class="carousel" id="carousel">
+            <!-- Slides will be dynamically injected here -->
+        </div>
+        <button class="carousel-control prev" id="prevButton">&laquo;</button>
+        <button class="carousel-control next" id="nextButton">&raquo;</button>
     </div>
-    <script src="index.js"></script>
+    <script src="scripts.js"></script>
 </body>
 </html>

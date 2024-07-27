@@ -1,13 +1,11 @@
+/* styles.css */
 body, html {
     height: 100%;
     margin: 0;
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-family: Arial, sans-serif;
     background: linear-gradient(45deg, #ffafbd, #ffc3a0, #ffcbf2, #e0c3fc, #a3e4db);
     background-size: 400% 400%;
-    animation: gradientAnimation 8s ease infinite;
+    animation: gradientAnimation 15s ease infinite;
 }
 
 @keyframes gradientAnimation {
@@ -16,67 +14,52 @@ body, html {
     100% { background-position: 0% 50%; }
 }
 
-.content {
-    text-align: center;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 90%; 
+.carousel-container {
+    position: relative;
+    width: 90%;
+    max-width: 800px;
+    margin: auto;
+    overflow: hidden;
 }
 
-h1 {
-    color: #333;
-    font-size: 2em;
-}
-
-p {
-    color: #555;
-    font-size: 1.2em;
-}
-
-#gallery {
+.carousel {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
+    transition: transform 0.5s ease-in-out;
 }
 
-#galleryImage {
-    max-width: 80%;
-    max-height: 80vh;
+.carousel-slide {
+    min-width: 100%;
+    box-sizing: border-box;
 }
 
-button {
-    background: none;
+.carousel-slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.7);
     border: none;
     padding: 10px;
-    font-size: 16px;
-    flex: 1 1 auto; /* Allow buttons to resize based on available space */
-    margin: 5px; /* Add margin to ensure spacing between buttons */
-    color: #555;
     cursor: pointer;
-    flex: 1 1 auto; /* Allow buttons to resize based on available space */
-    margin: 5px;
+    font-size: 20px;
+}
+
+.carousel-control.prev {
+    left: 10px;
+}
+
+.carousel-control.next {
+    right: 10px;
 }
 
 @media (max-width: 600px) {
-    h1 {
-        font-size: 1.5em;
-    }
-
-    p {
-        font-size: 1em;
-    }
-
-    #gallery {
-        flex-direction: column; /* Stack buttons vertically on small screens */
-    }
-
-    button {
-        width: 100%; /* Make buttons take full width on small screens */
-        padding: 10px;
-        font-size: 1.2em;
+    .carousel-control {
+        font-size: 18px;
+        padding: 8px;
     }
 }
