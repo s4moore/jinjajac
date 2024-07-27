@@ -16,11 +16,11 @@ body, html {
 
 .carousel-container {
     position: relative;
-    width: 100%;
+    max-height: 90%;
     max-width: 1000px;
     margin: auto;
     overflow: hidden;
-    height: 500px; /* Set a fixed height for the container */
+    /* height: 500px; Set a fixed height for the container */
     display: flex;
     align-items: center; /* Center content vertically */
     justify-content: center; /* Center content horizontally */
@@ -33,7 +33,7 @@ body, html {
 }
 
 .carousel-slide {
-    min-width: 100%;
+    max-width: 90%;
     box-sizing: border-box;
     display: flex;
     align-items: center; /* Center images vertically in slide */
@@ -41,8 +41,8 @@ body, html {
 }
 
 .carousel-slide img {
-    max-width: 95%;
-    max-height: 95%
+    max-width: 100%;
+    max-height: 100%
     height: auto;
     display: block;
 }
