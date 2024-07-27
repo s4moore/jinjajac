@@ -30,11 +30,13 @@ body, html {
     display: flex;
     transition: transform 0.5s ease-in-out;
     width: 100%; /* Ensure full width */
+    overflow: hidden;
 }
 
 .carousel-slide {
     min-width: 100%; /* Ensure each slide takes up full width */
     box-sizing: border-box;
+    flex-shrink: 0;
 }
 
 .carousel-slide img {

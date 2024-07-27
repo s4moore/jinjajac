@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let images = [];
 
     function updateCarousel() {
-        // Calculate the offset percentage based on the current index
         const offset = currentIndex * 100;
         console.log(`Updating carousel to index ${currentIndex}, translateX(-${offset}%)`); // Debug log
         carousel.style.transform = `translateX(-${offset}%)`;
@@ -15,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showPrevSlide() {
         if (images.length > 0) {
-            // Correctly handle wrap-around when moving to the previous slide
             currentIndex = (currentIndex - 1 + images.length) % images.length;
             updateCarousel();
         }
@@ -23,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showNextSlide() {
         if (images.length > 0) {
-            // Correctly handle wrap-around when moving to the next slide
             currentIndex = (currentIndex + 1) % images.length;
             updateCarousel();
         }
