@@ -32,11 +32,12 @@ body, html {
 .carousel-slide {
     min-width: 100%;
     box-sizing: border-box;
-    margin: 0 5px;
+    margin: auto 0;
 }
 
 .carousel-slide img {
-    width: 100%;
+    width: 94%;
+    margin-left: 3%;
     height: auto;
     display: block;
 }
