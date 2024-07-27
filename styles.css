@@ -74,9 +74,6 @@ body, html {
 @media (max-width: 600px) {
     .carousel-control {
         font-size: 18px;
-        padding: 8px;
-    }
-    .carousel-slide{
-        margin: 0 15px;
+        padding: 10px;
     }
 }
