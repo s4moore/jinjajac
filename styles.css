@@ -53,6 +53,10 @@ button {
     font-size: 16px;
     flex: 1 1 auto; /* Allow buttons to resize based on available space */
     margin: 5px; /* Add margin to ensure spacing between buttons */
+    color: #555;
+    cursor: pointer;
+    flex: 1 1 auto; /* Allow buttons to resize based on available space */
+    margin: 5px;
 }
 
 @media (max-width: 600px) {
