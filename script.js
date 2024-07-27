@@ -1,4 +1,3 @@
-// scripts.js
 document.addEventListener('DOMContentLoaded', () => {
     const carousel = document.getElementById('carousel');
     const prevButton = document.getElementById('prevButton');
@@ -21,11 +20,17 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCarousel();
     }
 
-    // Fetch image filenames from a JSON file or API
+    // Fetch image filenames from JSON file
     fetch('images.json')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             images = data;
+            console.log('Images loaded:', images); // Debug log
             if (images.length > 0) {
                 images.forEach(image => {
                     const slide = document.createElement('div');
@@ -33,10 +38,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     const img = document.createElement('img');
                     img.src = `images/${image}`;
                     img.alt = image;
+                    img.onerror = () => {
+                        console.error(`Image failed to load: images/${image}`);
+                    };
                     slide.appendChild(img);
                     carousel.appendChild(slide);
                 });
                 updateCarousel();
+            } else {
+                console.log('No images found in images.json');
             }
         })
         .catch(error => console.error('Error loading images:', error));
