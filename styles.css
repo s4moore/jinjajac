@@ -49,13 +49,11 @@ body, html {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: none; /* No background */
-    border: none; /* No border */
+    background: rgba(255, 255, 255, 0.7);
+    border: none;
     padding: 10px;
     cursor: pointer;
     font-size: 20px;
-    color: white; /* Ensure text is visible */
-    z-index: 10;
 }
 
 .carousel-control.prev {
@@ -64,14 +62,6 @@ body, html {
 
 .carousel-control.next {
     right: 10px;
-}
-
-.carousel-control:hover {
-    opacity: 0.8; /* Slightly fade the buttons on hover */
-}
-
-.carousel-control:focus {
-    outline: none;
 }
 
 @media (max-width: 600px) {
