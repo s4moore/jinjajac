@@ -38,9 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     const img = document.createElement('img');
                     img.src = `images/${image}`;
                     img.alt = image;
-                    img.onerror = () => {
-                        console.error(`Image failed to load: images/${image}`);
-                    };
+                    img.onload = () => console.log(`Loaded image: images/${image}`); // Log successful loading
+                    img.onerror = () => console.error(`Failed to load image: images/${image}`); // Log failed loading
                     slide.appendChild(img);
                     carousel.appendChild(slide);
                 });

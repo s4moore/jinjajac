@@ -16,8 +16,8 @@ body, html {
 
 .carousel-container {
     position: relative;
-    width: 90%;
-    max-width: 800px;
+    width: 100%;
+    max-width: 1000px;
     margin: auto;
     overflow: hidden;
 }
@@ -48,6 +48,7 @@ body, html {
     cursor: pointer;
     font-size: 20px;
     color: white; /* Ensure text is visible */
+    z-index: 10;
 }
 
 .carousel-control.prev {
@@ -60,6 +61,10 @@ body, html {
 
 .carousel-control:hover {
     opacity: 0.8; /* Slightly fade the buttons on hover */
+}
+
+.carousel-control:focus {
+    outline: none;
 }
 
 @media (max-width: 600px) {
