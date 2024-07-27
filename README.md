@@ -1,2 +1,0 @@
-# jinjajac
-Jinjajac gallery
