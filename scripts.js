@@ -51,9 +51,12 @@ document.addEventListener('DOMContentLoaded', () => {
         currentSlide.style.opacity = '1'; // Make sure current slide is fully opaque
         currentSlide.style.transform = 'translate(0, 0) scale(1)'; // Reset transform
     
+        showSlide(currentSlide); //HERE!!!!!!!!
+
         // Start fading out the current slide and animate the new slide
         fadeOutSlide(currentSlide);
         animateSlide(nextSlide, () => {
+            currentSlide.style.display = 'none'; //!!!!!!!!!!!!!!!!
             isAnimating = false; // Animation finished
         });
     
@@ -70,7 +73,13 @@ document.addEventListener('DOMContentLoaded', () => {
             slide.style.display = 'none';
         }, 500); // Match the transition duration
     }
-    
+
+    function showSlide(slide) {   ///THIS WHOLE FUNCTION !!!!!!!!!!!!!
+        slide.style.display = 'block'; // Ensure the slide is visible
+        slide.style.opacity = '1'; // Ensure it is fully opaque
+        slide.style.transform = 'translate(0, 0) scale(1)'; // Reset transform
+    }
+
     function animateSlide(slide, callback) {
         let start = null;
         const duration = 1500; // Animation duration in ms
@@ -112,26 +121,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function showPrevSlide() {
-        if (images.length > 0 && !isAnimating) {
+        // if (images.length > 0 && !isAnimating) {
             swipeDirection = 'right'; // Swipe right to show previous slide
             isAnimating = true;
             updateCarousel();
-        }
+        // }
     }
 
     function showNextSlide() {
-        if (images.length > 0 && !isAnimating) {
+        // if (images.length > 0 && !isAnimating) {
             swipeDirection = 'left'; // Swipe left to show next slide
             isAnimating = true;
             updateCarousel();
-        }
+        // }
     }
 
     function handleSwipe(direction) {
-        if (!isAnimating) {
+        // if (!isAnimating) {
             swipeDirection = direction;
             updateCarousel(); // Trigger the next slide based on the direction
-        }
+        // }
     }
 
     function startAutoSlide() {
@@ -183,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleTouchEnd(event) {
         touchEndX = event.changedTouches[0].screenX;
-        const swipeThreshold = 50;
+        const swipeThreshold = 10;
         if (touchStartX - touchEndX > swipeThreshold) {
             handleSwipe('left'); // Swipe left
         } else if (touchEndX - touchStartX > swipeThreshold) {
