@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentIndex = 0;
     let images = [];
     let isAnimating = false;
-    let autoSlideInterval;
+    let animationFrameId = null; // To store the current animation frame ID
     let swipeDirection = 'left'; // Default swipe direction
 
     function preloadImages(imageUrls, callback) {
@@ -31,7 +31,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function fadeOutSlide(slide) {
+        return new Promise((resolve) => {
+            slide.style.transition = 'opacity 1s ease-in-out'; // Smooth transition for opacity
+            slide.style.opacity = '0';
+
+            // Resolve the promise after the transition ends
+            slide.addEventListener('transitionend', resolve, { once: true });
+        });
+    }
+
     function updateCarousel() {
+        if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId); // Cancel the current animation frame
+        }
+
         const slides = document.querySelectorAll('.carousel-slide');
         let currentSlide = slides[currentIndex];
         let nextIndex = swipeDirection === 'left' ? (currentIndex + 1) % images.length : (currentIndex - 1 + images.length) % images.length;
@@ -44,51 +58,47 @@ document.addEventListener('DOMContentLoaded', () => {
         // Prepare the new slide
         nextSlide.style.display = 'block'; // Ensure it's displayed
         nextSlide.style.opacity = '0'; // Start fully transparent
-        nextSlide.style.transform = 'translate(-500%, -100%) scale(0.1)'; // Start position for swoosh
+        nextSlide.style.transform = 'translate(-200%, -100%) scale(0.1)'; // Start position for swoosh
     
         // Reset display and opacity for the current slide
         currentSlide.style.display = 'block';
         currentSlide.style.opacity = '1'; // Make sure current slide is fully opaque
-        currentSlide.style.transform = 'translate(0, 0) scale(1)'; // Reset transform
+        currentSlide.style.transform = 'translate(0, 0) scale(1.5)'; // Reset transform
     
-        showSlide(currentSlide); //HERE!!!!!!!!
+        // showSlide(currentSlide);
 
-        // Start fading out the current slide and animate the new slide
-        fadeOutSlide(currentSlide);
-        animateSlide(nextSlide, () => {
-            currentSlide.style.display = 'none'; //!!!!!!!!!!!!!!!!
+        // Start animations in parallel
+        Promise.all([
+            fadeOutSlide(currentSlide),
+            animateSlide(nextSlide)
+        ]).then(() => {
+            currentSlide.style.display = 'none';
             isAnimating = false; // Animation finished
         });
-    
+                // animateSlide(nextSlide, () => {
+                //     currentSlide.style.display = 'none';
+                //     isAnimating = false; // Animation finished
+                // });
+                // fadeOutSlide(currentSlide);
         // Update the current index
         currentIndex = nextIndex;
     }
     
-    function fadeOutSlide(slide) {
-        slide.style.transition = 'opacity 0.5s ease-in-out'; // Smooth transition for opacity
-        slide.style.opacity = '0';
-    
-        // Ensure that the fade-out is completed
-        setTimeout(() => {
-            slide.style.display = 'none';
-        }, 500); // Match the transition duration
-    }
-
-    function showSlide(slide) {   ///THIS WHOLE FUNCTION !!!!!!!!!!!!!
+    function showSlide(slide) {
         slide.style.display = 'block'; // Ensure the slide is visible
         slide.style.opacity = '1'; // Ensure it is fully opaque
-        slide.style.transform = 'translate(0, 0) scale(1)'; // Reset transform
+        slide.style.transform = 'translate(0, 0) scale(1.5)'; // Reset transform
     }
 
     function animateSlide(slide, callback) {
         let start = null;
-        const duration = 1500; // Animation duration in ms
-        const startX = -500; // Start position (left side)
-        const startY = -100; // Start position (top)
+        const duration = 1000; // Animation duration in ms
+        const startX = -200; // Start position (left side)
+        const startY = 100; // Start position (top)
         const endX = 0; // End position (center)
         const endY = 0; // End position (center)
-        const startScale = 0.1;
-        const endScale = 1.0;
+        const startScale = 0.001;
+        const endScale = 1.5;
     
         function bezier(t, p0, p1, p2, p3) {
             return (1 - t) * (1 - t) * (1 - t) * p0 + 
@@ -99,56 +109,39 @@ document.addEventListener('DOMContentLoaded', () => {
     
         function step(timestamp) {
             if (!start) start = timestamp;
-            const progress = Math.min((timestamp - start) / duration, 1);
+            const progress = Math.min((timestamp - start - 5) / duration, 1);
     
             // Calculate current position and scale using a cubic Bezier curve
-            const x = bezier(progress, startX, -70, -70, endX);
-            const y = bezier(progress, startY, -100, -100, endY);
+            const x = bezier(progress, startX, -10, -10, endX);
+            const y = bezier(progress, startY, -70, -70, endY);
             const scale = startScale + (endScale - startScale) * progress;
     
             slide.style.transform = `translate(${x}%, ${y}%) scale(${scale})`;
             slide.style.opacity = progress;
     
             if (progress < 1) {
-                requestAnimationFrame(step);
+                animationFrameId = requestAnimationFrame(step);
             } else {
-                if (callback) callback();
+                resolve();
             }
         }
     
-        requestAnimationFrame(step);
-    }
-
-
-    function showPrevSlide() {
-        // if (images.length > 0 && !isAnimating) {
-            swipeDirection = 'right'; // Swipe right to show previous slide
-            isAnimating = true;
-            updateCarousel();
-        // }
-    }
-
-    function showNextSlide() {
-        // if (images.length > 0 && !isAnimating) {
-            swipeDirection = 'left'; // Swipe left to show next slide
-            isAnimating = true;
-            updateCarousel();
-        // }
+        animationFrameId = requestAnimationFrame(step);
     }
 
     function handleSwipe(direction) {
-        // if (!isAnimating) {
-            swipeDirection = direction;
-            updateCarousel(); // Trigger the next slide based on the direction
-        // }
+        // if (isAnimating) return; // Prevent starting a new animation if one is already in progress
+        isAnimating = true;
+        swipeDirection = direction;
+        updateCarousel(); // Trigger the next slide based on the direction
     }
 
     function startAutoSlide() {
         autoSlideInterval = setInterval(() => {
             if (!isAnimating) {
-                showNextSlide();
+                handleSwipe('left'); // Auto slide to the left
             }
-        }, 2000); // Change slide every 2 seconds
+        }, 3000); // Change slide every 2 seconds
     }
 
     fetch('images.json')

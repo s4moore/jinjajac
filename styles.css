@@ -13,15 +13,6 @@ body, html {
     100% { background-position: 100% 50%; }
 }
 
-.carousel-slide {
-    position: absolute;
-    margin: 0;
-    transform: translate(-150%, 20%) scale(0.1); /* Start hidden and scaled down */
-    opacity: 0; /* Start fully transparent */
-    transition: opacity 0.1s ease-in-out; /* Smooth transition for opacity */
-    /* Ensure no conflicting animations or styles */
-}
-
 .carousel-container {
     position: relative;
     width: 100%;
@@ -43,6 +34,14 @@ body, html {
     justify-content: center;
 }
 
+.carousel-slide {
+    position: absolute;
+    margin: 0;
+    transform: translate(-300%, -50%) scale(0.001); /* Start visible and scaled to default */
+    opacity: 1; /* Start fully opaque */
+    transition: opacity 0.5s ease-in-out, transform 1s ease-out; /* Match transition timings with JS */
+    /* Ensure no conflicting animations or styles */
+}
 
 .carousel-slide img {
     max-width: 100%;
@@ -52,11 +51,11 @@ body, html {
 
 .carousel-control {
     position: absolute;
-    top: 0%;
-    transform: translateY(-0%);
+    top: 50%;
+    transform: translateY(-50%);
     background: none; /* No background */
     border: none; /* No border */
-    padding: 0px;
+    padding: 10px;
     cursor: pointer;
     font-size: 20px;
     color: white; /* Ensure text is visible */
