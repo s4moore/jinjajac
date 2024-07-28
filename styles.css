@@ -4,19 +4,28 @@ body, html {
     margin: 0;
     font-family: Arial, sans-serif;
     background: black;
-    animation: gradientAnimation 15s ease infinite;
+    animation: gradientAnimation 1s ease infinite;
 }
 
 @keyframes gradientAnimation {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+.carousel-slide {
+    position: absolute;
+    margin: 0;
+    transform: translate(-150%, 20%) scale(0.1); /* Start hidden and scaled down */
+    opacity: 0; /* Start fully transparent */
+    transition: opacity 0.1s ease-in-out; /* Smooth transition for opacity */
+    /* Ensure no conflicting animations or styles */
 }
 
 .carousel-container {
     position: relative;
     width: 100%;
-    max-width: 1000px;
+    max-width: 2000px;
     margin: auto;
     overflow: hidden;
     height: 100vh; /* Fill the viewport height */
@@ -34,13 +43,6 @@ body, html {
     justify-content: center;
 }
 
-.carousel-slide {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-100%, 50%) scale(0.1);
-    opacity: 0;
-}
 
 .carousel-slide img {
     max-width: 100%;
@@ -50,11 +52,11 @@ body, html {
 
 .carousel-control {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 0%;
+    transform: translateY(-0%);
     background: none; /* No background */
     border: none; /* No border */
-    padding: 10px;
+    padding: 0px;
     cursor: pointer;
     font-size: 20px;
     color: white; /* Ensure text is visible */
