@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const midY = -100; // Midpoint for y
         const endX = -50; // End at center
         const endY = -50; // End at center
-        const startScale = 0.2;
-        const endScale = 1.2;
+        const startScale = 0.00002;
+        const endScale = 1.5;
 
         function bezier(t, p0, p1, p2, p3) {
             return (1 - t) * (1 - t) * (1 - t) * p0 + 
@@ -47,13 +47,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function fadeOutSlide(slide, callback) {
-        slide.style.transition = 'opacity 1s';
+        slide.style.transition = 'opacity 0.5s';
         slide.style.opacity = '0';
 
         setTimeout(() => {
             slide.style.display = 'none';
             if (callback) callback();
-        }, 1000);
+        }, 200);
     }
 
     function updateCarousel() {
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         nextSlide.style.display = 'block';
         nextSlide.style.opacity = '0';
-        nextSlide.style.transform = 'translate(-500%, -100%) scale(0.01)';
+        nextSlide.style.transform = 'translate(-500%, -100%) scale(0.0002)';
 
         // Start the swoosh animation for the next slide
         animateSlide(nextSlide, () => {
@@ -91,17 +91,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleSwipe() {
-        if (isAnimating) {
-            isAnimating = false; // Stop the current animation
-        }
+        // if (isAnimating) {
+        //     isAnimating = false; // Stop the current animation
+        // }
         showNextSlide(); // Trigger the next slide
     }
 
     function startAutoSlide() {
         autoSlideInterval = setInterval(() => {
-            if (!isAnimating) {
+            // if (!isAnimating) {
                 showNextSlide();
-            }
+            // }
         }, 2000); // Change slide every 5 seconds
     }
 
@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleMouseMove(event) {
         if (!isDragging) return;
         const deltaX = startX - event.clientX;
-        if (Math.abs(deltaX) > 50) {
+        if (Math.abs(deltaX) > 5) {
             if (deltaX > 0) {
                 handleSwipe(); // Drag left
             } else {
