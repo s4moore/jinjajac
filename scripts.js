@@ -32,15 +32,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function animateSlide(slide, callback) {
         let start = null;
-        const duration = 1500; // Animation duration in ms
-        const startX = -500; // Start outside the upper left quadrant
+        const duration = 1000; // Animation duration in ms
+        const startX = -300; // Start outside the upper left quadrant
         const startY = -90; // Start outside the upper left quadrant
         const midX = -70; // Midpoint for x
         const midY = -100; // Midpoint for y
         const endX = -50; // End at center
         const endY = -50; // End at center
-        const startScale = 0.2;
-        const endScale = 1.2;
+        const startScale = 0.0002;
+        const endScale = 2;
 
         function bezier(t, p0, p1, p2, p3) {
             return (1 - t) * (1 - t) * (1 - t) * p0 + 
