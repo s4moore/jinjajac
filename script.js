@@ -60,6 +60,7 @@ fetch('images.json')
         });
 
         document.querySelector('.carousel-container').addEventListener('touchend', (e) => {
+            e.preventDefault(); // Prevent default behavio
             endX = e.changedTouches[0].clientX;
             document.querySelectorAll('.carousel-slide').forEach(slide => {
                 slide.classList.remove('paused');
