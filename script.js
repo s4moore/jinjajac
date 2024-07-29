@@ -70,8 +70,16 @@ fetch('images.json')
                 clearTimeout(nextSlideTimeout);   
             }
             if (startX > endX + 10) {
+                clearInterval(slideInterval);
+                intervalStartTime = Date.now();
+                clearTimeout(disolveTimeout);
+                clearTimeout(nextSlideTimeout); 
                 nextSlide();
             } else if (startX < endX - 10) {
+                clearInterval(slideInterval);
+                intervalStartTime = Date.now();
+                clearTimeout(disolveTimeout);
+                clearTimeout(nextSlideTimeout); 
                 prevSlide();
             }
             slideInterval = setTimeout(() => {
