@@ -14,6 +14,8 @@ fetch('images.json')
         let currentSlide = 0;
         const slides = document.querySelectorAll('.carousel-slide');
         const totalSlides = slides.length;
+        let disolveTimeout, nextSlideTimeout, slideInterval;
+        let intervalStartTime, remainingTime = 4000;
 
         function showSlide(index) {
             console.log(`Showing slide ${index}`);
@@ -22,11 +24,11 @@ fetch('images.json')
                 if (i === index) {
                     slide.classList.add('active', 'expandAndMove');
                     // Start dissolve animation after expandAndMove finishes
-                    setTimeout(() => {
+                    nextSlideTimeout = setTimeout(() => {
                         console.log(`Starting dissolve animation for slide ${index}`);
                         slide.classList.add('disolve');
                         // Delay moving to the next slide until dissolve completes
-                        setTimeout(() => {
+                        disolveTimeout = setTimeout(() => {
                         }, 1000); // 2000ms is the duration of the dissolve effect
                         slide.classList.remove('active');
                     }, 4000); // 5000ms is the duration of expandAndMove
@@ -50,18 +52,38 @@ fetch('images.json')
 
         document.querySelector('.carousel-container').addEventListener('touchstart', (e) => {
             startX = e.touches[0].clientX;
+            document.querySelectorAll('.carousel-slide').forEach(slide => {
+                slide.classList.add('paused');
+            });
+            clearInterval(slideInterval);
+            remainingTime -= Date.now() - intervalStartTime;
         });
 
         document.querySelector('.carousel-container').addEventListener('touchend', (e) => {
             endX = e.changedTouches[0].clientX;
-            if (startX > endX + 5) {
+            document.querySelectorAll('.carousel-slide').forEach(slide => {
+                slide.classList.remove('paused');
+            });
+            if (Math.abs(startX - endX) > 10)
+            {
+                clearTimeout(disolveTimeout);
+                clearTimeout(nextSlideTimeout);   
+            }
+            if (startX > endX + 10) {
                 nextSlide();
-            } else if (startX < endX - 5) {
+            } else if (startX < endX - 10) {
                 prevSlide();
             }
+            slideInterval = setTimeout(() => {
+                nextSlide();
+                slideInterval = setInterval(nextSlide, 4000);
+            }, remainingTime);
+            intervalStartTime = Date.now();
+            remainingTime = 4000;
         });
 
         // Change slide every 3 seconds (overlapping animations)
-        setInterval(nextSlide, 4000);
+        slideInterval = setInterval(nextSlide, 4000);
+        intervalStartTime = Date.now();
     })
     .catch(error => console.error('Error fetching images:', error));
