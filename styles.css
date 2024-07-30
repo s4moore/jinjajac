@@ -103,20 +103,20 @@ body, html {
         opacity: .2;
     } */
     1% {
-        opacity: .3;
+        opacity: 10;
         transform: scale(0.25) translate(80%, 40%); 
     }
     2% {
         transform: scale(0.4) translate(85%, 36%); /* End at full size and final position */
-        opacity: .4;
+        opacity: 20;
     }
     4% {
         transform: scale(1) translate(85%, 36%); /* End at full size and final position */
-        opacity: .5;
+        opacity: 50;
     }
     9% {
         transform: scale(1.2) translate(41.7%, 41.8%); /* End at full size and final position */
-        opacity: .6;
+        opacity: 60;
     }
     100% {
         transform: scale(1.2) translate(41.7%, 41.8%); /* End at full size and final position */
