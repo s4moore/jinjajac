@@ -58,7 +58,7 @@ fetch('images.json')
                 if (activeSlide) {
                     // Example: Remove 'active' class from each active slide
                     activeSlide.classList.remove('active', 'disolve');
-                    activeSlide.classList.add('hiddne');
+                    activeSlide.classList.add('hidden');
                 }
             });
             clearTimeout(disolveTimeout);
@@ -76,7 +76,7 @@ fetch('images.json')
             if (activeSlide) {
                 // Example: Remove 'active' class from each active slide
                 activeSlide.classList.remove('active', 'disolve');
-                activeSlide.classList.add('hiddne');
+                activeSlide.classList.add('hidden');
             }
         });
             clearTimeout(disolveTimeout);
@@ -86,8 +86,6 @@ fetch('images.json')
 
             showSlide(currentSlide);
         }
-
-        // Swipe detection
 
         
         const carouselContainer = document.querySelector('.carousel-container');
