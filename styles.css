@@ -48,7 +48,7 @@ body, html {
 .carousel-slide.active {
     top: -50%;
     left: -50%;
-    animation: expandAndMove 4s cubic-bezier(0.12, .1 , 0.5, 0.5) forwards;
+    animation: expandAndMove 4s cubic-bezier(0, 0, 0.58, 1) forwards;
     opacity: 1;
 }
 
@@ -102,19 +102,19 @@ body, html {
         transform: scale(0.15) translate(70%, 40%);
         opacity: .2;
     } */
-    2% {
+    1% {
         opacity: .3;
         transform: scale(0.25) translate(80%, 40%); 
     }
-    4% {
+    2% {
         transform: scale(0.4) translate(85%, 36%); /* End at full size and final position */
         opacity: .4;
     }
-    9% {
+    4% {
         transform: scale(1) translate(85%, 36%); /* End at full size and final position */
         opacity: .5;
     }
-    12% {
+    9% {
         transform: scale(1.2) translate(41.7%, 41.8%); /* End at full size and final position */
         opacity: .6;
     }
