@@ -15,9 +15,9 @@ fetch('images.json')
         const slides = document.querySelectorAll('.carousel-slide');
         const totalSlides = slides.length;
         let disolveTimeout, nextSlideTimeout, startX, endX;
-        let intervalStartTime, remainingTime = 4000;
+        let intervalStartTime, remainingTime = 8000;
         let disolveRemainingTime = 0, nextSlideRemainingTime = 0;
-        let slideInterval = setInterval(nextSlide, 4000); // Automatically move to the next slide every 4000ms
+        let slideInterval = setInterval(nextSlide, 8000); // Automatically move to the next slide every 8000ms
 
         function showSlide(index) {
             console.log(`Showing slide ${index}`);
@@ -38,7 +38,7 @@ fetch('images.json')
                             slide.classList.remove('disolve');
                             slide.classList.remove('active');
                         }, 2500);
-                    }, 4000); // 4000ms is the duration of expandAndMove
+                    }, 8000); // 8000ms is the duration of expandAndMove
                 }   
             });
         }
@@ -117,7 +117,7 @@ fetch('images.json')
                 }
                 slideInterval = setTimeout(() => {
                     nextSlide();
-                    slideInterval = setInterval(nextSlide, 4000);
+                    slideInterval = setInterval(nextSlide, 8000);
                 }, remainingTime);
             } else {
                 // Restore the disolve and next slide timeouts if no swipe is detected
@@ -130,7 +130,7 @@ fetch('images.json')
             }
         
             intervalStartTime = Date.now();
-            remainingTime = 4000;
+            remainingTime = 8000;
         }
         
         carouselContainer.addEventListener('touchstart', handleStart);
