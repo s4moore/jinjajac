@@ -11,39 +11,79 @@ fetch('images.json')
             carousel.appendChild(slide);
         });
 
-        let currentSlide = 0;
+        let currentSlide = -1;
         const slides = document.querySelectorAll('.carousel-slide');
         const totalSlides = slides.length;
-        let disolveTimeout, nextSlideTimeout, slideInterval, startX, endX;
+        let disolveTimeout, nextSlideTimeout, startX, endX;
         let intervalStartTime, remainingTime = 4000;
-        let disolveRemainingTime, nextSlideRemainingTime;
+        let disolveRemainingTime = 0, nextSlideRemainingTime = 0;
+        let slideInterval = setInterval(nextSlide, 4000); // Automatically move to the next slide every 4000ms
 
         function showSlide(index) {
             console.log(`Showing slide ${index}`);
             slides.forEach((slide, i) => {
-                slide.classList.remove('active', 'expandAndMove', 'disolve');
+
                 if (i === index) {
-                    slide.classList.add('active', 'expandAndMove');
+                    slide.classList.add('active');
+                    slide.classList.remove('hidden');
+                    console.log(`Slide ${i} is now active`);
                     // Start disolve animation after expandAndMove finishes
                     nextSlideTimeout = setTimeout(() => {
-                        console.log(`Starting disolve animation for slide ${index}`);
-                        slide.classList.add('disolve');
-                        // Delay moving to the next slide until disolve completes
+                        if (!slide.classList.contains('hidden')) {
+                            slide.classList.add('disolve');
+                        }
                         disolveTimeout = setTimeout(() => {
-                        }, 1000); // 2000ms is the duration of the disolve effect
-                        slide.classList.remove('active');
-                    }, 4000); // 5000ms is the duration of expandAndMove
-                }
+                            console.log(`Slide ${i} prev class removed`);
+                            // slide.classList.remove('disolve');
+                            slide.classList.remove('disolve');
+                            slide.classList.remove('active');
+                        }, 2500);
+                    }, 4000); // 4000ms is the duration of expandAndMove
+                }   
             });
         }
 
         function nextSlide() {
+            // clearTimeout(disolveTimeout);
+            // clearTimeout(nextSlideTimeout);
             currentSlide = (currentSlide + 1) % totalSlides;
+            // currentSlide.classList.remove('hidden');
+            showSlide(currentSlide);
+        }
+
+        function getNextSlide() {
+            const activeSlides = document.querySelectorAll('.active');
+            activeSlides.forEach(activeSlide => {
+                // Your logic for each active slide
+                if (activeSlide) {
+                    // Example: Remove 'active' class from each active slide
+                    activeSlide.classList.remove('active', 'disolve');
+                    activeSlide.classList.add('hiddne');
+                }
+            });
+            clearTimeout(disolveTimeout);
+            clearTimeout(nextSlideTimeout);
+            currentSlide = (currentSlide + 1) % totalSlides;
+            // currentSlide.classList.remove('hidden');
+
             showSlide(currentSlide);
         }
 
         function prevSlide() {
+        const activeSlides = document.querySelectorAll('.active');
+        activeSlides.forEach(activeSlide => {
+            // Your logic for each active slide
+            if (activeSlide) {
+                // Example: Remove 'active' class from each active slide
+                activeSlide.classList.remove('active', 'disolve');
+                activeSlide.classList.add('hiddne');
+            }
+        });
+            clearTimeout(disolveTimeout);
+            clearTimeout(nextSlideTimeout);
             currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            // currentSlide.classList.remove('hidden');
+
             showSlide(currentSlide);
         }
 
@@ -72,10 +112,10 @@ fetch('images.json')
             if (Math.abs(startX - endX) > 10) {
                 if (startX > endX + 10) {
                     intervalStartTime = Date.now();
-                    nextSlide();
+                    prevSlide();
                 } else if (startX < endX - 10) {
                     intervalStartTime = Date.now();
-                    prevSlide();
+                    getNextSlide();
                 }
                 slideInterval = setTimeout(() => {
                     nextSlide();
