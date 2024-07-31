@@ -25,9 +25,9 @@ fetch('images.json')
                     slide.classList.add('active');
                     slide.classList.remove('hidden');
                     slide.addEventListener('animationend', expandDone);
-                } else {
-                    slide.classList.remove('active', 'disolve');
-                    slide.classList.add('hidden');
+                // } else {
+                //     slide.classList.remove('active', 'disolve');
+                //     slide.classList.add('hidden');
                 }
             });
         }
@@ -36,6 +36,7 @@ fetch('images.json')
             const slide = event.target;
             slide.removeEventListener('animationend', expandDone);
             slide.classList.add('disolve');
+            nextSlide();
             slide.addEventListener('animationend', disolveDone);
         }
 
@@ -48,7 +49,7 @@ fetch('images.json')
             const slide = event.target;
             slide.removeEventListener('animationend', disolveDone);
             slide.classList.add('hidden');
-            nextSlide();
+
         }
 
         function getNextSlide() {
