@@ -23,7 +23,7 @@ fetch('images.json')
             slides.forEach((slide, i) => {
                 if (i === index) {
                     slide.classList.add('active');
-                    slide.classList.remove('hidden');
+                    slide.classList.remove('hidden', 'disolve');
                     slide.addEventListener('animationend', expandDone);
                 // } else {
                 //     slide.classList.remove('active', 'disolve');
