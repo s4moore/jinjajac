@@ -1,4 +1,24 @@
 // script.js
+document.addEventListener('DOMContentLoaded', () => {
+    preloadResources();
+});
+
+function preloadResources() {
+    const images = document.querySelectorAll('.carousel-slide img');
+    const videos = document.querySelectorAll('.carousel-slide video');
+
+    images.forEach(image => {
+        const img = new Image();
+        img.src = image.src;
+    });
+
+    videos.forEach(video => {
+        const vid = document.createElement('video');
+        vid.src = video.src;
+        vid.preload = 'auto';
+    });
+}
+
 document.querySelector('video').playbackRate = 0.25;
 fetch('images.json')
     .then(response => response.json())
@@ -26,9 +46,6 @@ fetch('images.json')
                     slide.classList.add('active');
                     slide.classList.remove('hidden', 'disolve');
                     slide.addEventListener('animationend', expandDone);
-                // } else {
-                //     slide.classList.remove('active', 'disolve');
-                //     slide.classList.add('hidden');
                 }
             });
         }
@@ -41,16 +58,16 @@ fetch('images.json')
             slide.addEventListener('animationend', disolveDone);
         }
 
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            showSlide(currentSlide);
-        }
-
         function disolveDone(event) {
             const slide = event.target;
             slide.removeEventListener('animationend', disolveDone);
             slide.classList.add('hidden');
 
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
         }
 
         function getNextSlide() {

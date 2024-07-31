@@ -56,13 +56,6 @@ body, html {
     opacity: 0;
 }
 
-.carousel-slide.active {
-    top: -50%;
-    left: -50%;
-    animation: expandAndMove 7.42s cubic-bezier(0.12, .1 , 0.5, 0.5) forwards;
-    opacity: 1;
-}
-
 .hidden {
     display: none;
 }
@@ -73,14 +66,6 @@ body, html {
     max-height: 100%;
     /* position: absolute; */
     object-fit: cover; /* Ensure the image fits within the container without distortion */
-}
-
-.carousel-slide.disolve {
-    /* opacity: 0; */
-    /* transform: translate(100%, 100%); */
-    transform: scale(1) translate(50%, 50%); 
-   
-    animation: fade-out 1.5s forwards;
 }
 
 .paused {
@@ -103,24 +88,15 @@ body, html {
     background: rgba(0, 0, 0, 0.8);
     color: white;
     margin: auto auto;
-    padding: 20px;
+    padding: 10px;
     border-radius: 10px;
     z-index: 1000;
 }
 
 .overlay img{
-    max-height: 50%;
-    max-width: 70%;
+    max-height: 90%;
+    max-width: 90%;
 }
-/* 
-#closeOverlay{
-    background: none;
-    border: 20px;
-    color: white;
-    font-size: 30px;
-    box-shadow: 4px;
-    text-align: center;
-} */
 
 .close-button {
     position: absolute;
@@ -143,91 +119,76 @@ body, html {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
+.carousel-slide.active {
+    top: -50%;
+    left: -50%;
+    animation: expandAndMove 8.8s cubic-bezier(0.12, .1 , 0.5, 0.5) forwards;
+    opacity: 1;
+}
+
+.carousel-slide.disolve {
+    transform: (1.2) translate(42%, 42%);
+    animation: fade-out 2s ;
+}
+
 @keyframes expandAndMove {
     0% {
-        transform: scale(0.1) translate(0%, 20%); /* Start small and at the initial position */
-        opacity: .01;
+        transform: scale(0.3) translate(20%, 0%); /* Start small and at the initial position */
+        opacity: .4;
     }
-    10% {
-        transform: scale(0.15) translate(70%, 40%); /* Start small and at the initial position */
-        opacity: .05;
+    6% {
+        transform: scale(0.4) translate(32%, 34%); /* Start small and at the initial position */
+        opacity: .8;
     }
-    20% {
-        opacity: .2;
-        transform: scale(0.25) translate(80%, 40%); 
+    18% {
+        opacity: .9;
+        transform: scale(0.6) translate(42%, 65%); 
     }
-    32% {
-        transform: scale(0.4) translate(85%, 36%); /* End at full size and final position */
-        opacity: .95;
+    27% {
+        transform: scale(0.9) translate(52%, 53%); /* End at full size and final position */
+        opacity: 1;
     }
-    60% {
-        transform: scale(1) translate(50%, 50%); /* End at full size and final position */
+    39% {
+        transform: scale(1.2) translate(42%, 42%); /* End at full size and final position */
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2) translate(42%, 42%); /* End at full size and final position */
         opacity: 1;
     }
     100% {
-        transform: scale(1) translate(50%, 50%); /* End at full size and final position */
+        transform: scale(1.2) translate(42%, 42%); /* End at full size and final position */
         opacity: 1;
     }
 }
 
-/* @keyframes expandAndMove {
-    0% {
-        transform: scale(0.1) translate(90%, 0%); 
-        opacity: 10;
-    } */
-    /* 10% {
-        transform: scale(0.15) translate(70%, 40%);
-        opacity: .2;
-    } */
-    /*1% {
-        opacity: 10;
-        transform: scale(0.25) translate(80%, 40%); 
-    }
-        */
-    /* 35% {
-        transform: scale(0.2) translate(75%, 40%);
-        opacity: 40; 
-        }
-    84% {
-        transform: scale(0.5) translate(63%, 65%);
-        opacity: 75; 
-    }
-    96% {
-        transform: scale(.75) translate(70%, 51%); 
-        opacity: 100;
-    } */
-    /* 93% {
-        transform: scale(.5) translate(80%, 75%); 
-        opacity: 85;
-    } 
-    100% {
-        transform: scale(1) translate(50%, 50%);
-        opacity: 1;
-    }
-}
-*/
 @keyframes fade-out {
     0% {
         opacity: 1;
+        transform: scale(1.2) translate(42%, 42%);
     }
-    /* 70% {
-        opacity: 1;
+    /* 12% {
+        opacity: 0.4;
+        transform:  scale(1.3) translate(40%, 40%);
     }
-    80% {
-        opacity: .6;
+    25% {
+        opacity: 0.2;
+        transform:  scale(1.4) translate(37%, 37%);
     } */
+    /* 55% {
+        opacity: 0.6;
+        transform: translate(55%, 55%) scale(1.6);
+    }*/
+    50% {
+        opacity: 0;
+        transform: scale(1.8) translate(28%, 28%);
+    } 
+    60% {
+        opacity: 0;
+        transform: scale(1.8) translate(28%, 28%);
+    }
     100% {
         opacity: 0;
-    }
-}
-
-@keyframes appear {
-    0% {
-        /* transform: scale(0.1); */
-        opacity: 0;
-    }
-    100% {
-        opacity: 1; /* Fade in */
-        /* transform: translate(150%, 50%) scale(10); End in the center */
-    }
+        transform: scale(1.8) translate(28%, 28%);
+    } 
 }
