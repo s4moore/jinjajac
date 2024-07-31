@@ -1,18 +1,50 @@
 document.addEventListener('DOMContentLoaded', () => {
     showLoadingOverlay();
-    preloadResources().then(() => {
-        hideLoadingOverlay();
-        nextSlide();
-    });
+    fetch('images.json')
+        .then(response => response.json())
+        .then(data => {
+            createMediaElements(data);
+            return preloadResources();
+        })
+        .then(() => {
+            hideLoadingOverlay();
+            nextSlide();
+        })
+        .catch(error => {
+            console.error('Error loading resources:', error);
+            hideLoadingOverlay();
+        });
 });
 
+function createMediaElements(data) {
+    const carouselContainer = document.querySelector('.carousel-container');
+
+    // Create and append the video element
+    const videoSlide = document.createElement('div');
+    videoSlide.classList.add('carousel-slide');
+    const video = document.createElement('video');
+    video.src = 'images/Background.MP4';
+    video.preload = 'auto';
+    videoSlide.appendChild(video);
+    carouselContainer.appendChild(videoSlide);
+
+    // Create and append image elements
+    data.forEach(item => {
+        const slide = document.createElement('div');
+        slide.classList.add('carousel-slide');
+        const img = document.createElement('img');
+        img.src = `images/${item.src}`;
+        slide.appendChild(img);
+        carouselContainer.appendChild(slide);
+    });
+}
 
 function preloadResources() {
     return new Promise((resolve) => {
         const images = document.querySelectorAll('.carousel-slide img');
-        const videos = document.querySelectorAll('.carousel-slide video');
+        const video = document.querySelector('.carousel-slide video');
         let loadedCount = 0;
-        const totalResources = images.length + videos.length;
+        const totalResources = images.length + 1; // 1 video
 
         function checkIfAllLoaded() {
             loadedCount++;
@@ -30,12 +62,14 @@ function preloadResources() {
             }
         });
 
-        videos.forEach(video => {
-            video.addEventListener('loadeddata', checkIfAllLoaded);
-            video.addEventListener('error', checkIfAllLoaded); // Handle errors
-            video.preload = 'auto';
-            video.load(); // Start loading the video
-        });
+        video.addEventListener('loadeddata', checkIfAllLoaded);
+        video.addEventListener('error', checkIfAllLoaded); // Handle errors
+        video.load(); // Start loading the video
+
+        // If there are no resources, resolve immediately
+        if (totalResources === 0) {
+            resolve();
+        }
     });
 }
 
