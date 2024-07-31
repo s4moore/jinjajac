@@ -111,7 +111,6 @@ body, html {
 .overlay img{
     max-height: 50%;
     max-width: 70%;
-    margin: 20px;
 }
 /* 
 #closeOverlay{

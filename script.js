@@ -91,7 +91,7 @@ function showOverlay() {
         const overlay = document.createElement('div');
         overlay.classList.add('overlay');
         overlay.innerHTML = `
-            <img src="${imageUrl}" alt="Full size image" style="width: 100%; height: auto;">
+            <img src="${imageUrl}";">
             <button id="closeOverlay" class="close-button">&times;</button>
         `;
         document.body.appendChild(overlay);
