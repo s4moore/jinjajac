@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(() => {
             hideLoadingOverlay();
-            nextSlide();
+            runSildeShow();
         })
         .catch(error => {
             console.error('Error loading resources:', error);
@@ -49,6 +49,7 @@ function preloadResources() {
         function checkIfAllLoaded() {
             loadedCount++;
             if (loadedCount === totalResources) {
+                video.play();
                 resolve();
             }
         }
@@ -81,6 +82,8 @@ function hideLoadingOverlay() {
     document.getElementById('loading-overlay').style.display = 'none';
 }
 
+function runSildeShow()
+{
 document.querySelector('video').playbackRate = 0.25;
 fetch('images.json')
     .then(response => response.json())
@@ -228,3 +231,4 @@ function showOverlay() {
 
     })
     .catch(error => console.error('Error fetching images:', error));
+}
