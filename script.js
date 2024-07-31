@@ -21,7 +21,7 @@ function createMediaElements(data) {
 
     // Create and append the video element
     const videoSlide = document.createElement('div');
-    videoSlide.classList.add('carousel-slide');
+    video.classList.add('background-video');
     const video = document.createElement('video');
     video.src = 'images/Background.MP4';
     video.preload = 'auto';
