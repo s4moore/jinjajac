@@ -1,22 +1,56 @@
-// script.js
 document.addEventListener('DOMContentLoaded', () => {
-    preloadResources();
+    showLoadingOverlay();
+    preloadResources().then(() => {
+        hideLoadingOverlay();
+        initializeCarousel();
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    preloadResources().then(() => {
+        // Start your carousel or other functionality here
+        nextSlide();
+    });
 });
 
 function preloadResources() {
-    const images = document.querySelectorAll('.carousel-slide img');
-    const videos = document.querySelectorAll('.carousel-slide video');
+    return new Promise((resolve) => {
+        const images = document.querySelectorAll('.carousel-slide img');
+        const videos = document.querySelectorAll('.carousel-slide video');
+        let loadedCount = 0;
+        const totalResources = images.length + videos.length;
 
-    images.forEach(image => {
-        const img = new Image();
-        img.src = image.src;
-    });
+        function checkIfAllLoaded() {
+            loadedCount++;
+            if (loadedCount === totalResources) {
+                resolve();
+            }
+        }
 
-    videos.forEach(video => {
-        const vid = document.createElement('video');
-        vid.src = video.src;
-        vid.preload = 'auto';
+        images.forEach(image => {
+            if (image.complete) {
+                checkIfAllLoaded();
+            } else {
+                image.addEventListener('load', checkIfAllLoaded);
+                image.addEventListener('error', checkIfAllLoaded); // Handle errors
+            }
+        });
+
+        videos.forEach(video => {
+            video.addEventListener('loadeddata', checkIfAllLoaded);
+            video.addEventListener('error', checkIfAllLoaded); // Handle errors
+            video.preload = 'auto';
+            video.load(); // Start loading the video
+        });
     });
+}
+
+function showLoadingOverlay() {
+    document.getElementById('loading-overlay').style.display = 'flex';
+}
+
+function hideLoadingOverlay() {
+    document.getElementById('loading-overlay').style.display = 'none';
 }
 
 document.querySelector('video').playbackRate = 0.25;
