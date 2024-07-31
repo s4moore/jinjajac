@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
     <video autoplay muted loop id="background-video">
         <source src="/images/Background .mp4" type="video/mp4">
         Your browser does not support HTML5 video.
@@ -15,7 +19,6 @@
         <div class="carousel"></div>
     </div>
     <script src="script.js">
-        document.querySelector('background-video').playbackRate = 2;
     </script>
 </body>
 </html>

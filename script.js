@@ -2,16 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
     showLoadingOverlay();
     preloadResources().then(() => {
         hideLoadingOverlay();
-        initializeCarousel();
-    });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    preloadResources().then(() => {
-        // Start your carousel or other functionality here
         nextSlide();
     });
 });
+
 
 function preloadResources() {
     return new Promise((resolve) => {
