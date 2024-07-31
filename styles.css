@@ -96,12 +96,12 @@ body, html {
         opacity: .05;
     }
     20% {
-        opacity: .7;
+        opacity: .2;
         transform: scale(0.25) translate(80%, 40%); 
     }
     32% {
         transform: scale(0.4) translate(85%, 36%); /* End at full size and final position */
-        opacity: 1;
+        opacity: .3;
     }
     60% {
         transform: scale(1) translate(50%, 50%); /* End at full size and final position */
