@@ -96,13 +96,13 @@ body, html {
     object-fit: cover;
     align-items: center;
     justify-content: center;
-    width: 90vw;
-    height: 90vh;
+    width: 80%;
+    height: 80%;
     font-size: 30px;
     transform: translate(-50%, -50%);
     background: rgba(0, 0, 0, 0.8);
     color: white;
-    margin: 10px 10px 10px 10px;
+    margin: auto auto;
     padding: 20px;
     border-radius: 10px;
     z-index: 1000;
