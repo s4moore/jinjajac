@@ -1,4 +1,5 @@
 // script.js
+document.querySelector('video').playbackRate = 0.25;
 fetch('images.json')
     .then(response => response.json())
     .then(images => {
@@ -17,7 +18,7 @@ fetch('images.json')
         let currentSlide = 0;
         const slides = document.querySelectorAll('.carousel-slide');
         const totalSlides = slides.length;
-        let startX, endX;
+        let startX, endX, touchTimer;
 
         function showSlide(index) {
             slides.forEach((slide, i) => {
@@ -78,17 +79,60 @@ fetch('images.json')
   
         const carouselContainer = document.querySelector('.carousel-container');
 
+        
+function showOverlay() {
+    return new Promise((resolve) => {
+        const current = slides[currentSlide];
+        const imageUrl = current.querySelector('img').src;
+
+        // Hide the current slide
+        current.classList.add('hidden');
+
+        const overlay = document.createElement('div');
+        overlay.classList.add('overlay');
+        overlay.innerHTML = `
+            <img src="${imageUrl}" alt="Full size image" style="width: 100%; height: auto;">
+            <button id="closeOverlay" class="close-button">&times;</button>
+        `;
+        document.body.appendChild(overlay);
+
+        document.getElementById('closeOverlay').addEventListener('click', () => {
+            handleClose(currentSlide);
+            resolve();
+        });
+    });
+}   
+
+        function handleClose() {
+            const overlay = document.querySelector('.overlay');
+            if (overlay) {
+                overlay.remove();
+            }
+            slides.forEach(slide => slide.classList.remove('paused'));
+            getNextSlide();
+        }
+
         function handleStart(e) {
             e.preventDefault();
             startX = e.touches ? e.touches[0].clientX : e.clientX;
             slides.forEach(slide => slide.classList.add('paused'));
+        
+            // Start the timer for showing the overlay
+            touchTimer = setTimeout(async function() {
+                await showOverlay();
+                // Continue with the rest of your code after the overlay is closed
+            }, 500);
+            currentSlide.classList.remove('hidden');
+            startX = e.touches ? e.touches[0].clientX : e.clientX;
         }
         
         function handleEnd(e) {
             e.preventDefault();
+            clearTimeout(touchTimer);
             endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
-            slides.forEach(slide => slide.classList.remove('paused'));
-        
+            if (!document.querySelector('.overlay')) {
+                slides.forEach(slide => slide.classList.remove('paused'));
+            }   
             if (Math.abs(startX - endX) > 10) {
                 if (startX > endX + 10) {
                     prevSlide();
@@ -99,8 +143,7 @@ fetch('images.json')
             showSlide(currentSlide);
         }
         carouselContainer.addEventListener('touchstart', handleStart);
-        carouselContainer.addEventListener('mousedown', handleStart);
-        
+        carouselContainer.addEventListener('mousedown', handleStart);      
         carouselContainer.addEventListener('touchend', handleEnd);
         carouselContainer.addEventListener('mouseup', handleEnd);
 
