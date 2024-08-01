@@ -7,7 +7,8 @@
         if (loadingOverlay) {
             loadingOverlay.style.display = 'none';
         }
-    });
+
+
 
     // Additional script logic
     video.preload = 'auto';
@@ -157,4 +158,4 @@
 
     })
     .catch(error => console.error('Error fetching images:', error));
-// });
+});
