@@ -1,3 +1,6 @@
+document.addEventListener('DOMContentLoaded', () => {
+
+
 
 document.querySelector('video').playbackRate = 0.25;
 fetch('images.json')
@@ -146,4 +149,4 @@ function showOverlay() {
 
     })
     .catch(error => console.error('Error fetching images:', error));
-// }
+});
