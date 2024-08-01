@@ -1,89 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
-    showLoadingOverlay();
-    fetch('images.json')
-        .then(response => response.json())
-        .then(data => {
-            createMediaElements(data);
-            return preloadResources();
-        })
-        .then(() => {
-            hideLoadingOverlay();
-            runSildeShow();
-        })
-        .catch(error => {
-            console.error('Error loading resources:', error);
-            hideLoadingOverlay();
-        });
-});
 
-function createMediaElements(data) {
-    const carouselContainer = document.querySelector('.carousel-container');
-
-    // Create and append the video element
-    const videoSlide = document.createElement('div');
-    videoSlide.classList.add('carousel-slide');
-    const video = document.createElement('video');
-    video.src = 'images/Background.MP4';
-    video.preload = 'auto';
-    videoSlide.appendChild(video);
-    carouselContainer.appendChild(videoSlide);
-
-    // Create and append image elements
-    data.forEach(item => {
-        const slide = document.createElement('div');
-        slide.classList.add('carousel-slide');
-        const img = document.createElement('img');
-        img.src = `images/${item.src}`;
-        slide.appendChild(img);
-        carouselContainer.appendChild(slide);
-    });
-}
-
-function preloadResources() {
-    return new Promise((resolve) => {
-        const images = document.querySelectorAll('.carousel-slide img');
-        const video = document.querySelector('.carousel-slide video');
-        let loadedCount = 0;
-        const totalResources = images.length + 1; // 1 video
-
-        function checkIfAllLoaded() {
-            loadedCount++;
-            if (loadedCount === totalResources) {
-                video.play();
-                resolve();
-            }
-        }
-
-        images.forEach(image => {
-            if (image.complete) {
-                checkIfAllLoaded();
-            } else {
-                image.addEventListener('load', checkIfAllLoaded);
-                image.addEventListener('error', checkIfAllLoaded); // Handle errors
-            }
-        });
-
-        video.addEventListener('loadeddata', checkIfAllLoaded);
-        video.addEventListener('error', checkIfAllLoaded); // Handle errors
-        video.load(); // Start loading the video
-
-        // If there are no resources, resolve immediately
-        if (totalResources === 0) {
-            resolve();
-        }
-    });
-}
-
-function showLoadingOverlay() {
-    document.getElementById('loading-overlay').style.display = 'flex';
-}
-
-function hideLoadingOverlay() {
-    document.getElementById('loading-overlay').style.display = 'none';
-}
-
-function runSildeShow()
-{
 document.querySelector('video').playbackRate = 0.25;
 fetch('images.json')
     .then(response => response.json())
@@ -231,4 +146,4 @@ function showOverlay() {
 
     })
     .catch(error => console.error('Error fetching images:', error));
-}
+// }
