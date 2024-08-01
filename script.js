@@ -1,6 +1,8 @@
-document.addEventListener('DOMContentLoaded', () => {
-
-
+window.addEventListener('load', () => {
+    const loadingOverlay = document.getElementById('loading-overlay');
+    if (loadingOverlay) {
+        loadingOverlay.style.display = 'none';
+    }
 
 document.querySelector('video').playbackRate = 0.25;
 fetch('images.json')
