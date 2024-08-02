@@ -107,9 +107,8 @@ body, html {
     justify-content: center;
     object-fit: contain; /* Ensure the image fits within the container without distortion */
     border-radius: 8px;
-    box-shadow: 0 0 2px 2px black;
+    box-shadow: 0 0 15px 2px rgb(4, 0, 0);
 }
-
 .carousel-caption {
     position: fixed;
     bottom: 0;
