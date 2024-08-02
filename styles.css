@@ -161,7 +161,7 @@ body, html {
 .carousel-slide.active {
     top: -55%;
     left: -40%;
-    animation: expandAndMove 8.8s cubic-bezier(0.12, .1 , 0.5, 0.5) forwards;
+    animation: expandAndMove 7.2s cubic-bezier(0.12, .1 , 0.5, 0.5) forwards;
     opacity: 1;
 }
 
@@ -175,23 +175,23 @@ body, html {
         transform: scale(0.3) translate(20%, 0%); /* Start small and at the initial position */
         opacity: .4;
     }
-    6% {
-        transform: scale(0.4) translate(32%, 34%); /* Start small and at the initial position */
+    /* 4% {
+        transform: scale(0.5) translate(34%, 34%); 
         opacity: .8;
     }
-    18% {
+    12% {
         opacity: .9;
-        transform: scale(0.6) translate(42%, 65%); 
+        transform: scale(0.7) translate(48%, 60%); 
     }
-    27% {
-        transform: scale(0.9) translate(52%, 53%); /* End at full size and final position */
+    18% {
+        transform: scale(0.9) translate(48%, 50%)
         opacity: 1;
+    } */
+    20% {
+        transform: scale(1.0) translate(48%, 48%); /* End at full size and final position */
+        opacity: .9 ;
     }
-    39% {
-        transform: scale(1.2) translate(42%, 42%); /* End at full size and final position */
-        opacity: 1;
-    }
-    50% {
+    22% {
         transform: scale(1.2) translate(42%, 42%); /* End at full size and final position */
         opacity: 1;
     }
