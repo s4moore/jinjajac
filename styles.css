@@ -106,18 +106,21 @@ body, html {
     align-items: center;
     justify-content: center;
     object-fit: contain; /* Ensure the image fits within the container without distortion */
+    border-radius: 8px;
+    box-shadow: 0 0 2px 2px black;
 }
 
 .carousel-caption {
     position: fixed;
     bottom: 0;
-    width: 100%;
+    width: 90%;
     background: rgba(0, 0, 0, 0.5);
     color: rgb(250, 189, 191);
     text-align: center;
     padding: 10px;
     box-sizing: border-box;
     z-index: 1000;
+    border-radius: 5px;
 }
 
 .paused {
@@ -133,8 +136,8 @@ body, html {
     object-fit: contain;
     align-items: center;
     justify-content: center;
-    width: 80%;
-    height: 80%;
+    width: 95%;
+    height: 95%;
     font-size: 30px;
     transform: translate(-50%, -50%);
     background: rgba(0, 0, 0, 0.8);
