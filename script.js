@@ -20,6 +20,10 @@
                 handleClose();
                 return;
             }
+            if (target && target.id === 'fullscreenOverlay') {
+                toggleFullscreen();
+                return;
+            }
             const screenWidth = window.innerWidth;
             startX = e.touches ? e.touches[0].clientX : e.clientX;
             if (startX <= screenWidth * 0.1) {
@@ -30,12 +34,18 @@
                 clearTimeout(touchTimer);
                 nextSlide();
                 return;
-            }          
+            }
+            if (!overlay || document.querySelector('.fullscreen')) {        
             touchTimer = setTimeout(async function() {
                 slides[currentSlide].classList.add('hidden',);
                 slides.forEach(slide => slide.classList.add('paused'));
+                if (document.querySelector('.fullscreen')) {
+                    toggleFullscreen();
+                    return ;
+                }
                 await showOverlay();
             }, 250);
+        }
             slides[currentSlide].classList.remove('hidden');
         }
         
@@ -140,8 +150,15 @@
             }
 
             function updateOverlayImage() {
-                const newImageUrl = slides[currentSlide].querySelector('img').src;
-                overlay.querySelector('img').src = newImageUrl;
+                overlay = document.querySelector('.overlay'); // Ensure overlay is reassigned
+                if (overlay) {
+                    const current = slides[currentSlide];
+                    const imageUrl = current.querySelector('img').src;
+                    const overlayImage = overlay.querySelector('img');
+                    if (overlayImage) {
+                        overlayImage.src = imageUrl;
+                    }
+                }
             }
 
             function showOverlay() {
@@ -155,6 +172,7 @@
                     overlay.classList.add('overlay');
                     overlay.innerHTML = `
                         <img src="${imageUrl}">
+                        <button id="fullscreenOverlay" class="fullscreen-button">&#x26F6;</button>
                         <button id="closeOverlay" class="close-button">&times;</button>
                     `;
                     document.body.appendChild(overlay);
@@ -162,6 +180,9 @@
                     document.getElementById('closeOverlay').addEventListener('click', () => {
                         handleClose();
                         resolve();
+                    });
+                    document.getElementById('fullscreenOverlay').addEventListener('click', () => {
+                        toggleFullscreen();
                     });
                     overlay.addEventListener('touchstart', handleStart);
                     overlay.addEventListener('mousedown', handleStart);
@@ -185,14 +206,26 @@
             }
 
             function handleClose() {
-                // if (overlay) {
+                if (document.querySelector('.fullscreen')) {
+                    
+                        toggleFullscreen();
+                    }
+                if (overlay) {
                     overlay.remove();
                     overlay = null; 
-                // }
+                }
                 slides.forEach(slide => slide.classList.remove('paused'));
                 showCaption();
+                return ;
             }
 
+            function toggleFullscreen() {
+                overlay = document.querySelector('.overlay'); // Reassign the overlay variable
+
+                    overlay.classList.toggle('fullscreen');
+                    return ;
+                }
+        
     if (video.readyState >= 4) {
             loadingOverlay.style.display = 'none';
             fetch('images.json')
