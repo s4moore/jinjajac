@@ -1,15 +1,16 @@
     const loadingOverlay = document.getElementById('loading-overlay');
     const video = document.getElementById('background-video');
+    const captionElement = document.querySelector('.carousel-caption');
+    let images = [];
+    video.preload = 'auto';
+    video.playbackRate = 0.25;
     const carouselContainer = document.querySelector('.carousel-container');
-    let slidesCreated = false; 
+    let slidesCreated = false;
+
     console.log('script starts');
     if (!window.scriptExecuted) {
         window.scriptExecuted = true;
         console.log('Script loaded and executed')
-    
-    video.preload = 'auto';
-    video.playbackRate = 0.25;
-
 
         let slides = [];
         let currentSlide = 0;
@@ -20,20 +21,25 @@
             images.forEach((image, index) => {
                 const slide = document.createElement('div');
                 slide.classList.add('carousel-slide');
-                slide.innerHTML = `<img src="images/${image}" alt="Image ${index + 1}">`;
+                slide.innerHTML = `
+                <img src="images/${image.src}" alt="Image ${index + 1}">
+            `;
                 carousel.appendChild(slide);
+                console.log(`Slide created for image: ${image.src}`);
             });
             slides = document.querySelectorAll('.carousel-slide');
         }
         }
 
-        const totalSlides = slides.length;
         function showSlide(index) {
+            const slides = document.querySelectorAll('.carousel-slide');
             slides.forEach((slide, i) => {
                 if (index === i) {
                     slide.classList.add('active');
                     slide.classList.remove('hidden', 'disolve');
                     slide.addEventListener('animationend', expandDone); // Add event listener to the first slide
+                    captionElement.textContent = images[index].caption;
+
                 } else {
                     // slide.classList.remove('active');
                 }
@@ -59,11 +65,25 @@
             }
             
             function nextSlide() {
+                const activeSlides = document.querySelectorAll('.carousel-slide.active');
+                activeSlides.forEach(activeSlide => {
+                    if (activeSlide) {
+                        activeSlide.classList.remove('active', 'disolve');
+                        activeSlide.classList.add('hidden');
+                    }
+                });
                 currentSlide = (currentSlide + 1) % slides.length;
                 showSlide(currentSlide);
             }
 
             function prevSlide() {
+                const activeSlides = document.querySelectorAll('.carousel-slide.active');
+                activeSlides.forEach(activeSlide => {
+                    if (activeSlide) {
+                        activeSlide.classList.remove('active', 'disolve');
+                        activeSlide.classList.add('hidden');
+                    }
+                });
                 currentSlide = (currentSlide - 1 + slides.length) % slides.length;
                 showSlide(currentSlide);
             }
@@ -100,15 +120,23 @@
 
             function handleStart(e) {
                 e.preventDefault();
+                const screenWidth = window.innerWidth;
                 startX = e.touches ? e.touches[0].clientX : e.clientX;
-                slides.forEach(slide => slide.classList.add('paused'));
-            
+                if (startX <= screenWidth * 0.1) {
+                    clearTimeout(touchTimer);
+                    prevSlide();
+                    return;
+                } else if (startX >= screenWidth * 0.9) {
+                    clearTimeout(touchTimer);
+                    nextSlide();
+                    return;
+                }          
                 touchTimer = setTimeout(async function() {
                     slides[currentSlide].classList.add('hidden',);
+                    slides.forEach(slide => slide.classList.add('paused'));
                     await showOverlay();
-                }, 2500);
+                }, 250);
                 slides[currentSlide].classList.remove('hidden');
-                startX = e.touches ? e.touches[0].clientX : e.clientX;
             }
             
             function handleEnd(e) {
@@ -120,39 +148,23 @@
                 }   
                 if (Math.abs(startX - endX) > 10) {
                     if (startX > endX + 10) {
-                        const activeSlides = document.querySelectorAll('.carousel-slide.active');
-                        activeSlides.forEach(activeSlide => {
-                            if (activeSlide) {
-                                activeSlide.classList.remove('active', 'disolve');
-                                activeSlide.classList.add('hidden');
-                            }
-                        });
                         prevSlide();
                     } else if (startX < endX - 10) {
-                        const activeSlides = document.querySelectorAll('.carousel-slide.active');
-                        activeSlides.forEach(activeSlide => {
-                            if (activeSlide) {
-                                activeSlide.classList.remove('active', 'disolve');
-                                activeSlide.classList.add('hidden');
-                            }
-                        });
                         nextSlide();
                     }
                 }
             }
 
-
-    // })
-    // .catch(error => console.error('Error fetching images:', error));
     if (video.readyState >= 4) {
             loadingOverlay.style.display = 'none';
             fetch('images.json')
             .then(response => response.json())
-            .then(images => {
+            .then(data => {
+                images = data;
                 if (!slidesCreated) {
                     slidesCreated = true;
-                createSlides(images);
-                showSlide(0); // Show the first slide initially
+                    createSlides(images);
+                    nextSlide(); // Show the first slide initially
                 }
             })
             .catch(error => {
@@ -165,11 +177,12 @@
         }
         fetch('images.json')
         .then(response => response.json())
-        .then(images => {
+        .then(data => {
+            images = data;
             if (!slidesCreated) {
                 slidesCreated = true;
             createSlides(images);
-            showSlide(0); // Show the first slide initially
+            nextSlide(); // Show the first slide initially
             }
         })
         .catch(error => {

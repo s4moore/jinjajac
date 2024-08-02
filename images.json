@@ -1,12 +1,42 @@
 [
-	"1.jpg",
-	"2.jpg",
-	"3.jpg",
-	"4.jpg",
-	"5.jpg",
-	"6.jpg",
-	"7.jpg",
-	"8.jpg",
-	"9.jpg",
-	"10.jpg"
+	{
+		"src": "1.jpg",
+		"caption": "My wife told me to stop impersonating a flamingo. I had to put my foot down."
+	},
+	{
+		"src": "2.jpg",
+		"caption": "I went to buy some camo pants but couldn’t find any."
+	},
+	{
+		"src": "3.jpg",
+		"caption": "I was wondering why the frisbee kept getting bigger and bigger, but then it hit me."
+	},
+	{
+		"src": "4.jpg",
+		"caption": "Don’t you hate it when someone answers their own questions? I do."
+	},
+	{
+		"src": "5.jpg",
+		"caption": "I told him to be himself; that was pretty mean, I guess."
+	},
+	{
+		"src": "6.jpg",
+		"caption": "Most people are shocked when they find out how bad I am as an electrician."
+	},
+	{
+		"src": "7.jpg",
+		"caption": "A told my girlfriend she drew her eyebrows too high. She seemed surprised."
+	},
+	{
+		"src": "8.jpg",
+		"caption": "Build a man a fire and he’ll be warm for a day. Set a man on fire and he’ll be warm for the rest of his life."
+	},
+	{
+		"src": "9.jpg",
+		"caption": "Blunt pencils are really pointless."
+	},
+	{
+		"src": "10.jpg",
+		"caption": "Adam & Eve were the first ones to ignore the Apple terms and conditions."
+	}
 ]

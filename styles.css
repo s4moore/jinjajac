@@ -101,10 +101,23 @@ body, html {
 .carousel-slide img {
     max-width: 90%;
     max-height: 100%;
+    height: auto;
     /* position: absolute; */
     align-items: center;
     justify-content: center;
     object-fit: contain; /* Ensure the image fits within the container without distortion */
+}
+
+.carousel-caption {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    color: rgb(250, 189, 191);
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+    z-index: 1000;
 }
 
 .paused {
