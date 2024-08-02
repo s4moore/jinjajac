@@ -1,16 +1,11 @@
-// window.addEventListener('load', () => {
     const loadingOverlay = document.getElementById('loading-overlay');
     const video = document.getElementById('background-video');
 
-    // Ensure the loading overlay is displayed until the video is loaded
-    video.addEventListener('loadeddata', () => {
+    video.addEventListener('canplaythrough', () => {
         if (loadingOverlay) {
             loadingOverlay.style.display = 'none';
         }
 
-
-
-    // Additional script logic
     video.preload = 'auto';
     video.playbackRate = 0.25;
 
@@ -88,17 +83,13 @@
                 showSlide(currentSlide);
             }
     
-            const carouselContainer = document.querySelector('.carousel-container');
-
-            
+            const carouselContainer = document.querySelector('.carousel-container');          
             function showOverlay() {
                 return new Promise((resolve) => {
                     const current = slides[currentSlide];
                     const imageUrl = current.querySelector('img').src;
-
-                    // Hide the current slide
                     current.classList.add('hidden');
-
+                    slides[currentSlide].classList.remove('active');
                     const overlay = document.createElement('div');
                     overlay.classList.add('overlay');
                     overlay.innerHTML = `
@@ -129,9 +120,10 @@
                 slides.forEach(slide => slide.classList.add('paused'));
             
                 touchTimer = setTimeout(async function() {
+                    slides[currentSlide].classList.add('hidden',);
                     await showOverlay();
                 }, 500);
-                currentSlide.classList.remove('hidden');
+                slides[currentSlide].classList.remove('hidden');
                 startX = e.touches ? e.touches[0].clientX : e.clientX;
             }
             
