@@ -18,11 +18,11 @@
             const target = e.target;
             if (target && target.id === 'closeOverlay') {
                 handleClose();
-                return;
+                return ;
             }
             if (target && target.id === 'fullscreenOverlay') {
                 toggleFullscreen();
-                return;
+                return ;
             }
             const screenWidth = window.innerWidth;
             startX = e.touches ? e.touches[0].clientX : e.clientX;
@@ -30,7 +30,7 @@
                 clearTimeout(touchTimer);
                 prevSlide();
                 return;
-            } else if (startX >= screenWidth * 0.9) {
+            } else if (startX >= screenWidth * 0.9 && (!target || target.id !== 'fullscreenOverlay')) {
                 clearTimeout(touchTimer);
                 nextSlide();
                 return;
@@ -77,6 +77,8 @@
                 slide.innerHTML = `
                 <img src="images/${image.src}" alt="Image ${index + 1}">
             `;
+                slide.setAttribute('data-caption', image.caption || '');
+                slide.setAttribute('data-blurb', image.blurb || '');
                 carousel.appendChild(slide);
                 console.log(`Slide created for image: ${image.src}`);
             });
@@ -158,6 +160,17 @@
                     if (overlayImage) {
                         overlayImage.src = imageUrl;
                     }
+                    const captionElement = overlay.querySelector('.caption');
+        const blurbElement = overlay.querySelector('.blurb');
+
+                            // Function to update caption and blurb
+        function updateCaptionAndBlurb() {
+            captionElement.innerText = slides[currentSlide].getAttribute('data-caption');
+            blurbElement.innerText = slides[currentSlide].getAttribute('data-blurb');
+        }
+
+        // Initial update of caption and blurb
+        updateCaptionAndBlurb();
                 }
             }
 
@@ -166,15 +179,29 @@
                     hideCaption();
                     const current = slides[currentSlide];
                     const imageUrl = current.querySelector('img').src;
+
+                    
                     current.classList.add('hidden');
                     slides[currentSlide].classList.remove('active');
                     overlay = document.createElement('div');
                     overlay.classList.add('overlay');
+
                     overlay.innerHTML = `
-                        <img src="${imageUrl}">
                         <button id="fullscreenOverlay" class="fullscreen-button">&#x26F6;</button>
                         <button id="closeOverlay" class="close-button">&times;</button>
+                        <div class="overlay-content">
+                        <img src="${imageUrl}">
+                        <div class="caption"></div>
+                        <div class="blurb"></div>
+                        </div>
                     `;
+                    const captionElement = overlay.querySelector('.caption');
+                    const blurbElement = overlay.querySelector('.blurb');
+                    
+                    // Access data attributes
+                    captionElement.innerText = current.getAttribute('data-caption');
+                    blurbElement.innerText = current.getAttribute('data-blurb');
+                   
                     document.body.appendChild(overlay);
 
                     document.getElementById('closeOverlay').addEventListener('click', () => {
@@ -182,6 +209,8 @@
                         resolve();
                     });
                     document.getElementById('fullscreenOverlay').addEventListener('click', () => {
+                        captionElement.style.display = 'none';
+                        blurbElement.style.display = 'none';
                         toggleFullscreen();
                     });
                     overlay.addEventListener('touchstart', handleStart);
@@ -220,10 +249,23 @@
             }
 
             function toggleFullscreen() {
-                overlay = document.querySelector('.overlay'); // Reassign the overlay variable
+                overlay = document.querySelector('.overlay'); // Reassign the overlay variable                
+                overlay.classList.toggle('fullscreen');
 
-                    overlay.classList.toggle('fullscreen');
-                    return ;
+                // Get caption and blurb elements
+                const captionElement = overlay.querySelector('.caption');
+                const blurbElement = overlay.querySelector('.blurb');
+            
+                // Check if fullscreen mode is active
+                if (overlay.classList.contains('fullscreen')) {
+                    // Hide caption and blurb
+                    captionElement.style.display = 'none';
+                    blurbElement.style.display = 'none';
+                } else {
+                    // Show caption and blurb
+                    captionElement.style.display = 'block';
+                    blurbElement.style.display = 'block';
+                }
                 }
         
     if (video.readyState >= 4) {
