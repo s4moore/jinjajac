@@ -32,7 +32,7 @@
                 return;
             } else if (startX >= screenWidth * 0.9 && (!target || target.id !== 'fullscreenOverlay')) {
                 clearTimeout(touchTimer);
-                nextSlide();
+                getNextSlide();
                 return;
             }
             if (!overlay || document.querySelector('.fullscreen')) {        
@@ -60,7 +60,7 @@
                 if (startX > endX + 10) {
                     prevSlide();
                 } else if (startX < endX - 10) {
-                    nextSlide();
+                    getNextSlide();
                 }
             }
         }
@@ -95,9 +95,9 @@
                     slide.addEventListener('animationend', expandDone); // Add event listener to the first slide
                     captionElement.textContent = images[index].caption;
 
-                } else {
-                    // slide.classList.remove('active');
-                }
+                 }// else {
+                //     slide.classList.remove('active');
+                // }
             });
         }
 
@@ -122,7 +122,24 @@
             function nextSlide() {
                 const activeSlides = document.querySelectorAll('.carousel-slide.active');
                 activeSlides.forEach(activeSlide => {
-                    if (activeSlide) {
+                    if (activeSlide && !document.querySelector('.overlay')) {
+                        // activeSlide.classList.remove('active', 'disolve');
+                        // activeSlide.classList.add('hidden');
+                    }
+                });
+                currentSlide = (currentSlide + 1) % slides.length;
+                if (document.querySelector('.overlay')) {
+                    updateOverlayImage();
+                } else {
+                showSlide(currentSlide);
+                }
+            }
+
+            
+            function getNextSlide() {
+                const activeSlides = document.querySelectorAll('.carousel-slide.active');
+                activeSlides.forEach(activeSlide => {
+                    if (activeSlide && !document.querySelector('.overlay')) {
                         activeSlide.classList.remove('active', 'disolve');
                         activeSlide.classList.add('hidden');
                     }
@@ -162,7 +179,7 @@
                     }
                     const captionElement = overlay.querySelector('.caption');
         const blurbElement = overlay.querySelector('.blurb');
-
+        
                             // Function to update caption and blurb
         function updateCaptionAndBlurb() {
             captionElement.innerText = slides[currentSlide].getAttribute('data-caption');

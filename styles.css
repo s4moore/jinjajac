@@ -6,6 +6,8 @@ body, html {
     height: 100%;
     box-sizing: border-box;
     overflow: hidden;
+    font-family: sans-serif;
+    font-size: 12px;
 }
 #background-video {
     position: absolute;
@@ -47,7 +49,7 @@ body, html {
 
 #loading-overlay p {
     margin-top: 20px;
-    font-size: 1.5em;
+    /* font-size: 1.5em; */
     color: #3498db;
 }
 
@@ -151,19 +153,21 @@ body, html {
     align-items: center;
     justify-content: center;
     object-fit: contain; /* Ensure the image fits within the container without distortion */
-    border-radius: 8px;
+    border-radius: 3px;
     box-shadow: 0 0 15px 2px rgb(4, 0, 0);
 }
 .carousel-caption {
+    /* display: flex; or display: inline */
+    padding: 5px; /* Optional: Add some padding */
+
     position: fixed;
-    margin-top: 10px;;
+    margin-top: 10px;
      bottom: 130px;
-    left:10%;
-    right: 10%;
+    left:10%; 
+     right: 10%;
     background: rgba(0, 0, 0, 0.5);
     color: rgb(250, 189, 191);
     text-align: center !important;
-    padding: 10px;
     box-sizing: border-box;
     z-index: 1000;
     border-radius: 5px;
@@ -184,7 +188,7 @@ body, html {
     justify-content: center;
     width: 95%;
     height: 95%;
-    font-size: 30px;
+    /* font-size: 30px; */
     transform: translate(-50%, -50%);
     background: rgba(0, 0, 0, 0.8);
     color: white;
@@ -192,31 +196,57 @@ body, html {
     padding: 10px;
     border-radius: 10px;
     z-index: 1000;
+    gap: 1px;
 }
 
 .overlay img{
     max-height: 80%;
     max-width: 90%;
+    margin-bottom: 20px;
 }
 
 .overlay .text-boxes {
-    margin-top: 10px;
     width: 100%;
     text-align: center;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    justify-content: space-between;
 }
 
-.overlay .caption,
-.overlay .blurb {
-    background: rgb(60, 49, 49);
-    /* margin: auto; */
 
+.overlay .blurb {
+    background: rgba(29, 23, 23, 0.5);
+    /* margin: auto; */
+    padding: 3px;
+    max-width: 80%;
+    margin-top: 3px;
     border-radius: 10px;
-    margin-top: 10px;
-    font-size: 20px;
-    color: rgb(136, 133, 133);
+    gap: 1px;
+    color: rgb(125, 124, 124);
     max-height: 20%;
     overflow-y: auto;
-    justify-content: end;
+    justify-content: center;
+    text-align: center;
+    /* bottom: 0; */
+}
+
+.overlay .caption{
+    display: flex; /* or display: inline */
+    padding: 2px; /* Optional: Add some padding */
+
+    background: rgba(29, 23, 23, 0.6);
+    /* max-margin: auto; */
+    max-width: 80%;
+    border-radius: 10px;
+    margin-bottom: 2px;
+    color: rgb(172, 168, 168);
+    max-height: 25%;
+    overflow-y: auto;
+    justify-content: center;
+    text-align: center;
+
     /* bottom: 0; */
 }
 
@@ -239,7 +269,7 @@ body, html {
     border-radius: 50%;
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
-    font-size: 20px;
+    /* font-size: 20px; */
     cursor: pointer;
     display: flex;
     align-items: center;
