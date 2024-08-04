@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Script loaded and executed')
 
         function handleStart(e) {
+            if (!e.target.closest('.overlay blurb')) {
             e.preventDefault();
             const target = e.target;
             if (target && target.id === 'closeOverlay') {
@@ -93,8 +94,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
             slides[currentSlide].classList.remove('hidden');
         }
+    }
         
         function handleEnd(e) {
+            if (!e.target.closest('.overlay blurb')) {
             e.preventDefault();
             clearTimeout(touchTimer);
             endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
@@ -109,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         }
+    }
 
         // let slides = [];
         // let currentSlide = 0;
