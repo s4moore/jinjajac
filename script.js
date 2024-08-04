@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let backgroundCurrentSlide = 0;
     const loadingOverlay = document.getElementById('loading-overlay');
     // const video = document.getElementById('background-video');
-    const captionElement = document.querySelector('.carousel-caption');
+    const captionElement = document.querySelector('.carousel-caption p');
     let images = [];
     // video.preload = 'auto';
     // video.playbackRate = 0.25;
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const slide = document.createElement('div');
                 slide.classList.add('carousel-slide');
                 slide.innerHTML = `
-                <img src="images/${image.src}" alt="Image ${index + 1}">
+                <img src="Early24/${image.src}" alt="Image ${index + 1}">
             `;
                 slide.setAttribute('data-caption', image.caption || '');
                 slide.setAttribute('data-blurb', image.blurb || '');
@@ -258,11 +258,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="blurb"></div>
                         </div>
                     `;
-                    const captionElement = overlay.querySelector('.caption');
+                    const overlayCaptionElement = overlay.querySelector('.caption');
                     const blurbElement = overlay.querySelector('.blurb');
                     
                     // Access data attributes
-                    captionElement.innerText = current.getAttribute('data-caption');
+                    overlayCaptionElement.innerText = current.getAttribute('data-caption');
                     blurbElement.innerText = current.getAttribute('data-blurb');
                    
                     document.body.appendChild(overlay);
@@ -272,7 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         resolve();
                     });
                     document.getElementById('fullscreenOverlay').addEventListener('click', () => {
-                        captionElement.style.display = 'none';
+                        overlayCaptionElement.style.display = 'none';
                         blurbElement.style.display = 'none';
                         toggleFullscreen();
                     });
@@ -284,14 +284,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }     
 
             function hideCaption() {
-                const caption = document.querySelector('.carousel-caption');
+                const caption = document.querySelector('.carousel-caption p');
                 if (caption){
                     caption.classList.add('hidden');
                 }
             }
 
             function showCaption() {
-                const caption = document.querySelector('.carousel-caption');
+                const caption = document.querySelector('.carousel-caption p');
                 if (caption){
                     caption.classList.remove('hidden');
                 }
@@ -316,7 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 overlay.classList.toggle('fullscreen');
 
                 // Get caption and blurb elements
-                const captionElement = overlay.querySelector('.caption');
+                // const captionElement = overlay.querySelector('.caption');
                 const blurbElement = overlay.querySelector('.blurb');
             
                 // Check if fullscreen mode is active
@@ -350,7 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // video.addEventListener('canplaythrough', () => {
     //     if (loadingOverlay) {
     //     }
-        fetch('images.json')
+        fetch('Early24.json')
         .then(response => response.json())
         .then(data => {
             images = data;
