@@ -1,16 +1,61 @@
+document.addEventListener('DOMContentLoaded', () => {
+    let backgroundSlides = [];
+    let backgroundCurrentSlide = 0;
     const loadingOverlay = document.getElementById('loading-overlay');
-    const video = document.getElementById('background-video');
+    // const video = document.getElementById('background-video');
     const captionElement = document.querySelector('.carousel-caption');
     let images = [];
-    video.preload = 'auto';
-    video.playbackRate = 0.25;
+    // video.preload = 'auto';
+    // video.playbackRate = 0.25;
     const carouselContainer = document.querySelector('.carousel-container');
     let slidesCreated = false;
     let overlay = null;
+    let slides = [];
+    let currentSlide = 0;
+
+
+    function changeBackgroundImage() {
+        backgroundSlides.forEach((slide, index) => {
+            slide.style.display = index === backgroundCurrentSlide ? 'block' : 'none';
+        });
+        backgroundCurrentSlide = (backgroundCurrentSlide + 1) % backgroundSlides.length;
+    }
+
+    function createBackgroundSlides(images) {
+        const carousel = document.querySelector('.background-slideshow');
+        images.forEach((image, index) => {
+            const slide = document.createElement('div');
+            slide.classList.add('background-slide');
+            slide.innerHTML = `
+                <img src="back/${image}" alt="Image ${index + 1}">
+            `;
+            slide.style.display = 'none'; // Hide all slides initially
+            carousel.appendChild(slide);
+            backgroundSlides.push(slide);
+            console.log(`Slide created for image: ${image}`);
+        });
+    }
+
+    function fetchImages() {
+        fetch('background.json')
+            .then(response => response.json())
+            .then(data => {
+                createBackgroundSlides(data);
+                // Initial background image
+                changeBackgroundImage();
+                // Change background image every 5 seconds
+                setInterval(changeBackgroundImage, 1000);
+            })
+            .catch(error => console.error('Error fetching images:', error));
+    }
+
+    fetchImages();
+
+
 
     console.log('script starts');
-    if (!window.scriptExecuted) {
-        window.scriptExecuted = true;
+    // if (!window.scriptExecuted) {
+    //     window.scriptExecuted = true;
         console.log('Script loaded and executed')
 
         function handleStart(e) {
@@ -65,13 +110,13 @@
             }
         }
 
-        let slides = [];
-        let currentSlide = 0;
+        // let slides = [];
+        // let currentSlide = 0;
 
-        function createSlides(images) {
+        function createSlides(data) {
             if (!slides.length){
             const carousel = document.querySelector('.carousel');
-            images.forEach((image, index) => {
+            data.forEach((image, index) => {
                 const slide = document.createElement('div');
                 slide.classList.add('carousel-slide');
                 slide.innerHTML = `
@@ -80,6 +125,7 @@
                 slide.setAttribute('data-caption', image.caption || '');
                 slide.setAttribute('data-blurb', image.blurb || '');
                 carousel.appendChild(slide);
+                slides.push(slide);
                 console.log(`Slide created for image: ${image.src}`);
             });
             slides = document.querySelectorAll('.carousel-slide');
@@ -285,44 +331,44 @@
                 }
                 }
         
-    if (video.readyState >= 4) {
-            loadingOverlay.style.display = 'none';
-            fetch('images.json')
-            .then(response => response.json())
-            .then(data => {
-                images = data;
-                if (!slidesCreated) {
-                    slidesCreated = true;
-                    createSlides(images);
-                    nextSlide(); // Show the first slide initially
-                }
-            })
-            .catch(error => {
-                console.error('Error loading images:', error);
-            });
-        } else {
-    video.addEventListener('canplaythrough', () => {
-        if (loadingOverlay) {
-            loadingOverlay.style.display = 'none';
-        }
+    // if (video.readyState >= 4) {
+    //         loadingOverlay.style.display = 'none';
+    //         fetch('images.json')
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             images = data;
+    //             if (!slidesCreated) {
+    //                 slidesCreated = true;
+    //                 createSlides(images);
+    //                 nextSlide(); // Show the first slide initially
+    //             }
+    //         })
+    //         .catch(error => {
+    //             console.error('Error loading images:', error);
+    //         });
+    //     } else {
+    // video.addEventListener('canplaythrough', () => {
+    //     if (loadingOverlay) {
+    //     }
         fetch('images.json')
         .then(response => response.json())
         .then(data => {
             images = data;
-            if (!slidesCreated) {
+            // if (!slidesCreated) {
                 slidesCreated = true;
+                loadingOverlay.style.display = 'none';
+
             createSlides(images);
             nextSlide(); // Show the first slide initially
-            }
+            // }
         })
         .catch(error => {
             console.error('Error loading images:', error);
         });
-        });
-    }
 
     carouselContainer.addEventListener('touchstart', handleStart);
     carouselContainer.addEventListener('mousedown', handleStart);      
     carouselContainer.addEventListener('touchend', handleEnd);
     carouselContainer.addEventListener('mouseup', handleEnd);
-    }
+
+});
