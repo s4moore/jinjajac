@@ -260,7 +260,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     `;
                     const overlayCaptionElement = overlay.querySelector('.caption');
                     const blurbElement = overlay.querySelector('.blurb');
+
                     
+                    if (overlayCaptionElement) {
+                        overlayCaptionElement.style.touchAction = 'auto';
+                    }
+                    
+                    if (blurbElement) {
+                        blurbElement.style.touchAction = 'auto';
+                    }                    
                     // Access data attributes
                     overlayCaptionElement.innerText = current.getAttribute('data-caption');
                     blurbElement.innerText = current.getAttribute('data-blurb');
