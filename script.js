@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function handleStart(e) {
             if (!e.target.closest('.overlay .blurb')) {
+                console.log('Event target is not within .overlay .blurb');
             e.preventDefault();
             const target = e.target;
             if (target && target.id === 'closeOverlay') {

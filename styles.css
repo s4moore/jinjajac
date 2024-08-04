@@ -260,6 +260,7 @@ body, html {
 
 .overlay .blurb {
     background: rgba(98, 118, 115, 0.6);
+    touch-action: auto;
     /* margin: auto; */
     padding: 10px;
     max-width: 80%;
@@ -271,7 +272,6 @@ body, html {
     overflow-y: auto;
     justify-content: center;
     text-align: center;
-    touch-action: auto;
     /* bottom: 0; */
 }
 
