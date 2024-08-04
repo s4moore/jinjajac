@@ -2,17 +2,19 @@ document.addEventListener('DOMContentLoaded', () => {
     let backgroundSlides = [];
     let backgroundCurrentSlide = 0;
     const loadingOverlay = document.getElementById('loading-overlay');
-    // const video = document.getElementById('background-video');
     const captionElement = document.querySelector('.carousel-caption p');
     let images = [];
-    // video.preload = 'auto';
-    // video.playbackRate = 0.25;
     const carouselContainer = document.querySelector('.carousel-container');
-    let slidesCreated = false;
     let overlay = null;
     let slides = [];
     let currentSlide = 0;
-
+    let collections = [];
+    let currentCollection = 0;
+    let collection;
+    
+    // const video = document.getElementById('background-video');
+    // video.preload = 'auto';
+    // video.playbackRate = 0.25;
 
     function changeBackgroundImage() {
         backgroundSlides.forEach((slide, index) => {
@@ -36,21 +38,75 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function fetchImages() {
+    function createSlides(data) {
+        const carousel = document.querySelector('.carousel');
+            if (carousel.firstChild){
+            while (carousel.firstChild) {
+                carousel.removeChild(carousel.firstChild);
+            }}
+        slides = []; 
+        data.forEach((image, index) => {
+            const slide = document.createElement('div');
+            slide.classList.add('carousel-slide');
+            slide.innerHTML = `
+            <img src="${collection}/${image.src}" alt="Image ${index + 1}">
+        `;
+            slide.setAttribute('data-caption', image.caption || '');
+            slide.setAttribute('data-blurb', image.blurb || '');
+            carousel.appendChild(slide);
+            slides.push(slide);
+            console.log(`Slide created for image: ${image.src}`);
+        });
+        slides = document.querySelectorAll('.carousel-slide');
+    }
+
+
+    function fetchBackgroundImages() {
         fetch('background.json')
             .then(response => response.json())
             .then(data => {
                 createBackgroundSlides(data);
-                // Initial background image
                 changeBackgroundImage();
-                // Change background image every 5 seconds
                 setInterval(changeBackgroundImage, 1000);
             })
             .catch(error => console.error('Error fetching images:', error));
     }
 
-    fetchImages();
+    function fetchSlides(collection) {
+        images = [];
+        fetch(`${collection}.json`)
+        .then(response => response.json())
+        .then(data => {
+                images = data;
+                loadingOverlay.style.display = 'none';
+            createSlides(images);
+            nextSlide();
+        })
+        .catch(error => {
+            console.error('Error loading images:', error);
+        });
+    }
 
+    function changeCollection(change) {
+        currentCollection += change;
+        if (currentCollection < 0) {
+            currentCollection = collections.length - 1;
+        } else if (currentCollection >= collections.length) {
+            currentCollection = 0;
+        }
+        console.log(`Changing collection to: ${currentCollection}`);
+        fetch('collections.json')
+        .then(response => response.json())
+        .then(data => {
+            collections = data;
+            collection = data[currentCollection].name;
+            console.log(`Changing collection to: ${collection}`);
+            fetchSlides(collection);
+        });
+    }
+    fetchBackgroundImages(collection);
+
+    changeCollection(0);
 
 
     console.log('script starts');
@@ -73,6 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             const screenWidth = window.innerWidth;
             startX = e.touches ? e.touches[0].clientX : e.clientX;
+            startY = e.touches ? e.touches[0].clientY : e.clientY;
             if (startX <= screenWidth * 0.1) {
                 clearTimeout(touchTimer);
                 prevSlide();
@@ -102,6 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             clearTimeout(touchTimer);
             endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+            endY = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
             if (!document.querySelector('.overlay')) {
                 slides.forEach(slide => slide.classList.remove('paused'));
             }   
@@ -111,6 +169,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (startX < endX - 10) {
                     getNextSlide();
                 }
+            } 
+            if (Math.abs(startY - endY) > 10) {
+                if (startY > endY + 10) {
+                    console.log('Swiped up');
+                    changeCollection(1);
+                } else if (startY < endY - 10) {
+                    console.log('Swiped down');
+                    changeCollection(-1);
+                }
             }
         }
     }
@@ -118,24 +185,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // let slides = [];
         // let currentSlide = 0;
 
-        function createSlides(data) {
-            if (!slides.length){
-            const carousel = document.querySelector('.carousel');
-            data.forEach((image, index) => {
-                const slide = document.createElement('div');
-                slide.classList.add('carousel-slide');
-                slide.innerHTML = `
-                <img src="Early24/${image.src}" alt="Image ${index + 1}">
-            `;
-                slide.setAttribute('data-caption', image.caption || '');
-                slide.setAttribute('data-blurb', image.blurb || '');
-                carousel.appendChild(slide);
-                slides.push(slide);
-                console.log(`Slide created for image: ${image.src}`);
-            });
-            slides = document.querySelectorAll('.carousel-slide');
-        }
-        }
 
         function showSlide(index) {
             const slides = document.querySelectorAll('.carousel-slide');
@@ -153,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
 
-            let startX, endX, touchTimer;
+            let startX, endX, startY, endY, touchTimer;
 
             function expandDone(event) {
                 const slide = event.target;
@@ -343,41 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     blurbElement.style.display = 'block';
                 }
                 }
-        
-    // if (video.readyState >= 4) {
-    //         loadingOverlay.style.display = 'none';
-    //         fetch('images.json')
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             images = data;
-    //             if (!slidesCreated) {
-    //                 slidesCreated = true;
-    //                 createSlides(images);
-    //                 nextSlide(); // Show the first slide initially
-    //             }
-    //         })
-    //         .catch(error => {
-    //             console.error('Error loading images:', error);
-    //         });
-    //     } else {
-    // video.addEventListener('canplaythrough', () => {
-    //     if (loadingOverlay) {
-    //     }
-        fetch('Early24.json')
-        .then(response => response.json())
-        .then(data => {
-            images = data;
-            // if (!slidesCreated) {
-                slidesCreated = true;
-                loadingOverlay.style.display = 'none';
 
-            createSlides(images);
-            nextSlide(); // Show the first slide initially
-            // }
-        })
-        .catch(error => {
-            console.error('Error loading images:', error);
-        });
 
     carouselContainer.addEventListener('touchstart', handleStart);
     carouselContainer.addEventListener('mousedown', handleStart);      
