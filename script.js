@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 createBackgroundSlides(data);
                 changeBackgroundImage();
-                setInterval(changeBackgroundImage, 1000);
+                setInterval(changeBackgroundImage, 2000);
             })
             .catch(error => console.error('Error fetching images:', error));
     }
@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (startX < endX - 10) {
                     getNextSlide();
                 }
-            } 
+            } else {
             if (Math.abs(startY - endY) > 10) {
                 if (startY > endY + 10) {
                     console.log('Swiped up');
@@ -179,6 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     changeCollection(-1);
                 }
             }
+        }
         }
     }
 
