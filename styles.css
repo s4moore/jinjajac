@@ -209,11 +209,11 @@ body, html {
     object-fit: contain;
     align-items: center;
     justify-content: center;
-    width: 95%;
+    width: 90%;
     height: 95%;
     /* font-size: 30px; */
     transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.3);
     color: white;
     margin: auto auto;
     padding: 10px;
@@ -242,9 +242,9 @@ body, html {
 .overlay .blurb {
     background: rgba(29, 23, 23, 0.5);
     /* margin: auto; */
-    padding: 3px;
+    padding: 4px;
     max-width: 80%;
-    margin-top: 3px;
+    margin-top: 8px;
     border-radius: 10px;
     gap: 1px;
     color: rgb(125, 124, 124);
@@ -257,7 +257,7 @@ body, html {
 
 .overlay .caption{
     display: flex; /* or display: inline */
-    padding: 2px; /* Optional: Add some padding */
+    padding: 4px; /* Optional: Add some padding */
 
     background: rgba(29, 23, 23, 0.6);
     /* max-margin: auto; */
