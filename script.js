@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!document.querySelector('.overlay')) {
                 slides.forEach(slide => slide.classList.remove('paused'));
             }   
-            if (Math.abs (endX) > Math.abs(endY)) {
+            if (Math.abs (xMove) > Math.abs(yMove)) {
                 if (startX > endX + 10) {
                     prevSlide();
                 } else if (startX < endX - 10) {
