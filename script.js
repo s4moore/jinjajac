@@ -160,10 +160,13 @@ document.addEventListener('DOMContentLoaded', () => {
             clearTimeout(touchTimer);
             endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
             endY = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
+            const xMove = endX - startX;
+            const yMove = endY - startY;
+
             if (!document.querySelector('.overlay')) {
                 slides.forEach(slide => slide.classList.remove('paused'));
             }   
-            if (Math.abs(startX - endX) > 10) {
+            if (Math.abs (endX) > Math.abs(endY)) {
                 if (startX > endX + 10) {
                     prevSlide();
                 } else if (startX < endX - 10) {

@@ -29,6 +29,7 @@ body, html {
     z-index: -1;
 }
 .background-slide {
+
     position: absolute;
     top: 0;
     left: 0;
@@ -40,8 +41,9 @@ body, html {
 }
 
 .background-slide img {
-    width: 100vw;
-    height: 100vh;
+    background-color: black;
+    min-width: 100vw;
+    min-height: 100vh;
     object-fit: fill;
     /* display: flex; */
     position: fixed;
@@ -258,7 +260,7 @@ body, html {
 
 
 .overlay .blurb {
-    background: rgba(98, 118, 115, 0.6);
+    background: rgba(98, 118, 115, 0.8);
     touch-action: auto;
     /* margin: auto; */
     overflow-y: auto;
@@ -285,7 +287,7 @@ body, html {
     padding: 2px; /* Optional: Add some padding */
     padding-left: 5px;
     padding-right: 5px;
-    background: rgba(98, 118, 115, 0.6);
+    background: rgba(98, 118, 115, 0.8);
     /* max-margin: auto; */
     max-width: 80%;
     border-radius: 10px;
