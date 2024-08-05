@@ -140,10 +140,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             if (!overlay || document.querySelector('.fullscreen')) {        
-            touchTimer = setTimeout(async function() {
+            touchTimer = setTimeout(async function() {            
+                endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+                endY = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
+                const xMove = endX - startX;
+                const yMove = endY - startY;
+    
                 slides[currentSlide].classList.add('hidden',);
                 slides.forEach(slide => slide.classList.add('paused'));
-                if (document.querySelector('.fullscreen')) {
+                if (document.querySelector('.fullscreen') || Math.abs(xMove) > 10 || Math.abs(yMove) > 10) {
                     toggleFullscreen();
                     return ;
                 }
