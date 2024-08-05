@@ -17,10 +17,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // video.playbackRate = 0.25;
 
     function changeBackgroundImage() {
-        backgroundSlides.forEach((slide, index) => {
-            slide.style.display = index === backgroundCurrentSlide ? 'block' : 'none';
-        });
+        const oldSlide = backgroundSlides[backgroundCurrentSlide];
         backgroundCurrentSlide = (backgroundCurrentSlide + 1) % backgroundSlides.length;
+        backgroundSlides.forEach((slide, index) => {
+            if (index === backgroundCurrentSlide) {
+            slide.style.display = 'block';
+            }
+        });
+        oldSlide.style.display = 'none';
     }
 
     function createBackgroundSlides(images) {
