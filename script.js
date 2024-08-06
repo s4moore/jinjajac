@@ -16,6 +16,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // video.preload = 'auto';
     // video.playbackRate = 0.25;
 
+    const landscapeVideo = document.createElement('video');
+    landscapeVideo.src = 'back/landscape.mp4';
+    landscapeVideo.preload = 'auto';
+    landscapeVideo.playbackRate = 0.5;
+
+    const portraitVideo = document.createElement('video');
+    portraitVideo.src = 'back/portrait.mp4';
+    portraitVideo.preload = 'auto';
+    portraitVideo.playbackRate = 0.5;
+
     function changeBackgroundImage() {
         const oldSlide = backgroundSlides[backgroundCurrentSlide];
         backgroundCurrentSlide = (backgroundCurrentSlide + 1) % backgroundSlides.length;
@@ -65,16 +75,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    function fetchBackgroundImages() {
-        fetch('background.json')
-            .then(response => response.json())
-            .then(data => {
-                createBackgroundSlides(data);
-                changeBackgroundImage();
-                setInterval(changeBackgroundImage, 2000);
-            })
-            .catch(error => console.error('Error fetching images:', error));
-    }
+    // function fetchBackgroundImages() {
+    //     fetch('background.json')
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             createBackgroundSlides(data);
+    //             changeBackgroundImage();
+    //             setInterval(changeBackgroundImage, 2000);
+    //         })
+    //         .catch(error => console.error('Error fetching images:', error));
+    // }
 
     function fetchSlides(collection) {
         images = [];
@@ -108,11 +118,37 @@ document.addEventListener('DOMContentLoaded', () => {
             fetchSlides(collection);
         });
     }
-    fetchBackgroundImages(collection);
+    // fetchBackgroundImages(collection);
 
     changeCollection(currentCollection);
 
+    function setBackgroundVideo() {
+        const isLandscape = window.matchMedia("(orientation: landscape)").matches;
+        const videoElement = isLandscape ? landscapeVideo : portraitVideo;
+        videoElement.style.position = 'absolute';
+        videoElement.style.top = '0';
+        videoElement.style.left = '0';
+        videoElement.style.width = '100%';
+        videoElement.style.height = '100%';
+        videoElement.style.objectFit = 'cover';
+        videoElement.autoplay = true;
+        videoElement.loop = true;
+        videoElement.muted = true;
 
+        // Remove any existing video elements
+        const existingVideo = document.querySelector('.background-video');
+        if (existingVideo) {
+            existingVideo.remove();
+        }
+
+        // Add the new video element
+        videoElement.classList.add('background-video');
+        document.body.appendChild(videoElement);
+        videoElement.play();
+    }
+
+    // Set the initial background video
+    setBackgroundVideo();
     console.log('script starts');
     // if (!window.scriptExecuted) {
     //     window.scriptExecuted = true;
