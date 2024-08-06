@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let collections = [];
     let currentCollection = 1;
     let collection;
-    const edition = 5;
+    const edition = 6;
     const menuToggle = document.getElementById('menu-toggle');
     const items = document.querySelector('.menu-overlay');
     const menuItems = document.querySelector('.menu-items');
@@ -21,23 +21,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // video.preload = 'auto';
     // video.playbackRate = 0.25;
 
-    const enableMenuAnchors = () => {
-        const anchors = menuItems.querySelectorAll('a');
-        console.log(anchors);
-        anchors.forEach(anchor => {
-            anchor.style.pointerEvents = 'auto';
-        });
-    };
+    // const enableMenuAnchors = () => {
+    //     const anchors = menuItems.querySelectorAll('a');
+    //     console.log(anchors);
+    //     anchors.forEach(anchor => {
+    //         anchor.style.pointerEvents = 'auto';
+    //     });
+    // };
 
-    // Function to disable pointer events for anchors
-    const disableMenuAnchors = () => {
-        const anchors = menuItems.querySelectorAll('a');
-        anchors.forEach(anchor => {
-            anchor.style.pointerEvents = 'none';
-        });
-    };
+    // // Function to disable pointer events for anchors
+    // const disableMenuAnchors = () => {
+    //     const anchors = menuItems.querySelectorAll('a');
+    //     anchors.forEach(anchor => {
+    //         anchor.style.pointerEvents = 'none';
+    //     });
+    // };
 
-    disableMenuAnchors();
+    // disableMenuAnchors();
     
     const addMenuItems = () => {
         const menuContent = `
@@ -69,49 +69,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const landscapeVideo = document.createElement('video');
-    landscapeVideo.src = 'back/landscape.mp4';
-    landscapeVideo.preload = 'auto';
-    landscapeVideo.playbackRate = 0.5;
-    landscapeVideo.loop=true;
-    landscapeVideo.autoplay=true;
-    landscapeVideo.muted = true;
-    landscapeVideo.style.type = 'video/mp4';
-    const portraitVideo = document.createElement('video');
-    portraitVideo.src = 'back/1920x1080 low res portrait .mp4';
-    portraitVideo.preload = 'auto';
-    portraitVideo.playbackRate = 0.5;
-    portraitVideo.loop=true;
-    portraitVideo.autoplay=true;
-    portraitVideo.muted = true;
-    portraitVideo.style.type = 'video/mp4';
-    // ument.body.appendChild(portraitVideo);
-    // ument.body.appendChild(landscapeVideo);
-    function changeBackgroundImage() {
-        const oldSlide = backgroundSlides[backgroundCurrentSlide];
-        backgroundCurrentSlide = (backgroundCurrentSlide + 1) % backgroundSlides.length;
-        backgroundSlides.forEach((slide, index) => {
-            if (index === backgroundCurrentSlide) {
-            slide.style.display = 'block';
-            }
-        });
-        oldSlide.style.display = 'none';
-    }
+    const landscapeVideo = "back/landscape.mp4";
 
-    function createBackgroundSlides(images) {
-        const carousel = document.querySelector('.background-slideshow');
-        images.forEach((image, index) => {
-            const slide = document.createElement('div');
-            slide.classList.add('background-slide');
-            slide.innerHTML = `
-                <img src="back/${image}" alt="Image ${index + 1}">
-            `;
-            slide.style.display = 'none'; // Hide all slides initially
-            carousel.appendChild(slide);
-            backgroundSlides.push(slide);
-            console.log(`Slide created for image: ${image}`);
-        });
-    }
+
+    const portraitVideo = "back/1920x1080 low res portrait .mp4";
+
+
+
+    // function createBackgroundSlides(images) {
+    //     const carousel = document.querySelector('.background-slideshow');
+    //     images.forEach((image, index) => {
+    //         const slide = document.createElement('div');
+    //         slide.classList.add('background-slide');
+    //         slide.innerHTML = `
+    //             <img src="back/${image}" alt="Image ${index + 1}">
+    //         `;
+    //         slide.style.display = 'none'; // Hide all slides initially
+    //         carousel.appendChild(slide);
+    //         backgroundSlides.push(slide);
+    //         console.log(`Slide created for image: ${image}`);
+    //     });
+    // }
 
     function createSlides(data) {
         const carousel = document.querySelector('.carousel');
@@ -185,32 +163,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function setBackgroundVideo() {
         const isLandscape = window.matchMedia("(orientation: landscape)").matches;
-        const videoElement = isLandscape ? landscapeVideo : portraitVideo;
+        const videoElement = document.createElement('video'); // Create a new video element
         videoElement.style.position = 'absolute';
         videoElement.style.top = '0';
         videoElement.style.left = '0';
         videoElement.style.width = '100%';
         videoElement.style.height = '100%';
         videoElement.style.objectFit = 'cover';
-        videoElement.autoplay = true;
+        videoElement.preload = 'auto';
+        videoElement.playbackRate = 2;
         videoElement.loop = true;
+        videoElement.autoplay = true;
         videoElement.muted = true;
-
+    
+        // Create a source element
+        const sourceElement = document.createElement('source');
+        sourceElement.src = isLandscape ? "/back/landscape.mp4" : "/back/portrait.mp4";
+        sourceElement.type = 'video/mp4';
+    
+        // Append the source element to the video element
+        videoElement.appendChild(sourceElement);
+    
         // Remove any existing video elements
         const existingVideo = document.querySelector('.background-video');
         if (existingVideo) {
             existingVideo.remove();
         }
-
+    
         // Add the new video element
         videoElement.classList.add('background-video');
         document.body.appendChild(videoElement);
-        videoElement.play();
+    
+        // Ensure the video plays
+        videoElement.play().catch(error => {
+            console.error('Error attempting to play the video:', error);
+        });
     }
 
     // Set the initial background video
     setBackgroundVideo();
+
     window.addEventListener('resize', setBackgroundVideo);
+    
     console.log('script starts');
     // if (!window.scriptExecuted) {
     //     window.scriptExecuted = true;
