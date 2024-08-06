@@ -74,11 +74,13 @@ document.addEventListener('DOMContentLoaded', () => {
     landscapeVideo.preload = 'auto';
     landscapeVideo.playbackRate = 0.5;
     landscapeVideo.loop=true;
+    landscapeVideo.autoplay=true;
     const portraitVideo = document.createElement('video');
     portraitVideo.src = 'back/1920x1080 low res portrait .mp4';
     portraitVideo.preload = 'auto';
     portraitVideo.playbackRate = 0.5;
-    landscapeVideo.loop=true;
+    portraitVideo.loop=true;
+    portraitVideo.autoplay=true;
 
     function changeBackgroundImage() {
         const oldSlide = backgroundSlides[backgroundCurrentSlide];
