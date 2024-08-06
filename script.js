@@ -11,18 +11,30 @@ document.addEventListener('DOMContentLoaded', () => {
     let collections = [];
     let currentCollection = 1;
     let collection;
-    const edition = 1;
+    const edition = 2;
+    const menuToggle = document.getElementById('menu-toggle');
+    const items = document.querySelector('.menu-overlay');
+
     
     // const video = document.getElementById('background-video');
     // video.preload = 'auto';
     // video.playbackRate = 0.25;
+    menuToggle.addEventListener('click', () => {
+        console.log('Menu toggle clicked');
+        console.log(items.style.display);
+        if (items.style.display === 'none') {
+            items.style.display = 'flex';
+        } else {
+            items.style.display = 'none';
+        }
+    });
 
     const landscapeVideo = document.createElement('video');
     landscapeVideo.src = 'back/landscape.mp4';
     landscapeVideo.preload = 'auto';
-    landscapeVideo.playbackRate = 0.5;
+    landscapeVideo.playbackRate = 0.5;  
     const portraitVideo = document.createElement('video');
-    portraitVideo.src = 'back/portrait.mp4';
+    portraitVideo.src = 'back/1920x1080 low res portrait .mp4';
     portraitVideo.preload = 'auto';
     portraitVideo.playbackRate = 0.5;
 
@@ -424,6 +436,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 slides.forEach(slide => slide.classList.remove('paused'));
                 showCaption();
+                nextSlide();
                 return ;
             }
 
