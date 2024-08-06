@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let collections = [];
     let currentCollection = 1;
     let collection;
-    const edition = 4;
+    const edition = 5;
     const menuToggle = document.getElementById('menu-toggle');
     const items = document.querySelector('.menu-overlay');
     const menuItems = document.querySelector('.menu-items');
@@ -76,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     landscapeVideo.loop=true;
     landscapeVideo.autoplay=true;
     landscapeVideo.muted = true;
+    landscapeVideo.style.type = 'video/mp4';
     const portraitVideo = document.createElement('video');
     portraitVideo.src = 'back/1920x1080 low res portrait .mp4';
     portraitVideo.preload = 'auto';
@@ -83,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     portraitVideo.loop=true;
     portraitVideo.autoplay=true;
     portraitVideo.muted = true;
+    portraitVideo.style.type = 'video/mp4';
     // ument.body.appendChild(portraitVideo);
     // ument.body.appendChild(landscapeVideo);
     function changeBackgroundImage() {
