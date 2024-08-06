@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let collections = [];
     let currentCollection = 1;
     let collection;
+    const edition = 1;
     
     // const video = document.getElementById('background-video');
     // video.preload = 'auto';
@@ -158,12 +159,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!e.target.closest('.overlay .blurb')) {
                 console.log('Event target is not within .overlay .blurb');
             e.preventDefault();
+            }
             const target = e.target;
-            if (target && target.id === 'closeOverlay') {
+            if (target && target.classList.contains('close-button')) {
                 handleClose();
                 return ;
             }
-            if (target && target.id === 'fullscreenOverlay') {
+            if (target && target.classList.contains('fullscreen-button')) {
                 toggleFullscreen();
                 return ;
             }
@@ -197,9 +199,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
             slides[currentSlide].classList.remove('hidden');
         }
-    }
         
         function handleEnd(e) {
+            if (e.target.classList.contains('fullscreen-button') || e.target.classList.contains('close-button')) {
+                return ;
+            }
+
             if (!e.target.closest('.overlay .blurb')) {
             e.preventDefault();
             clearTimeout(touchTimer);
@@ -217,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (startX < endX - 10) {
                     getNextSlide();
                 }
-            } else {
+            } else if (Math.abs(yMove) > 20) {
             if (Math.abs(startY - endY) > 10) {
                 if (startY > endY + 10) {
                     console.log('Swiped up');
@@ -242,7 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     slide.classList.add('active');
                     slide.classList.remove('hidden', 'disolve');
                     slide.addEventListener('animationend', expandDone); // Add event listener to the first slide
-                    captionElement.textContent = images[index].caption;
+                    captionElement.textContent = `${edition} ${images[index].caption}`;
 
                  }// else {
                 //     slide.classList.remove('active');
@@ -425,6 +430,7 @@ document.addEventListener('DOMContentLoaded', () => {
             function toggleFullscreen() {
                 overlay = document.querySelector('.overlay'); // Reassign the overlay variable                
                 overlay.classList.toggle('fullscreen');
+                const overlayCaptionElement = overlay.querySelector('.caption');
 
                 // Get caption and blurb elements
                 // const captionElement = overlay.querySelector('.caption');
@@ -433,11 +439,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Check if fullscreen mode is active
                 if (overlay.classList.contains('fullscreen')) {
                     // Hide caption and blurb
-                    captionElement.style.display = 'none';
+                    overlayCaptionElement.style.display = 'none';
                     blurbElement.style.display = 'none';
                 } else {
                     // Show caption and blurb
-                    captionElement.style.display = 'block';
+                    overlayCaptionElement.style.display = 'block';
                     blurbElement.style.display = 'block';
                 }
                 }

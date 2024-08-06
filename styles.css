@@ -8,6 +8,7 @@ body, html {
     overflow: hidden;
     font-family: sans-serif;
     font-size: 1em;
+    background-color: black;
 }
 #background-video {
     /* position: absolute; */
@@ -205,13 +206,13 @@ body, html {
     z-index: 1000;
     border-radius: 5px;
 }
-
+/* 
 @media (min-width: 667px) {
     .carousel-caption {
         bottom: 50px;
     }
-}
-@media (max-width: 666px) {
+} */
+@media (max-width: 667px) {
     .carousel-caption {
         bottom: 30%;
     }
@@ -275,6 +276,7 @@ body, html {
     touch-action: auto;
     /* margin: auto; */
     overflow-y: auto;
+    line-clamp: 3;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
