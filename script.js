@@ -14,29 +14,71 @@ document.addEventListener('DOMContentLoaded', () => {
     const edition = 2;
     const menuToggle = document.getElementById('menu-toggle');
     const items = document.querySelector('.menu-overlay');
-
+    const menuItems = document.querySelector('.menu-items');
+    console.log(menuItems);
     
     // const video = document.getElementById('background-video');
     // video.preload = 'auto';
     // video.playbackRate = 0.25;
+
+    const enableMenuAnchors = () => {
+        const anchors = menuItems.querySelectorAll('a');
+        console.log(anchors);
+        anchors.forEach(anchor => {
+            anchor.style.pointerEvents = 'auto';
+        });
+    };
+
+    // Function to disable pointer events for anchors
+    const disableMenuAnchors = () => {
+        const anchors = menuItems.querySelectorAll('a');
+        anchors.forEach(anchor => {
+            anchor.style.pointerEvents = 'none';
+        });
+    };
+
+    disableMenuAnchors();
+    
+    const addMenuItems = () => {
+        const menuContent = `
+            <div id="menu-items" class="menu-items">    
+            <a class="menu-item" href="#"><img src="graphs/More about.png"></a>
+            <a class="menu-item" href="#"><img src="graphs/Digital.png"></a>
+            <a class="menu-item" href="#"><img src="graphs/Concrete .png"></a>
+            <a class="menu-item" href="#"><img src="graphs/Lightings .png"></a>
+            <a class="menu-item" href="#"><img src="graphs/Shop.png"></a>
+            <a class="menu-item" href="#"><img src="graphs/Connect.png"></a>
+            </div>
+        `;
+        items.innerHTML = menuContent;
+    };
+
+    const removeMenuItems = () => {
+        items.innerHTML = '';
+    };
+    
     menuToggle.addEventListener('click', () => {
         console.log('Menu toggle clicked');
         console.log(items.style.display);
         if (items.style.display === 'none') {
             items.style.display = 'flex';
+            addMenuItems();
         } else {
             items.style.display = 'none';
+            removeMenuItems();
         }
     });
 
     const landscapeVideo = document.createElement('video');
     landscapeVideo.src = 'back/landscape.mp4';
     landscapeVideo.preload = 'auto';
-    landscapeVideo.playbackRate = 0.5;  
+    landscapeVideo.playbackRate = 0.5;
+    landscapeVideo.loop=true;
     const portraitVideo = document.createElement('video');
     portraitVideo.src = 'back/1920x1080 low res portrait .mp4';
     portraitVideo.preload = 'auto';
     portraitVideo.playbackRate = 0.5;
+    landscapeVideo.loop=true;
 
     function changeBackgroundImage() {
         const oldSlide = backgroundSlides[backgroundCurrentSlide];
