@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let slides = [];
     let currentSlide = 0;
     let collections = [];
-    let currentCollection = 0;
+    let currentCollection = 1;
     let collection;
     
     // const video = document.getElementById('background-video');
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     fetchBackgroundImages(collection);
 
-    changeCollection(0);
+    changeCollection(currentCollection);
 
 
     console.log('script starts');
