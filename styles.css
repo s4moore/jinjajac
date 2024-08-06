@@ -312,9 +312,14 @@ body, html {
         bottom: 50px;
     }
 } */
-@media (max-width: 667px) {
+@media (orientation: portrait) {
     .carousel-caption {
-        bottom: 30%;
+        bottom: 20%;
+    }
+}
+@media (orientation: landscape) {
+    .carousel-caption {
+        bottom: 5%;
     }
 }
 
