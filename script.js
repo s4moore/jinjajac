@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     landscapeVideo.src = 'back/landscape.mp4';
     landscapeVideo.preload = 'auto';
     landscapeVideo.playbackRate = 0.5;
-
     const portraitVideo = document.createElement('video');
     portraitVideo.src = 'back/portrait.mp4';
     portraitVideo.preload = 'auto';
@@ -149,6 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Set the initial background video
     setBackgroundVideo();
+    window.addEventListener('resize', setBackgroundVideo);
     console.log('script starts');
     // if (!window.scriptExecuted) {
     //     window.scriptExecuted = true;
