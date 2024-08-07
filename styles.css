@@ -18,8 +18,8 @@ body, html {
 .menu {
     display: flex;
     position: relative;
-    width: min(600, 100vw);
-    height: min(600, 100vh);
+    width: max(600px, 100vw);
+    height: max(600px, 100vh);
     /* max-height: min(500px, 90%); */
     z-index: 1002;
     /* object-fit: contain; */
@@ -32,13 +32,13 @@ body, html {
     position: absolute;
     right: 0;
     top: 0;
-    height: min(200px, auto);
+    /* height: min(200px, auto); */
     /* width: auto; */
-
+    height: auto;
 }
 
 .menu-button img {
-    height: min(300, 100%);
+    height: min(400px, 100%);
     width: 100%;    
     cursor: pointer;
 }
