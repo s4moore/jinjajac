@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const loadingOverlay = document.getElementById('loading-overlay');
-    const captionElement = document.querySelector('.carousel-caption p');
+    // const captionElement = document.querySelector('.carousel-caption p');
     let images = [];
     const carouselContainer = document.querySelector('.carousel-container');
     let overlay = null;
@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     slide.classList.add('active');
                     slide.classList.remove('hidden', 'disolve');
                     slide.addEventListener('animationend', expandDone); // Add event listener to the first slide
-                    captionElement.textContent = `${edition} ${images[index].caption}`;
+                    // captionElement.textContent = `${edition} ${images[index].caption}`;
 
                  }// else {
                 //     slide.classList.remove('active');
@@ -300,12 +300,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (overlayImage) {
                         overlayImage.src = imageUrl;
                     }
-                    const captionElement = overlay.querySelector('.caption');
+                    // const captionElement = overlay.querySelector('.caption');
                     const blurbElement = overlay.querySelector('.blurb');
         
                             // Function to update caption and blurb
                     function updateCaptionAndBlurb() {
-                        captionElement.innerText = slides[currentSlide].getAttribute('data-caption');
+                        // captionElement.innerText = slides[currentSlide].getAttribute('data-caption');
                         blurbElement.innerText = slides[currentSlide].getAttribute('data-blurb');
                     }
 
@@ -316,7 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             function showOverlay() {
                 return new Promise((resolve) => {
-                    hideCaption();
+                    // hideCaption();
                     const current = slides[currentSlide];
                     const imageUrl = current.querySelector('img').src;
 
@@ -408,7 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     menuImg.style.right = '0';
                     menuImg.style.left = 'auto';
                 }
-                showCaption();
+                // showCaption();
                 nextSlide();
                 return ;
             }
