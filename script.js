@@ -9,13 +9,21 @@ document.addEventListener('DOMContentLoaded', () => {
     let collections = [];
     let currentCollection = 1;
     let collection;
-    const edition = 6;
-    // const menuToggle = document.getElementById('menu-toggle');
+    const edition = 7;
+    const menuToggle = document.querySelector('.menu-toggle');
     const items = document.querySelector('.menu-overlay');
     const menuItems = document.querySelector('.menu-items');
     console.log(menuItems);
     const menu = document.querySelector('.menu');
     
+    menuToggle.addEventListener('click', () => {
+        if (menu.classList.contains('hidden')) {
+            menu.classList.remove('hidden');
+        }   else {      
+            menu.classList.add('hidden');
+        }
+    });
+
     const addMenuItems = () => {
         const menuContent = `
             <div id="menu-items" class="menu-items">    
@@ -162,6 +170,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (target && target.closest('.close-button')) {
                 console.log('Close button clicked');
                 handleClose();
+                return ;
+            }
+            if (target && target.closest('menu-toggle')) {
+                console.log('Menu toggle clicked');
+                if (menu.classList.contains('hidden')) {
+                    menu.classList.remove('hidden');
+                } else {
+                menu.classList.add('hidden');
+                }
                 return ;
             }
             if (target && target.closest('.fullscreen-button')) {
