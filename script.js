@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    let backgroundSlides = [];
-    let backgroundCurrentSlide = 0;
     const loadingOverlay = document.getElementById('loading-overlay');
     const captionElement = document.querySelector('.carousel-caption p');
     let images = [];
@@ -16,28 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const items = document.querySelector('.menu-overlay');
     const menuItems = document.querySelector('.menu-items');
     console.log(menuItems);
-    
-    // const video = document.getElementById('background-video');
-    // video.preload = 'auto';
-    // video.playbackRate = 0.25;
-
-    // const enableMenuAnchors = () => {
-    //     const anchors = menuItems.querySelectorAll('a');
-    //     console.log(anchors);
-    //     anchors.forEach(anchor => {
-    //         anchor.style.pointerEvents = 'auto';
-    //     });
-    // };
-
-    // // Function to disable pointer events for anchors
-    // const disableMenuAnchors = () => {
-    //     const anchors = menuItems.querySelectorAll('a');
-    //     anchors.forEach(anchor => {
-    //         anchor.style.pointerEvents = 'none';
-    //     });
-    // };
-
-    // disableMenuAnchors();
     
     const addMenuItems = () => {
         const menuContent = `
@@ -69,28 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const landscapeVideo = "back/landscape.mp4";
-
-
-    const portraitVideo = "back/1920x1080 low res portrait .mp4";
-
-
-
-    // function createBackgroundSlides(images) {
-    //     const carousel = document.querySelector('.background-slideshow');
-    //     images.forEach((image, index) => {
-    //         const slide = document.createElement('div');
-    //         slide.classList.add('background-slide');
-    //         slide.innerHTML = `
-    //             <img src="back/${image}" alt="Image ${index + 1}">
-    //         `;
-    //         slide.style.display = 'none'; // Hide all slides initially
-    //         carousel.appendChild(slide);
-    //         backgroundSlides.push(slide);
-    //         console.log(`Slide created for image: ${image}`);
-    //     });
-    // }
-
     function createSlides(data) {
         const carousel = document.querySelector('.carousel');
             if (carousel.firstChild){
@@ -112,18 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         slides = document.querySelectorAll('.carousel-slide');
     }
-
-
-    // function fetchBackgroundImages() {
-    //     fetch('background.json')
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             createBackgroundSlides(data);
-    //             changeBackgroundImage();
-    //             setInterval(changeBackgroundImage, 2000);
-    //         })
-    //         .catch(error => console.error('Error fetching images:', error));
-    // }
 
     function fetchSlides(collection) {
         images = [];
@@ -157,11 +99,14 @@ document.addEventListener('DOMContentLoaded', () => {
             fetchSlides(collection);
         });
     }
-    // fetchBackgroundImages(collection);
 
     changeCollection(currentCollection);
 
     function setBackgroundVideo() {
+        const existingVideo = document.querySelector('.background-video');
+        if (existingVideo) {
+            existingVideo.remove();
+        }
         const isLandscape = window.matchMedia("(orientation: landscape)").matches;
         const videoElement = document.createElement('video'); // Create a new video element
         videoElement.style.position = 'absolute';
@@ -171,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
         videoElement.style.height = '100%';
         videoElement.style.objectFit = 'cover';
         videoElement.preload = 'auto';
-        videoElement.playbackRate = 2;
+        videoElement.playbackRate = 0.5;
         videoElement.loop = true;
         videoElement.autoplay = true;
         videoElement.muted = true;
@@ -185,10 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
         videoElement.appendChild(sourceElement);
     
         // Remove any existing video elements
-        const existingVideo = document.querySelector('.background-video');
-        if (existingVideo) {
-            existingVideo.remove();
-        }
     
         // Add the new video element
         videoElement.classList.add('background-video');
@@ -205,72 +146,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('resize', setBackgroundVideo);
     
-    console.log('script starts');
-    // if (!window.scriptExecuted) {
-    //     window.scriptExecuted = true;
         console.log('Script loaded and executed')
 
         function handleStart(e) {
-            if (!e.target.closest('.overlay .blurb')) {
+            if (e.target !== '.blurb') {
                 console.log('Event target is not within .overlay .blurb');
-            e.preventDefault();
+                e.preventDefault();
+                startX = e.touches ? e.touches[0].clientX : e.clientX;
+                startY = e.touches ? e.touches[0].clientY : e.clientY;
+                // slides[currentSlide].classList.remove('hidden');
             }
-            const target = e.target;
-            if (target && target.classList.contains('close-button')) {
-                handleClose();
-                return ;
-            }
-            if (target && target.classList.contains('fullscreen-button')) {
-                toggleFullscreen();
-                return ;
-            }
-            const screenWidth = window.innerWidth;
-            startX = e.touches ? e.touches[0].clientX : e.clientX;
-            startY = e.touches ? e.touches[0].clientY : e.clientY;
-            if (startX <= screenWidth * 0.1) {
-                clearTimeout(touchTimer);
-                prevSlide();
-                return;
-            } else if (startX >= screenWidth * 0.9 && (!target || target.id !== 'fullscreenOverlay')) {
-                clearTimeout(touchTimer);
-                getNextSlide();
-                return;
-            }
-            if (!overlay || document.querySelector('.fullscreen')) {        
-            touchTimer = setTimeout(async function() {            
-                endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
-                endY = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
-                const xMove = endX - startX;
-                const yMove = endY - startY;
-    
-                slides[currentSlide].classList.add('hidden',);
-                slides.forEach(slide => slide.classList.add('paused'));
-                if (document.querySelector('.fullscreen') || Math.abs(xMove) > 10 || Math.abs(yMove) > 10) {
-                    toggleFullscreen();
-                    return ;
-                }
-                await showOverlay();
-            }, 250);
-        }
-            slides[currentSlide].classList.remove('hidden');
         }
         
         function handleEnd(e) {
-            if (e.target.classList.contains('fullscreen-button') || e.target.classList.contains('close-button')) {
+            e.preventDefault();
+            const screenWidth = window.innerWidth;
+
+            const target = e.target;
+            if (target && target.closest('.close-button')) {
+                console.log('Close button clicked');
+                handleClose();
                 return ;
+            }
+            if (target && target.closest('.fullscreen-button')) {
+                toggleFullscreen();
+                return ;
+            }
+            if (startX <= screenWidth * 0.1) {
+                prevSlide();
+                return;
+            } else if (startX >= screenWidth * 0.9 )  {
+                getNextSlide();
+                return;
             }
 
             if (!e.target.closest('.overlay .blurb')) {
-            e.preventDefault();
-            clearTimeout(touchTimer);
             endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
             endY = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
             const xMove = endX - startX;
             const yMove = endY - startY;
-
-            if (!document.querySelector('.overlay')) {
-                slides.forEach(slide => slide.classList.remove('paused'));
-            }   
+            
             if (Math.abs (xMove) > Math.abs(yMove)) {
                 if (startX > endX + 10) {
                     prevSlide();
@@ -278,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     getNextSlide();
                 }
             } else if (Math.abs(yMove) > 20) {
-            if (Math.abs(startY - endY) > 10) {
+            if (!document.querySelector('.overlay') && Math.abs(yMove) > 10) {
                 if (startY > endY + 10) {
                     console.log('Swiped up');
                     changeCollection(1);
@@ -287,6 +202,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     changeCollection(-1);
                 }
             }
+        } else if (!overlay) {
+            slides.forEach (slide => slide.classList.add('paused'));
+            showOverlay();
         }
         }
     }
@@ -337,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
                 currentSlide = (currentSlide + 1) % slides.length;
-                if (document.querySelector('.overlay')) {
+                if (overlay) {
                     updateOverlayImage();
                 } else {
                 showSlide(currentSlide);
@@ -348,13 +266,13 @@ document.addEventListener('DOMContentLoaded', () => {
             function getNextSlide() {
                 const activeSlides = document.querySelectorAll('.carousel-slide.active');
                 activeSlides.forEach(activeSlide => {
-                    if (activeSlide && !document.querySelector('.overlay')) {
+                    if (activeSlide) {
                         activeSlide.classList.remove('active', 'disolve');
                         activeSlide.classList.add('hidden');
                     }
                 });
                 currentSlide = (currentSlide + 1) % slides.length;
-                if (document.querySelector('.overlay')) {
+                if (overlay) {
                     updateOverlayImage();
                 } else {
                 showSlide(currentSlide);
@@ -370,7 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
                 currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-                if (document.querySelector('.overlay')) {
+                if (overlay) {
                     updateOverlayImage();
                 } else {
                 showSlide(currentSlide);
@@ -387,16 +305,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         overlayImage.src = imageUrl;
                     }
                     const captionElement = overlay.querySelector('.caption');
-        const blurbElement = overlay.querySelector('.blurb');
+                    const blurbElement = overlay.querySelector('.blurb');
         
                             // Function to update caption and blurb
-        function updateCaptionAndBlurb() {
-            captionElement.innerText = slides[currentSlide].getAttribute('data-caption');
-            blurbElement.innerText = slides[currentSlide].getAttribute('data-blurb');
-        }
+                    function updateCaptionAndBlurb() {
+                        captionElement.innerText = slides[currentSlide].getAttribute('data-caption');
+                        blurbElement.innerText = slides[currentSlide].getAttribute('data-blurb');
+                    }
 
-        // Initial update of caption and blurb
-        updateCaptionAndBlurb();
+                updateCaptionAndBlurb();
+                showOverlay();
                 }
             }
 
@@ -409,12 +327,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     current.classList.add('hidden');
                     slides[currentSlide].classList.remove('active');
+                    if (overlay) {
+                        overlay.remove();
+                    }
                     overlay = document.createElement('div');
                     overlay.classList.add('overlay');
 
                     overlay.innerHTML = `
-                        <button id="fullscreenOverlay" class="fullscreen-button">&#x26F6;</button>
-                        <button id="closeOverlay" class="close-button">&times;</button>
+                        <button id="fullscreenOverlay" class="fullscreen-button"><img height="20px" src="graphs/Fullscreen .png"></button>
+                        <button id="closeOverlay" class="close-button"><img height="20px" src="graphs/Close.png"></button>
                         <div class="overlay-content">
                         <img src="${imageUrl}">
                         <div class="caption"></div>
@@ -424,7 +345,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     const overlayCaptionElement = overlay.querySelector('.caption');
                     const blurbElement = overlay.querySelector('.blurb');
 
-                    
+                    const menuImg = document.querySelector('.menu img');
+                    if (menuImg) {
+                        menuImg.style.right = 'auto';
+                        menuImg.style.left = '0';
+                    }
+
                     if (overlayCaptionElement) {
                         overlayCaptionElement.style.touchAction = 'auto';
                     }
@@ -435,14 +361,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Access data attributes
                     overlayCaptionElement.innerText = current.getAttribute('data-caption');
                     blurbElement.innerText = current.getAttribute('data-blurb');
-                   
-                    document.body.appendChild(overlay);
+                    if (document.querySelector('.overlay')) {
+                    document.body.replaceChild(overlay);
+                    } else {
+                        document.body.appendChild(overlay);
+                    }
 
-                    document.getElementById('closeOverlay').addEventListener('click', () => {
+                    document.querySelector('.close-button').addEventListener('click', () => {
                         handleClose();
                         resolve();
                     });
-                    document.getElementById('fullscreenOverlay').addEventListener('click', () => {
+                    document.querySelector('.fullscreen-button').addEventListener('click', () => {
                         overlayCaptionElement.style.display = 'none';
                         blurbElement.style.display = 'none';
                         toggleFullscreen();
@@ -469,23 +398,28 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             function handleClose() {
-                if (document.querySelector('.fullscreen')) {
-                    
+                if (document.querySelector('.fullscreen')) {                
                         toggleFullscreen();
                     }
-                if (overlay) {
+                // if (overlay) {
+                    overlay.classList.add('hidden');
                     overlay.remove();
                     overlay = null; 
-                }
+                // }
                 slides.forEach(slide => slide.classList.remove('paused'));
+                const menuImg = document.querySelector('.menu img');
+                if (menuImg) {
+                    menuImg.style.right = '0';
+                    menuImg.style.left = 'auto';
+                }
                 showCaption();
                 nextSlide();
                 return ;
             }
 
             function toggleFullscreen() {
-                overlay = document.querySelector('.overlay'); // Reassign the overlay variable                
-                overlay.classList.toggle('fullscreen');
+                // overlay = document.querySelector('.overlay'); // Reassign the overlay variable                
+                // overlay.classList.toggle('fullscreen');
                 const overlayCaptionElement = overlay.querySelector('.caption');
 
                 // Get caption and blurb elements
@@ -495,14 +429,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Check if fullscreen mode is active
                 if (overlay.classList.contains('fullscreen')) {
                     // Hide caption and blurb
-                    overlayCaptionElement.style.display = 'none';
-                    blurbElement.style.display = 'none';
-                } else {
-                    // Show caption and blurb
                     overlayCaptionElement.style.display = 'block';
                     blurbElement.style.display = 'block';
+                    overlay.classList.remove('fullscreen');
+                    overlay.classList.remove('.fullscreen img');
+                    overlay.classList.add('.overlay img');
+                } else {
+                    // Show caption and blurb
+                    overlayCaptionElement.style.display = 'none';
+                    blurbElement.style.display = 'none';
+                    overlay.classList.remove('.overlay img');
+
+                    overlay.classList.add('fullscreen', '.fullscreen img');
                 }
+                // updateOverlayImage();
                 }
+
+    menu.addEventListener('touchstart', handleStart);
+    menu.addEventListener('mousedown', handleStart);      
+    menu.addEventListener('touchend', handleEnd);
+    menu.addEventListener('mouseup', handleEnd);
 
 
     carouselContainer.addEventListener('touchstart', handleStart);
