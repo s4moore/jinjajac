@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const items = document.querySelector('.menu-overlay');
     const menuItems = document.querySelector('.menu-items');
     console.log(menuItems);
+    const menu = document.querySelector('.menu');
     
     const addMenuItems = () => {
         const menuContent = `
