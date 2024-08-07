@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentCollection = 1;
     let collection;
     const edition = 6;
-    const menuToggle = document.getElementById('menu-toggle');
+    // const menuToggle = document.getElementById('menu-toggle');
     const items = document.querySelector('.menu-overlay');
     const menuItems = document.querySelector('.menu-items');
     console.log(menuItems);
@@ -33,17 +33,17 @@ document.addEventListener('DOMContentLoaded', () => {
         items.innerHTML = '';
     };
     
-    menuToggle.addEventListener('click', () => {
-        console.log('Menu toggle clicked');
-        console.log(items.style.display);
-        if (items.style.display === 'none') {
-            items.style.display = 'flex';
-            addMenuItems();
-        } else {
-            items.style.display = 'none';
-            removeMenuItems();
-        }
-    });
+    // menuToggle.addEventListener('click', () => {
+    //     console.log('Menu toggle clicked');
+    //     console.log(items.style.display);
+    //     if (items.style.display === 'none') {
+    //         items.style.display = 'flex';
+    //         addMenuItems();
+    //     } else {
+    //         items.style.display = 'none';
+    //         removeMenuItems();
+    //     }
+    // });
 
     function createSlides(data) {
         const carousel = document.querySelector('.carousel');
@@ -109,17 +109,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const isLandscape = window.matchMedia("(orientation: landscape)").matches;
         const videoElement = document.createElement('video'); // Create a new video element
-        videoElement.style.position = 'absolute';
-        videoElement.style.top = '0';
-        videoElement.style.left = '0';
-        videoElement.style.width = '100%';
-        videoElement.style.height = '100%';
-        videoElement.style.objectFit = 'cover';
         videoElement.preload = 'auto';
         videoElement.playbackRate = 0.5;
         videoElement.loop = true;
         videoElement.autoplay = true;
         videoElement.muted = true;
+        videoElement.style.objectFit = 'scale-down';
     
         // Create a source element
         const sourceElement = document.createElement('source');
@@ -129,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Append the source element to the video element
         videoElement.appendChild(sourceElement);
     
-        // Remove any existing video elements
+        // Remove any existing video elementstoggle
     
         // Add the new video element
         videoElement.classList.add('background-video');

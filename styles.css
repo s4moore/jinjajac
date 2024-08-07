@@ -1,70 +1,79 @@
 /* styles.css */
 body, html {
-    width: 100%;
+    /* max-width: 100vw; */
     margin: 0;
     padding: 0;
-    height: 100%;
+    max-height: 100vh;
+    min-height: 300px;
     box-sizing: border-box;
-    overflow: hidden;
+    object-fit: contain;
+    /* overflow: hidden; */
     font-family: sans-serif;
     font-size: 1em;
     background-color: black;
-    min-height: 500px;
+    /* min-height: 350px; */
+    z-index: 0;
 }
 
-.menu img {
+.menu {
+    display: flex;
+    position: relative;
+    width: min(600, 100vw);
+    height: min(600, 100vh);
+    /* max-height: min(500px, 90%); */
+    z-index: 1002;
+    /* object-fit: contain; */
+}
+
+.menu-button {
+    /* display: flex; */
+    width: max(330px, 40%);
+
     position: absolute;
+    right: 0;
     top: 0;
-    right: 0; /* Adjust as needed */
-    /* left: auto; */
-    /* transform: translateY(-50%); */
-    max-width: min(30%, 300px); /* Adjust as needed */
-    max-height: min(300px, 30%);
-    z-index: 1001;
-    transition: left 3s ease, right 3s ease;
+    height: min(200px, auto);
+    /* width: auto; */
+
+}
+
+.menu-button img {
+    height: min(300, 100%);
+    width: 100%;    
+    cursor: pointer;
 }
 
 .menu-overlay{
-    /* justify-content: center;
-align-items: center; */
-position: absolute;
-flex-wrap: nowrap;
-flex-direction: column;
-align-items: right;
-justify-content: center;
-top: 30%;
-right: 30px;
-width: 20vw;
-max-height: 10vw;
-background: rgba(174, 138, 138, 0.6);
-border-radius: 10px;
-}
-.menu-items{
-/* border: 1px solid white; */
-border-radius: 5px;
-z-index: 1000;
-object-fit: contain;
-}
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 40%;
+    left: 35%;
+    width: 40%;
+    height: 20%;
+} 
 
+.menu-items {
 
-.menu-items a img {
-    position: relative;
-    right: 0;
-    display: block; /* Ensure images are block elements */
-    width: 100%; /* Ensure images fit within their container */
-    /* height:  */
-    height: 10%; /* Maintain aspect ratio */
+    /* align-items: center;
+    justify-content: center; */
+    max-width: 80%;
+    max-height: 15%;
+    margin: 0;
+    padding: 0;
+    /* background: rgba(0, 0, 0, 0.9); */
+    border-radius: 10px;
+    /* padding: 10px; */
+    z-index: 1003;
 }
-
-#background-video {
-    /* position: absolute; */
-    top: 50%;
-    left: 50%;
+.background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    transform: tran slate(-50%, -50%);
-    z-index: -1; /* Ensure the video is behind other content */
+    object-fit: scale-down;
+    z-index: 0; /* Ensure the video is behind other content */
   }
 
   #loading-overlay {
@@ -101,7 +110,9 @@ object-fit: contain;
 }
 
 .carousel-container {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     max-width: 100%;
     overflow: hidden;
@@ -342,14 +353,8 @@ object-fit: contain;
     border: none;
     border-radius: 50%;
     margin-top: 1%; /* Add some space below the close button */
-
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
-    /* font-size: 20px; */
-    /* cursor: pointer; */
-    /* display: flex; */
-    /* align-items: c   enter; */
-        /* justify-content: center; */
     }
 
 
