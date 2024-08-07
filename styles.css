@@ -13,16 +13,31 @@ body, html {
     background-color: black;
     /* min-height: 350px; */
     z-index: 0;
+    letter-spacing: .1em;
+    font-family: 'Lato';
+    font-size: 18px;
 }
 
 .menu-toggle{
     display: block;
     position: fixed;
     top: 0;
-    left: 5%;
-    height: 15%;
+    right: 0;
+    max-width: 100%;
     width: auto;
     z-index: 1005;
+}
+
+@media (orientation: portrait) {
+    .menu-toggle{
+        height: min(120px, 15%);
+    }
+}
+
+@media (orientation: landscape) {
+    .menu-toggle{
+        width: min(220px, 15%);
+    }
 }
 .menu {
     display: flex;
@@ -272,7 +287,7 @@ body, html {
         bottom: 50px;
     }
 } */
-@media (orientation: portrait) {
+/* @media (orientation: portrait) {
     .carousel-caption {
         bottom: 20%;
     }
@@ -281,20 +296,20 @@ body, html {
     .carousel-caption {
         bottom: 5%;
     }
-}
+} */
 
-.carousel-caption p {
+/* .carousel-caption p {
     margin: 0;
     left: 0;
     right: 0;
     /* width: 100%; */
     /* text-align: center; */
-    padding: 5px;
+    /* padding: 5px;
     font-size: 1em;
     background: rgba(98, 118, 115, 0.8);
     border-radius: 5px;
     color: white;
-}
+}  */
 
 .paused {
     animation-play-state: paused !important;

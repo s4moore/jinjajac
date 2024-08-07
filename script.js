@@ -16,12 +16,18 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(menuItems);
     const menu = document.querySelector('.menu');
     
-    menuToggle.addEventListener('click', () => {
+    function toggleMenu() {
         if (menu.classList.contains('hidden')) {
             menu.classList.remove('hidden');
-        }   else {      
+            // menuToggle.classList.add('hidden');
+        } else {
             menu.classList.add('hidden');
+            // menuToggle.classList.remove('hidden');
         }
+    }
+
+    menuToggle.addEventListener('click', () => {
+        toggleMenu();
     });
 
     const addMenuItems = () => {
@@ -164,23 +170,29 @@ document.addEventListener('DOMContentLoaded', () => {
         
         function handleEnd(e) {
             e.preventDefault();
+            const menu = document.querySelector('.menu');
+
             const screenWidth = window.innerWidth;
 
             const target = e.target;
-            if (target && target.closest('.close-button')) {
+            if (!menu.classList.contains('hidden') && !target.closest('.menu-overlay')) {
+                toggleMenu();
+                return ;
+            }
+            if (target && target.closest('close-button')) {
                 console.log('Close button clicked');
                 handleClose();
                 return ;
             }
-            if (target && target.closest('menu-toggle')) {
-                console.log('Menu toggle clicked');
-                if (menu.classList.contains('hidden')) {
-                    menu.classList.remove('hidden');
-                } else {
-                menu.classList.add('hidden');
-                }
-                return ;
-            }
+            // if (target && target.closest('.menu-toggle')) {
+            //     console.log('Menu toggle clicked');
+            //     if (menu.classList.contains('hidden')) {
+            //         menu.classList.remove('hidden');
+            //     } else {
+            //     menu.classList.add('hidden');
+            //     }
+            //     return ;
+            // }
             if (target && target.closest('.fullscreen-button')) {
                 toggleFullscreen();
                 return ;
