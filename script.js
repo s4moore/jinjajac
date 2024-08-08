@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', setBackgroundVideo);
     
     function handleStart(e) {
-        if (e.target !== '.blurb') {
+        if (!e.target.closest('.blurb')) {
             console.log('Event target is not within .overlay .blurb');
             e.preventDefault();
             startX = e.touches ? e.touches[0].clientX : e.clientX;
@@ -135,7 +135,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleEnd(e) {
-        e.preventDefault();
+        if (!e.target.closest('.blurb')) {
+            e.preventDefault();
         const menu = document.querySelector('.menu');
         const screenWidth = window.innerWidth;
         const target = e.target;
@@ -199,6 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+}
 
     function showSlide(index) {
         const slides = document.querySelectorAll('.carousel-slide');
@@ -296,8 +298,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function updateViewport(userScalable) {
+        let viewportMeta = document.querySelector('meta[name="viewport"]');
+        if (viewportMeta) {
+            viewportMeta.setAttribute('content', `width=device-width, initial-scale=1.0, user-scalable=${userScalable}`);
+        }
+    }
+
     function fullScreen () {
         return new Promise((resolve) => {
+            updateViewport('yes');
             const current = slides[currentSlide];
             const imageUrl = current.querySelector('img').src;                  
 
@@ -306,26 +316,19 @@ document.addEventListener('DOMContentLoaded', () => {
             fullScreenOverlay.innerHTML = `
             <div class="fullscreen">
                 <img class="fullscreen-img" src="${imageUrl}">
-                <div class="overlay-buttons">
+                <div class="overlay-buttons-fullscreen">
                         <button class="close-button"><img src="graphs/Close icon.png"></button>
-                        <button class="fullscreen-button"><img src="graphs/Fullscreen icon.png"></button>
                 </div
             </div>
         `;
         document.body.appendChild(fullScreenOverlay);
         const closeButton = document.querySelector('.fullscreen .close-button');
-        const fullScreenButton = document.querySelector('.fullscreen .fullscreen-button');
 
-        fullScreenButton.addEventListener('click', () => {
-            console.log('Fullscreen button clicked');
-            fullScreenOverlay.remove();
-            resolve();
-        });
         closeButton.addEventListener('click', () => {
             console.log('Fullscreen button clicked');
+            console.log('Fullscreen button clicked');
             fullScreenOverlay.remove();
-            handleClose();
-            nextSlide();
+            updateViewport('no');
             resolve();
         });
         });
@@ -351,7 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     <div class="overlay-buttons">
                         <button class="close-button"><img src="graphs/Close icon.png"></button>
-                        <button class="fullscreen-button"><img src="graphs/Fullscreen icon.png"></button>
+                        <button class="fullscreen-button"><img src="graphs/Fullscreen icon 2 .png"></button>
                     </div>
                 </div>
 

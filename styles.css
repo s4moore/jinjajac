@@ -258,6 +258,17 @@ body, html {
     justify-content: center;
 }
 
+.overlay-buttons-fullscreen {
+    position: fixed;
+    top: 2%; /* Adjust as needed */
+    left: 0; /* Adjust as needed */
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center; /* Center buttons vertically */
+    justify-content: center;
+}
+
 .overlay-buttons button {
     background: none;
     border: none;
@@ -271,11 +282,29 @@ body, html {
 }
 
 .overlay-buttons img {
+    /* opacity: 0.8; */
     width: 100%; /* Ensure the image takes the full width of the button */
     height: 100%; /* Ensure the image takes the full height of the button */
     object-fit: contain;
 }
+.overlay-buttons-fullscreen button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    max-height: 2rem; /* Set maximum height */
+    max-width: 2rem; /* Set maximum width */
+    padding: 0;
+    display: flex; /* Ensure the button uses flexbox */
+    align-items: center; /* Center image vertically */
+    justify-content: center;
+}
 
+.overlay-buttons-fullscreen img {
+    /* opacity: 0.8; */
+    width: 100%; /* Ensure the image takes the full width of the button */
+    height: 100%; /* Ensure the image takes the full height of the button */
+    object-fit: contain;
+}
 .carousel-slide img {
     max-width: 70%;
     max-height: 70%;
@@ -324,7 +353,7 @@ body, html {
     height: 100%;
     width: 100%;
     transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.8);
     color: white;
     border-radius: 10px;
     z-index: 1000;
