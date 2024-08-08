@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return ;
         }
         if (target && target.closest('.fullscreen-button')) {
-            toggleFullscreen();
+            fullScreen();
             return ;
         }
         if (startX <= screenWidth * 0.1) {
@@ -296,6 +296,41 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function fullScreen () {
+        return new Promise((resolve) => {
+            const current = slides[currentSlide];
+            const imageUrl = current.querySelector('img').src;                  
+
+            const fullScreenOverlay = document.createElement('div');
+            fullScreenOverlay.classList.add('fullscreen');
+            fullScreenOverlay.innerHTML = `
+            <div class="fullscreen">
+                <img class="fullscreen-img" src="${imageUrl}">
+                <div class="overlay-buttons">
+                        <button class="close-button"><img src="graphs/Close icon.png"></button>
+                        <button class="fullscreen-button"><img src="graphs/Fullscreen icon.png"></button>
+                </div
+            </div>
+        `;
+        document.body.appendChild(fullScreenOverlay);
+        const closeButton = document.querySelector('.fullscreen .close-button');
+        const fullScreenButton = document.querySelector('.fullscreen .fullscreen-button');
+
+        fullScreenButton.addEventListener('click', () => {
+            console.log('Fullscreen button clicked');
+            fullScreenOverlay.remove();
+            resolve();
+        });
+        closeButton.addEventListener('click', () => {
+            console.log('Fullscreen button clicked');
+            fullScreenOverlay.remove();
+            handleClose();
+            nextSlide();
+            resolve();
+        });
+        });
+    }
+
     function showOverlay() {
         return new Promise((resolve) => {
             // hideCaption();
@@ -315,8 +350,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <img class="overlay-img" src="${imageUrl}">
 
                     <div class="overlay-buttons">
-                        <button class="fullscreen-button"><img src="graphs/Fullscreen icon.png"></button>
                         <button class="close-button"><img src="graphs/Close icon.png"></button>
+                        <button class="fullscreen-button"><img src="graphs/Fullscreen icon.png"></button>
                     </div>
                 </div>
 
@@ -335,16 +370,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             overlayCaptionElement.style.touchAction = 'auto';   
             blurbElement.style.touchAction = 'auto';
-            // overlay.querySelector('.close-button').addEventListener('click', () => {
-            //     handleClose();
-            //     nextSlide();
-            //     resolve();
-            // });
-            // document.querySelector('.fullscreen-button').addEventListener('click', () => {
-            //     // overlayCaptionElement.style.display = 'none';
-            //     // blurbElement.style.display = 'none';
-            //     toggleFullscreen();
-            // });
             overlay.addEventListener('touchstart', handleStart);
             overlay.addEventListener('mousedown', handleStart);
             overlay.addEventListener('touchend', handleEnd);
