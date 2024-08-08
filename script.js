@@ -335,16 +335,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             overlayCaptionElement.style.touchAction = 'auto';   
             blurbElement.style.touchAction = 'auto';
-            overlay.querySelector('.close-button').addEventListener('click', () => {
-                handleClose();
-                nextSlide();
-                resolve();
-            });
-            document.querySelector('.fullscreen-button').addEventListener('click', () => {
-                // overlayCaptionElement.style.display = 'none';
-                // blurbElement.style.display = 'none';
-                toggleFullscreen();
-            });
+            // overlay.querySelector('.close-button').addEventListener('click', () => {
+            //     handleClose();
+            //     nextSlide();
+            //     resolve();
+            // });
+            // document.querySelector('.fullscreen-button').addEventListener('click', () => {
+            //     // overlayCaptionElement.style.display = 'none';
+            //     // blurbElement.style.display = 'none';
+            //     toggleFullscreen();
+            // });
             overlay.addEventListener('touchstart', handleStart);
             overlay.addEventListener('mousedown', handleStart);
             overlay.addEventListener('touchend', handleEnd);
@@ -367,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function toggleFullscreen() {
-        overlay = document.querySelector('.overlay');
+        overlay = document.querySelector('.overlay-content');
         const overlayCaptionElement = document.querySelector('.caption');
         const blurbElement = document.querySelector('.blurb');
         const overlayImage = overlay.querySelector('.overlay-img');
@@ -375,9 +375,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!overlay.classList.contains('fullscreen')) {
             overlayCaptionElement.style.display = 'none';
             blurbElement.style.display = 'none';
-            overlayImage.classList.remove('overlay-img');
-            overlayImage.classList.add('fullscrren-img');
-            overlay.classList.add('fullscreen');
+            // overlayImage.classList.remove('overlay-img');
+            // overlayImage.classList.add('fullscrren-img');
+            // overlay.classList.add('fullscreen');
+            overlay.style.display = 'none';
         } else {
             overlayCaptionElement.style.display = 'block';
             blurbElement.style.display = 'block';
