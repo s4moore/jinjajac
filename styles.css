@@ -249,9 +249,10 @@ body, html {
 
 .overlay-buttons {
     position: absolute;
-    bottom: -2rem; /* Adjust as needed */
-    right: 0; /* Adjust as needed */
+    top: 0; /* Adjust as needed */
+    right: -2rem; /* Adjust as needed */
     display: flex;
+    flex-direction: column;
     gap: 10px;
     align-items: center; /* Center buttons vertically */
     justify-content: center;
