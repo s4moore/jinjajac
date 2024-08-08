@@ -307,15 +307,18 @@ document.addEventListener('DOMContentLoaded', () => {
             overlay = document.createElement('div');
             overlay.classList.add('overlay');
             overlay.innerHTML = `
-                <div class="overlay-buttons">
-                <button class="fullscreen-button"><img src="graphs/Fullscreen .png"></button>
-                <button class="close-button"><img src="graphs/Close.png"></button>
-                </div>
+
                 <div class="overlay-content">
-                <img class="overlay-img" src="${imageUrl}">
-                <div class="caption"></div>
+                    <img class="overlay-img" src="${imageUrl}">
+
+                    <div class="overlay-buttons">
+                        <button class="fullscreen-button"><img src="graphs/Fullscreen icon.png"></button>
+                        <button class="close-button"><img src="graphs/Close icon .png"></button>
+                    </div>
+                                    </div>
+
+                    <div class="caption"></div>
                 <div class="blurb"></div>
-                </div>
             `;
             document.body.appendChild(overlay);
             const overlayCaptionElement = document.querySelector('.caption');
