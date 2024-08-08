@@ -96,9 +96,12 @@ document.addEventListener('DOMContentLoaded', () => {
         videoElement.preload = 'auto';
         videoElement.playbackRate = 0.5;
         videoElement.loop = true;
+        videoElement.controls = false;
+        videoElement.volume = null;
+        videoElement.playsInline = true;
         videoElement.autoplay = true;
         videoElement.muted = true;
-        videoElement.style.objectFit = 'scale-down';
+        videoElement.style.objectFit = 'fill';
     
         const sourceElement = document.createElement('source');
         sourceElement.src = isLandscape ? "/back/landscape.mp4" : "/back/portrait.mp4";
@@ -313,11 +316,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     <div class="overlay-buttons">
                         <button class="fullscreen-button"><img src="graphs/Fullscreen icon.png"></button>
-                        <button class="close-button"><img src="graphs/Close icon .png"></button>
+                        <button class="close-button"><img src="graphs/Close icon.png"></button>
                     </div>
-                                    </div>
+                </div>
 
-                    <div class="caption"></div>
+                <div class="caption"></div>
                 <div class="blurb"></div>
             `;
             document.body.appendChild(overlay);
