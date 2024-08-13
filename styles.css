@@ -70,16 +70,16 @@ body, html {
         width: auto;
     }
 }
+
 @media (orientation: portrait) {
     .collection-header{
-        width: max(300px, 50%);
-        height: auto;
+		height: max(80px, 7%);
     }
 }
 
 @media (orientation: landscape) {
     .collection-header{
-        height: max(100px, 10%);
+        height: max(100px, 20%);
         width: auto;
     }
 }
