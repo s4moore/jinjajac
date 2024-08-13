@@ -89,10 +89,12 @@ body, html {
     flex-direction: column;
     /* align-items: space-between; */
     position: absolute;
-    bottom: 53%;
-    left: 5%;
-    width: 40%;
-    height: 10%;
+    bottom: 7%;
+	top: 37%;
+    left: -3%;
+    width: 65%;
+    /* height:e 100%; */
+	object-fit: contain;
 } 
 
 
@@ -100,11 +102,11 @@ body, html {
 
     /* align-items: center;
     justify-content: center; */
-    width: 165%;
-    margin-top: -2.8%;
+    width: 115%;
+	height: 18%;
     /* height: 120%; */
-    /* margin-top: -40%;
-    margin-bottom: -40%; */
+    margin-top: -0.65%;
+    /* margin-bottom: -40%; */ */
     /* margin: 0; */
     padding: 0;
     /* background: rgba(0, 0, 0, 0.9); */
@@ -116,7 +118,7 @@ body, html {
 }
 
 .menu-item img {
-    width: 100%;
+    width: 110%;
     height: 100%;
     object-fit: contain;
     background: transparent;
