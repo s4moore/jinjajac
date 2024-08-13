@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             data.forEach((image, index) => {
                 const slide = document.createElement('div');
                 slide.classList.add('carousel-slide');
+                console.log(`Creating slide for image: ${image.src}`);
                 slide.innerHTML = `
                 <img src="${collection}/${image.src}" alt="Image ${index + 1}">
                 `;
@@ -79,6 +80,10 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             collections = data;
             collection = data[currentCollection].name;
+            const collectionHeader = document.querySelector('.collection-header');
+            collectionHeader.innerHTML = `
+            <img src="headers/${collection}.png" alt="${collection} header">
+            `;
             console.log(`Changing collection to: ${collection}`);
             fetchSlides(collection);
         });
@@ -158,10 +163,10 @@ document.addEventListener('DOMContentLoaded', () => {
             fullScreen();
             return ;
         }
-        if (startX <= screenWidth * 0.1) {
+        if (startX <= screenWidth * 0.2) {
             prevSlide();
             return;
-        } else if (startX >= screenWidth * 0.9 )  {
+        } else if (startX >= screenWidth * 0.8 )  {
             getNextSlide();
             return;
         }
@@ -317,7 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="fullscreen">
                 <img class="fullscreen-img" src="${imageUrl}">
                 <div class="overlay-buttons-fullscreen">
-                        <button class="close-button"><img src="graphs/Close icon.png"></button>
+                        <button class="close-button"><img src="graphs/Close screen icon.png"></button>
                 </div
             </div>
         `;
@@ -353,8 +358,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <img class="overlay-img" src="${imageUrl}">
 
                     <div class="overlay-buttons">
-                        <button class="close-button"><img src="graphs/Close icon.png"></button>
-                        <button class="fullscreen-button"><img src="graphs/Fullscreen icon 2 .png"></button>
+                        <button class="close-button"><img src="graphs/Close screen icon.png"></button>
+                        <button class="fullscreen-button"><img src="graphs/Fullscreen icon  2.png"></button>
                     </div>
                 </div>
 
