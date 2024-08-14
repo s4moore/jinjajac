@@ -332,8 +332,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="fullscreen">
                 <img class="fullscreen-img" src="${imageUrl}">
                 <div class="overlay-buttons-fullscreen">
-                        <button class="close-button"><img src="icons/Less creative close icon .png"></button>
-                </div
+                        <button class="close-button fixed-top-left"><img src="icons/Less creative close icon .png"></button>
+                </div>
             </div>
         `;
         document.body.appendChild(fullScreenOverlay);
