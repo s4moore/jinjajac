@@ -33,12 +33,38 @@ body, html {
 .collection-header img {
     height: 100%;
     width: 100%;
+    opacity: 0.8;
     object-fit: contain;
     background: transparent;
     z-index: 1005;
 }
 
-.menu-toggle, .menu {
+.change-area {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 22%;
+    height: 22%;
+}
+
+.menu-toggle {
+    display: block;
+    position: fixed;
+    max-width: 100%;
+    z-index: 1002;
+    top: 0.5%;
+    right: 0;
+    object-fit: contain;
+}
+
+.menu-toggle img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: transparent;
+    z-index: 1002;
+}
+/*.menu-toggle,*/ .menu {
     display: block;
     position: fixed;
     max-width: 100%;
@@ -48,7 +74,7 @@ body, html {
     object-fit: contain;
 }
 
-.menu-toggle img, .menu img {
+/*.menu-toggle img,*/ .menu img {
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -57,16 +83,25 @@ body, html {
 }
 
 @media (orientation: portrait) {
-    .menu-toggle, .menu{
+    /*.menu-toggle, */.menu{
 
         width: max(300px, 50%);
+        height: auto;
+    }
+    .menu-toggle{
+
+        width: max(126px, 21%);
         height: auto;
     }
 }
 
 @media (orientation: landscape) {
-    .menu-toggle, .menu{
+    /*.menu-toggle,*/ .menu{
         height: min(500px, 75%);
+        width: auto;
+    }
+    .menu-toggle{
+        height: min(206.6px, 31%);
         width: auto;
     }
 }
@@ -91,8 +126,8 @@ body, html {
     flex-direction: column;
     /* align-items: space-between; */
     position: absolute;
-    bottom: 7%;
-	top: 37%;
+    bottom: 6%;
+	top: 41%;
     left: -3%;
     width: 65%;
     /* height:e 100%; */
@@ -108,7 +143,7 @@ body, html {
 	height: 18%;
     /* height: 120%; */
     margin-top: -0.65%;
-    /* margin-bottom: -40%; */ */
+    /* margin-bottom: -40%; */
     /* margin: 0; */
     padding: 0;
     /* background: rgba(0, 0, 0, 0.9); */
