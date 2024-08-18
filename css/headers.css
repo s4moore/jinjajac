@@ -1,0 +1,19 @@
+.collection-header {
+    background: transparent;
+    object-fit: contain;
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1005;
+}
+
+.collection-header img {
+    height: 100%;
+    width: 100%;
+    opacity: 0.8;
+    object-fit: contain;
+    background: transparent;
+    z-index: 1005;
+}
+

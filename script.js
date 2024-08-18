@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadingOverlay = document.getElementById('loading-overlay');
     // const captionElement = document.querySelector('.carousel-caption p');
     let images = [];
-    const carouselContainer = document.querySelector('.carousel-container');
+    const carouselContainer = document.querySelector('.carousel');
     let overlay = null;
     let slides = [];
     let currentSlide = 0;
@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             data.forEach((image, index) => {
                 const slide = document.createElement('div');
                 slide.classList.add('carousel-slide');
+                slide.classList.add('hidden');
                 console.log(`Creating slide for image: ${image.src}`);
                 slide.innerHTML = `
                 <img src="collections/${collection}/${image.src}" alt="Image ${index + 1}">
