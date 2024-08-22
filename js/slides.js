@@ -57,19 +57,22 @@ export function showSlide(index) {
     });
 }
 
-export function expandDone(event) {
+function expandDone(event) {
     const slide = event.target;
+    console.log('Expand done:', slide);
     slide.removeEventListener('animationend', expandDone);
-    slide.classList.add('disolve', 'active');
-    nextSlide();
+    slide.classList.remove('active');
+    slide.classList.add('disolve');
     slide.addEventListener('animationend', disolveDone);
+    nextSlide();
 }
 
-export function disolveDone(event) {
+function disolveDone(event) {
+    console.log('Disolve done:', event.target);
     const slide = event.target;
     slide.removeEventListener('animationend', disolveDone);
     slide.classList.add('hidden');
-    slide.classList.remove('disolve', 'active');
+    slide.classList.remove('disolve');
 }
 
 export function nextSlide() {

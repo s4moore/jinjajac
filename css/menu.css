@@ -1,15 +1,11 @@
 
-:root {
-    --menu-height: 16%;
-    --menu-width: 21%;
-}
-
 .menu-area {
     display: flex;
     flex-direction: column;
     position: fixed;
     width: 50%;
-    height: 100%;
+    height: 100vh;
+    max-height: 100%;
     top: 0;
     right: 0;
     z-index: 1001;
@@ -50,7 +46,9 @@
 .menu {
     display: none;
     flex-direction: column;
+    opacity: 0.5;
     background: url('/menu/menu-box.png');
+    background-size: cover;
     /* position: absolute;
     width: 200%;
     height: 150%;

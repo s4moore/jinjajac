@@ -12,16 +12,7 @@ export     function updateViewport(userScalable) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    document.addEventListener('touchmove', function(event) {
-        if (event.scale !== 1) {
-            event.preventDefault();
-        }
-    }, { passive: false });
-    window.addEventListener('wheel', function(event) {
-        if (event.ctrlKey) {
-            event.preventDefault();
-        }
-    }, { passive: false });
+
     const carouselContainer = document.querySelector('.carousel');
     let menuHidden = true;
     const menuItems = document.querySelector('.menu-item');
@@ -33,12 +24,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleCollection = document.querySelector('.header-2-button');
     let collectionsHidden = true;
     
-
-
+    console.log(screen.width);
+    console.log(screen.height);
+    const headers = document.querySelector('.collection-header');
+    headers.style.height = `${screen.height}px`;
     changeCollection(0);
-    setBackgroundVideo();
+    // setBackgroundVideo();
     window.addEventListener('resize', setBackgroundVideo);
 
+    document.addEventListener('touchmove', function(event) {
+        if (event.scale !== 1) {
+            event.preventDefault();
+        }
+    }, { passive: false });
+    window.addEventListener('wheel', function(event) {
+        if (event.ctrlKey) {
+            event.preventDefault();
+        }
+    }, { passive: false });
     toggleCollection.addEventListener('click', () => {
         toggleCollections();
         collectionsHidden = !collectionsHidden;

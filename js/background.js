@@ -3,6 +3,8 @@ export function setBackgroundVideo() {
     if (existingVideo) {
         existingVideo.remove();
     }
+    const headers = document.querySelector('.collection-header');
+    headers.style.height = `${screen.height}px`;
     const isLandscape = window.matchMedia("(orientation: landscape)").matches;
     const videoElement = document.createElement('video'); // Create a new video element
     videoElement.preload = 'auto';
@@ -13,7 +15,7 @@ export function setBackgroundVideo() {
     videoElement.playsInline = true;
     videoElement.autoplay = true;
     videoElement.muted = true;
-    videoElement.style.objectFit = 'fill';
+    videoElement.style.objectFit = 'cover';
 
     const sourceElement = document.createElement('source');
     sourceElement.src = isLandscape ? "/back/landscape.mp4" : "/back/portrait.mp4";
