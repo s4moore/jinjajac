@@ -103,6 +103,7 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
+    animation: fadein 10s forwards;
 }
 .blurb::-webkit-scrollbar {
     display: none;
@@ -120,7 +121,7 @@
     /* max-height: 25%; */
     padding: 5px;
     text-wrap: nowrap;
-    animation: fadein 5s forwards;
+    animation: fadein 10s forwards;
 }
 
 .overlay {

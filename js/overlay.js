@@ -107,11 +107,11 @@ export function showOverlay() {
     return new Promise((resolve) => {
         const current = slides[currentSlide];
         console.log('Current slide:', current);
-        let imageUrl
+        let imageUrl;
         if (screen.width > screen.height) {
             imageUrl = current.getAttribute('landscape');
         } else {
-            imageUrl = document.querySelector('img').src;
+            imageUrl = current.querySelector('img').src;
         }
         current.classList.add('hidden');
         // current.classList.add('overlay');
