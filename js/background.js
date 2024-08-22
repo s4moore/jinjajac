@@ -3,8 +3,7 @@ export function setBackgroundVideo() {
     if (existingVideo) {
         existingVideo.remove();
     }
-    const headers = document.querySelector('.collection-header');
-    headers.style.height = `${screen.height}px`;
+
     const isLandscape = window.matchMedia("(orientation: landscape)").matches;
     const videoElement = document.createElement('video'); // Create a new video element
     videoElement.preload = 'auto';

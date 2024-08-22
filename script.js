@@ -26,8 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     console.log(screen.width);
     console.log(screen.height);
-    const headers = document.querySelector('.collection-header');
-    headers.style.height = `${screen.height}px`;
+
     changeCollection(0);
     // setBackgroundVideo();
     window.addEventListener('resize', setBackgroundVideo);
