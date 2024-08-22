@@ -8,9 +8,10 @@
     display: block;
     position: absolute;
     width: 14%;
+    height: 14%;
     z-index: 1010;
     top: 3%;
-    left: 84%;
+    right: 1%;
 }
 
 @media (orientation: portrait) {
