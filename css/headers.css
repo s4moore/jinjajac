@@ -17,6 +17,13 @@
     }
 }
 
+.collection-header {
+    /* display: block; */
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+}
+
 .header-2 {
     display: block;
     pointer-events: none;
