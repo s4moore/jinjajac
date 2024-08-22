@@ -71,7 +71,7 @@
 .header-1 img {
     height: 100%;
     width: 100%;
-    opacity: 0.2;
+    opacity: 0.5;
     object-fit: contain;
     background: transparent;
     z-index: 1005;
@@ -92,7 +92,7 @@
 .header-3 img {
     height: 100%;
     width: 100%;
-    opacity: 0.2;
+    opacity: 0.5;
     object-fit: contain;
     background: transparent;
     z-index: 1005;

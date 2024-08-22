@@ -23,11 +23,11 @@ export function fadeOut(item) {
 export function fadeIn(item) {
     item.classList.remove('fadeOut');
     // item.style.opacity = '0';
-    item.style.display = 'block';            
+    item.style.display = 'flex';            
     item.classList.add('fadeIn');
     item.addEventListener('animationend', () => {
         item.classList.remove('fadeIn');
-        item.style.display = 'block';
+        item.style.display = 'flex';
     });
 }
 
