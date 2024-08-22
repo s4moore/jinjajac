@@ -10,7 +10,7 @@
     width: 14%;
     z-index: 1010;
     top: 3%;
-    right: 2%;
+    left: 84%;
 }
 
 @media (orientation: portrait) {
