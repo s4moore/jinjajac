@@ -20,7 +20,7 @@ export function fullScreen () {
     return new Promise((resolve) => {
         updateViewport('yes');
         const current = slides[currentSlide];
-        const imageUrl = current.querySelector('img').src;                  
+        const imageUrl = current.getAttribute('landscape');               
 
         const fullScreenOverlay = document.createElement('div');
         fullScreenOverlay.classList.add('fullscreen');
@@ -107,7 +107,12 @@ export function showOverlay() {
     return new Promise((resolve) => {
         const current = slides[currentSlide];
         console.log('Current slide:', current);
-        const imageUrl = current.getAttribute('landscape');               
+        let imageUrl
+        if (screen.width > screen.height) {
+            imageUrl = current.getAttribute('landscape');
+        } else {
+            imageUrl = document.querySelector('img').src;
+        }
         current.classList.add('hidden');
         // current.classList.add('overlay');
         slides[currentSlide].classList.remove('active');
