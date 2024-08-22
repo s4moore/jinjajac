@@ -26,6 +26,11 @@ export function handleEnd(e) {
     if (e.target.tagName.toLowerCase() === 'a') {
         return;
     }
+    if (!document.querySelector('.menu').classList.contains('hidden')
+    && !document.querySelector('.menu').classList.contains('fadeOut')) {
+        toggleMenu();
+        return ;
+    }
     const screenWidth = window.innerWidth;
 
 

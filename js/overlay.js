@@ -135,6 +135,7 @@ export function showOverlay() {
 
         `;
         document.body.appendChild(overlay);
+        overlay.classList.add('blur');
         const overlayCaptionElement = document.querySelector('.caption');
         overlayCaptionElement.innerText = current.getAttribute('data-caption');
         // const menuImg = document.querySelector('.menu img');
