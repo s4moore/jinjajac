@@ -57,6 +57,40 @@ export function fullScreen () {
         }
     }, { passive: false });
 
+    let initialDistance = null;
+let initialScale = 1;
+
+// Function to calculate distance between two touch points
+function getDistance(touches) {
+    const [touch1, touch2] = touches;
+    const dx = touch1.clientX - touch2.clientX;
+    const dy = touch1.clientY - touch2.clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+}
+
+// Function to handle pinch zoom
+screen.addEventListener('touchmove', function(event) {
+    if (event.touches.length === 2) {
+        event.preventDefault(); // Prevent the default pinch behavior
+
+        const currentDistance = getDistance(event.touches);
+
+        if (initialDistance === null) {
+            initialDistance = currentDistance;
+            initialScale = parseFloat(image.style.transform.replace(/[^0-9.]/g, '')) || 1;
+        } else {
+            const scale = initialScale * (currentDistance / initialDistance);
+            image.style.transform = `scale(${scale})`;
+        }
+    }
+}, { passive: false });
+
+// Reset initial distance on touch end
+screen.addEventListener('touchend', function(event) {
+    if (event.touches.length < 2) {
+        initialDistance = null;
+    }
+});
 
     const closeButton = document.querySelector('.fullscreen .close-button');
 
