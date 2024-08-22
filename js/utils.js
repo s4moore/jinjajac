@@ -1,33 +1,52 @@
-let collectionsHidden = true, menuHidden = true;
-
+let collectionsHidden = false, menuHidden = false, menuFadeTimeOut = null, collectionsFadeTimeOut = null;
 const menu = document.querySelector('.menu');
 
 export function toggleMenu() {
     if (menuHidden) {
+        if (menuFadeTimeOut) {
+            clearTimeout(menuFadeTimeOut);
+        }
         fadeIn(menu);
+        menuFadeTimeOut = setTimeout(() => {
+            fadeOut(menu);
+            menuHidden = true;
+        }, 3000);
+        menuHidden = false;
     } else {
+        if (menuFadeTimeOut) {
+            clearTimeout(menuFadeTimeOut);
+        }
         fadeOut(menu);
+        menuHidden = true;
     }
-    menuHidden = !menuHidden;
+}
+
+export function fadeInHeader(item) {
+    item.classList.remove('hidden');         
+    item.classList.add('fadeInHeader');
+    item.addEventListener('animationend', () => {
+        item.style.opacity = '0.8';
+        item.classList.remove('hidden');         
+        item.classList.remove('fadeIn');
+    });
 }
 
 export function fadeOut(item) {
-    item.classList.remove('fadeIn');
     item.classList.add('fadeOut');
     item.addEventListener('animationend', () => {
-        item.style.display = 'none';
+        item.classList.add('hidden');
+        item.style.opacity = '0';
         item.classList.remove('fadeOut');
     });
 }
 
 export function fadeIn(item) {
-    item.classList.remove('fadeOut');
-    // item.style.opacity = '0';
-    item.style.display = 'flex';            
+    item.classList.remove('hidden');         
     item.classList.add('fadeIn');
     item.addEventListener('animationend', () => {
+        item.style.opacity = '0.8';
+        item.classList.remove('hidden');         
         item.classList.remove('fadeIn');
-        item.style.display = 'flex';
     });
 }
 
@@ -37,12 +56,24 @@ export function toggleCollections() {
     const header3 = document.querySelector('.header-3');
     if (!collectionsHidden)
     {
+        if (collectionsFadeTimeOut) {
+            clearTimeout(collectionsFadeTimeOut);
+        }
         fadeOut(header1);
         fadeOut(header3);
+        collectionsHidden = true;
     } else {
+        if (collectionsFadeTimeOut) {
+            clearTimeout(collectionsFadeTimeOut);
+        }
         fadeIn(header1);
         fadeIn(header3);
+        collectionsFadeTimeOut = setTimeout(() => {
+            fadeOut(header1);
+            fadeOut(header3);
+            collectionsHidden = true;
+        }, 5000);
+        collectionsHidden = false;
     }
-    collectionsHidden = !collectionsHidden;
     console.log('Collections hidden:', collectionsHidden);
 }
