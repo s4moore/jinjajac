@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const headerDownButton = document.querySelector('.header-3');
     const toggleCollection = document.querySelector('.header-2-button');
     const menuArea = document.querySelector('.menu-area');
+    const menu = document.querySelector('.menu');
     let collectionsHidden = true;
 
     toggleCollections();
@@ -84,4 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
     menuArea.addEventListener('mousedown', handleStart);      
     menuArea.addEventListener('touchend', handleEnd);
     menuArea.addEventListener('mouseup', handleEnd);
+    menu.addEventListener('touchstart', handleStart);
+    menu.addEventListener('mousedown', handleStart);      
+    menu.addEventListener('touchend', handleEnd);
+    menu.addEventListener('mouseup', handleEnd);
 });

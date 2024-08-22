@@ -10,7 +10,7 @@ export function toggleMenu() {
         menuFadeTimeOut = setTimeout(() => {
             fadeOut(menu);
             menuHidden = true;
-        }, 3000);
+        }, 10000);
         menuHidden = false;
     } else {
         if (menuFadeTimeOut) {
@@ -25,9 +25,9 @@ export function fadeInHeader(item) {
     item.classList.remove('hidden');         
     item.classList.add('fadeInHeader');
     item.addEventListener('animationend', () => {
-        item.style.opacity = '0.8';
+        item.style.opacity = '0.4';
         item.classList.remove('hidden');         
-        item.classList.remove('fadeIn');
+        item.classList.remove('fadeInHeader');
     });
 }
 
@@ -66,8 +66,8 @@ export function toggleCollections() {
         if (collectionsFadeTimeOut) {
             clearTimeout(collectionsFadeTimeOut);
         }
-        fadeIn(header1);
-        fadeIn(header3);
+        fadeInHeader(header1);
+        fadeInHeader(header3);
         collectionsFadeTimeOut = setTimeout(() => {
             fadeOut(header1);
             fadeOut(header3);

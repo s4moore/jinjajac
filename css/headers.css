@@ -122,3 +122,27 @@
         opacity: 0.8;
     }
 }
+
+
+.fadeInHeader {
+
+    animation: fadeinheader 1s forwards;
+}
+
+@keyframes fadeout {
+    /* from {
+        opacity: 0.8;
+    } */
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeinheader {
+    /* from {
+        opacity: 0;
+    } */
+    to {
+        opacity: 0.4;
+    }
+}

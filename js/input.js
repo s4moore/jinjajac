@@ -6,6 +6,9 @@ import { toggleMenu } from './utils.js';
 let startX, endX, startY, endY;
 
 export function handleStart(e) {
+    if (e.target.tagName.toLowerCase() === 'a' || e.target.closest('a')) {
+        return;
+    }
     if (!e.target.closest('.blurb')) {
         e.preventDefault();
         startX = e.touches ? e.touches[0].clientX : e.clientX;
@@ -15,13 +18,16 @@ export function handleStart(e) {
 
 
 export function handleEnd(e) {
+    const target = e.target;
+    console.log('End event target:', target);
     // if (e.target.closest('.menu')) {
     //     return;
     // }
-
+    if (e.target.tagName.toLowerCase() === 'a') {
+        return;
+    }
     const screenWidth = window.innerWidth;
-    const target = e.target;
-    console.log('End event target:', target);
+
 
     if (target.closest('.menu')) {
         return ;

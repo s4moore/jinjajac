@@ -107,7 +107,12 @@
 }
 
 .menu-item img:hover {
-    transform: scale(1.5);
+    transform: translateX(-10%) scale(1.2);
+}
+
+.menu-item img:active {
+    transform: translate(0) scale(1);
+    background-color: gray;
 }
 
 .menu-item img {
