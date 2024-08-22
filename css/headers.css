@@ -1,19 +1,99 @@
-.collection-header {
+.header-2 {
+    display: block;
+    pointer-events: none;
     background: transparent;
     object-fit: contain;
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
+    position: absolute;
+    top: 8%;
+    left: 4%;
+    width: 20%;
     z-index: 1005;
 }
 
-.collection-header img {
+.header-2-button {
+    display: block;
+    background: transparent;
+    object-fit: contain;
+    position: absolute;
+    top: 8%;
+    bottom: 86%;
+    left: 4%;
+    width: 20%;
+    z-index: 1005;
+}
+
+.header-2 img {
     height: 100%;
     width: 100%;
-    opacity: 0.8;
+    opacity: 0.7;
     object-fit: contain;
     background: transparent;
     z-index: 1005;
 }
 
+.header-1 {
+    display: none;
+    background: transparent;
+    object-fit: contain;
+    position: absolute;
+    top: 1%;
+    left: 0%;
+    width: 13%;
+    z-index: 1005;
+}
+
+.header-1 img {
+    height: 100%;
+    width: 100%;
+    opacity: 0.2;
+    object-fit: contain;
+    background: transparent;
+    z-index: 1005;
+    transform: fadeIn 2s;
+}   
+
+.header-3 {
+    display: none;
+    background: transparent;
+    object-fit: contain;
+    position: absolute;
+    bottom: 1%;
+    left: 0%;
+    width: 13%;
+    z-index: 1005;
+}   
+
+.header-3 img {
+    height: 100%;
+    width: 100%;
+    opacity: 0.2;
+    object-fit: contain;
+    background: transparent;
+    z-index: 1005;
+}   
+
+.fadeOut {
+    animation: fadeout 1s forwards;
+}
+
+.fadeIn {
+    animation: fadein 1s forwards;  
+}
+
+@keyframes fadeout {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
