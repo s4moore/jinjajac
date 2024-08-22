@@ -1,0 +1,161 @@
+.overlay-buttons {
+    position: absolute;
+    top: 0; /* Adjust as needed */
+    left: 0; /* Adjust as needed */
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center; /* Center buttons vertically */
+    justify-content: center;
+    z-index: 1050;
+}
+
+.overlay-buttons-fullscreen {
+    position: sticky;
+    top: 5px; /* Adjust as needed */
+    left: 5px; /* Adjust as needed */
+    /* display: flex;
+    flex-direction: row; */
+    /* gap: 10px;
+    align-items: center; /* Center buttons vertically */
+    /* justify-content: center; */
+    transform-origin: 0 0;
+}
+
+.overlay-buttons button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    max-height: 2rem; /* Set maximum height */
+    max-width: 2rem; /* Set maximum width */
+    padding: 0;
+    display: flex; /* Ensure the button uses flexbox */
+    align-items: center; /* Center image vertically */
+    justify-content: center;
+    z-index: 1050;
+}
+
+.close-button {
+    opacity: 0;
+    z-index: 1050 !important;
+    animation: fadein 5s forwards;
+}
+
+.fullscreen-button {
+    opacity: 0;
+    z-index: 1050 !important;
+    animation: fadein 5s forwards;
+}
+.overlay-buttons img {
+    /* opacity: 0.8; */
+    width: 100%; /* Ensure the image takes the full width of the button */
+    height: 100%; /* Ensure the image takes the full height of the button */
+    object-fit: contain;
+    z-index: 1050;
+}
+.overlay-buttons-fullscreen button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    max-height: 2rem; /* Set maximum height */
+    max-width: 2rem; /* Set maximum width */
+    padding: 0;
+    display: flex; /* Ensure the button uses flexbox */
+    align-items: center; /* Center image vertically */
+    justify-content: center;
+}
+
+.overlay-buttons-fullscreen img {
+    /* opacity: 0.8; */
+    width: 100%; /* Ensure the image takes the full width of the button */
+    height: 100%; /* Ensure the image takes the full height of the button */
+    object-fit: contain;
+}
+
+
+
+
+.overlay .text-boxes {
+    width: 100%;
+    text-align: center;
+    padding: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    justify-content: space-between;
+    touch-action: auto;
+}
+
+.info-button {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 6.5%;
+    width: 10%;
+    transform: translate(75%, 50%);
+    object-fit: contain;
+    animation: fadein 5s forwards;
+}
+
+.info-button img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.blurb::-webkit-scrollbar {
+    display: none;
+}
+
+.caption{
+    background: rgba(98, 118, 115, 0.8);
+    font-size: 2rem;
+    position: absolute;
+    bottom: -3%;
+    left: 50%;
+    transform: translateX(-50%);
+    /* margin: auto; */
+    color: rgb(221, 217, 217);
+    /* max-height: 25%; */
+    padding: 5px;
+    text-wrap: nowrap;
+    animation: fadein 5s forwards;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+    max-height: 100%;
+    opacity: 1;
+    color: white;
+    border-radius: 10px;
+    z-index: 1000;
+    gap: 1px;
+}
+
+.overlay-content {
+    display: flex;
+    position: absolute;
+    /* display: block; */
+    top: 50%;
+    left: 50%;
+    height: 63%;
+    max-width: 63%;
+    transform: translate(-50%, -50%);
+    /* display: inline-block; */
+    /* width: 90vw; */
+    object-fit: contain;
+    opacity: 1;
+}
+
+.overlay-img{
+    max-height: 100%;
+    opacity: 1;
+    display: flex;
+    object-fit: contain;
+}

@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Carousel</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/overlay.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/headers.css">
+    <link rel="stylesheet" href="css/carousel.css">
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
 </head>
 <body>
@@ -13,29 +17,30 @@
         <div class="spinner"></div>
         <p>Loading...</p>
     </div>
-    <div class="menu hidden">
-        <img src="/menu/Better contrast background + logo.png" alt="logo">
-        <div class="menu-overlay">
-            <a class="menu-item" href="pages/about.html"><img src="menu/tabs/1b.png"></a>
-            <a class="menu-item" href="#"><img src="menu/tabs/2b.png"></a>
-            <a class="menu-item" href="#"><img src="menu/tabs/3b.png"></a>
-            <a class="menu-item" href="#"><img src="menu/tabs/4b.png"></a>
-            <a class="menu-item" href="#"><img src="menu/tabs/5b.png"></a>
-            <a class="menu-item" href="#"><img src="menu/tabs/6b.png"></a>
+    <div class="carousel"></div>
+    <div class="menu-toggle" >
+        <img id="change-menu-btn" src="/menu/menu-logo.png" alt="logo">
+        <div class="menu">
+            <img src="/menu/menu-box.png" alt="logo">
+            <div class="menu-overlay">
+                <a class="menu-item" href="pages/about.html"><img src="menu/tabs/1b.png"></a>
+                <a class="menu-item" href="#"><img src="menu/tabs/2b.png"></a>
+                <a class="menu-item" href="#"><img src="menu/tabs/3b.png"></a>
+                <a class="menu-item" href="#"><img src="menu/tabs/4b.png"></a>
+                <a class="menu-item" href="#"><img src="menu/tabs/5b.png"></a>
+                <a class="menu-item" href="#"><img src="menu/tabs/6b.png"></a>
+            </div>
         </div>
     </div>
 
-    <div class="carousel-container">
-        <div class="carousel"></div>
+    <div class="collection-header">
+        <div class="header-1"></div>
+        <div class="header-2"></div>
+            <div class="header-2-button"></div>
+        <div class="header-3"></div>
     </div>
-    <div class="collection-header"></div>
-    <div class="menu-toggle" >
-        <img id="change-menu-btn" src="/menu/JINJAJAC 500 pix logo .png" alt="logo">
-    </div>
-    <!-- <div class="carousel-caption">
-        <p></p>
-    </div> -->
-    <script src="script.js">
+
+    <script type="module" src="script.js">
     </script>
 </body>
 </html>
