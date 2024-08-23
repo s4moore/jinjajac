@@ -112,19 +112,20 @@
 }
 
 .caption{
+    display: block;
     background: rgba(98, 118, 115, 0.8);
     opacity: 0;
-    font-size: 2rem;
+    font-size: 1rem;
     position: absolute;
-    bottom: -2.5rem;
+    bottom: -1.2rem;
     left: 50%;
     transform: translateX(-50%);
-    /* margin: auto; */
+    margin: auto;
     color: rgb(221, 217, 217);
-    /* max-height: 25%; */
     padding: 5px;
     text-wrap: nowrap;
     animation: fadein 10s forwards;
+    height: 1rem;
 }
 
 .overlay {
@@ -140,10 +141,10 @@
     border-radius: 10px;
     z-index: 1000;
     backdrop-filter: blur(0);
-    /* background-color: rgba(0, 0, 0, 0.7); */
+    -webkit-backdrop-filter: blur(0);
+    background-color: rgba(0, 0, 0, 0);
     transition: background-color 10s ease, backdrop-filter 10s ease;
     -webkit-transition: -webkit-backdrop-filter 10s ease, background-color 10s ease;
-    gap: 1px;
 }
 
 .blur {
@@ -153,40 +154,32 @@
 }
 .overlay-content {
     display: flex;
-    position: absolute;
-    /* display: block; */
+    align-items: center;
+    justify-items: center;
+    /* justify-content: center;
+    align-items: center; */
+
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    /* display: inline-block; */
-    /* width: 90vw; */
-    object-fit: contain;
+    background-color: rgba(0, 0, 0, 0.5); /* Transparent black background */
+    box-shadow: 0px 0px 15px 27px rgba(0, 0, 0, 0.5); /* Optional shadow for better visibility */
+    border-radius: 10px; /* Optional rounded corners */
     opacity: 1;
+    overflow: visible;
+
 }
 
 .overlay-img{
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     box-shadow: 0px 0px 15px 27px rgba(0, 0, 0, 0.97);
     background-color: rgba(0, 0, 0, 0.97);
     opacity: 1;
-    display: flex;
+    position: absolute;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
-}
-
-@media (orientation: portrait) {
-    .overlay-img {
-        max-width: 100%;
-    }
-    .overlay-content{
-        width: 85%;
-    }
-}
-
-@media (orientation: landscape) {
-    .overlay-img {
-        max-height: 100%;
-    }
-    .overlay-content{
-        height: 63%;
-        max-width: 63%;
-    }
 }

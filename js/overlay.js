@@ -105,6 +105,8 @@ screen.addEventListener('touchend', function(event) {
 
 export function showOverlay() {
     return new Promise((resolve) => {
+        let overlay = document.querySelector('.overlay');
+
         const current = slides[currentSlide];
         console.log('Current slide:', current);
         let imageUrl;
@@ -123,35 +125,71 @@ export function showOverlay() {
         overlay.classList.add('overlay');
         overlay.innerHTML = `
             <div class="overlay-content">
-                <img class="overlay-img" src="${imageUrl}">
+                <img class="overlay-img" src="${imageUrl}"  id="dynamic-img">
                 <div class="overlay-buttons">
                     <button class="close-button"><img src="icons/Less creative close icon .png"></button>
                     <button class="fullscreen-button"><img src="icons/Less creative fullscreen icon .png"></button>
                 </div>
+
                 <div class="caption"></div>
                 <div class="info-button"><img src="icons/Information .png"></div>
-
             </div>
 
         `;
+
         document.body.appendChild(overlay);
         overlay.classList.add('blur');
-        const overlayCaptionElement = document.querySelector('.caption');
-        overlayCaptionElement.innerText = current.getAttribute('data-caption');
-        // const menuImg = document.querySelector('.menu img');
-        // if (menuImg) {
-        //     menuImg.style.right = 'auto';
-        //     menuImg.style.left = '0';
-        // }
-        overlayCaptionElement.style.touchAction = 'auto';   
-        const closeButton = document.querySelector('.close-button');
-        const fullscreenButton = document.querySelector('.fullscreen-button');
-        overlay.addEventListener('touchstart', handleStart);
-        overlay.addEventListener('mousedown', handleStart);
-        overlay.addEventListener('touchend', handleEnd);
-        overlay.addEventListener('mouseup', handleEnd);
-    });
-}     
+            const img = document.getElementById('dynamic-img');
+            const overlayContent = document.querySelector('.overlay-content');
+            const caption = document.querySelector('.caption');
+            let containerWidth, containerHeight;
+
+            img.addEventListener('load', adjustImageSize);
+
+
+            function adjustImageSize() {
+                const aspectRatio = img.naturalWidth / img.naturalHeight;
+
+                if (overlay.clientWidth < overlay.clientHeight) {
+                    containerWidth = overlay.clientWidth * 0.95;
+                    containerHeight = containerWidth / aspectRatio;
+                } else {
+                    if (screen.width > screen.height * 1.5) {
+                        containerHeight = overlay.clientHeight * 0.9;
+                    } else {
+                        containerHeight = overlay.clientHeight * 0.7;
+                    }
+                    containerWidth = containerHeight * aspectRatio;
+                }
+                console.log('Aspect ratio: ', aspectRatio);
+                console.log('Container width:', containerWidth);
+                console.log('Container height:', containerHeight);
+                overlayContent.style.height = `${containerHeight}px`;
+                overlayContent.style.width = `${containerWidth}px`;
+                caption.innerText = current.getAttribute('data-caption');
+                caption.style.width = 'auto';
+                caption.classList.add('fadeIn');
+            }
+    
+            // Adjust the image size when the image is loaded
+    
+            // Adjust the image size on window resize
+            window.addEventListener('resize', adjustImageSize);
+            // Adjust the image size when the image source changes
+    
+            const closeButton = document.querySelector('.close-button');
+            closeButton.addEventListener('click', () => {
+                handleClose();
+                resolve();
+            });
+    
+            const fullscreenButton = document.querySelector('.fullscreen-button');
+            overlay.addEventListener('touchstart', handleStart);
+            overlay.addEventListener('mousedown', handleStart);
+            overlay.addEventListener('touchend', handleEnd);
+            overlay.addEventListener('mouseup', handleEnd);
+        });
+    }
 
 export function updateOverlayImage() {
     overlay = document.querySelector('.overlay'); // Ensure overlay is reassigned
@@ -168,6 +206,7 @@ export function updateOverlayImage() {
             captionElement.innerText = slides[currentSlide].getAttribute('data-caption');
             // blurbElement.innerText = current.getAttribute('data-blurb');
         }
+        
     updateCaptionAndBlurb();
     showOverlay();
     }

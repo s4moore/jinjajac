@@ -25,6 +25,16 @@ export function setBackgroundVideo() {
     videoElement.classList.add('background-video');
     document.body.appendChild(videoElement);
 
+    // const playVideo = () => {
+    //     videoElement.play().catch(error => {
+    //         console.error('Error attempting to play the video:', error);
+    //     });
+    // };
+
+    // Add event listeners for user interaction to start video playback
+    // document.addEventListener('click', playVideo, { once: true });
+    // document.addEventListener('touchstart', playVideo, { once: true });
+
     videoElement.addEventListener('canplaythrough', () => {
         console.log('Video can play through without stopping for buffering.');
         videoElement.play().catch(error => {
