@@ -141,12 +141,14 @@
     backdrop-filter: blur(0);
     /* background-color: rgba(0, 0, 0, 0.7); */
     transition: background-color 10s ease, backdrop-filter 10s ease;
+    -webkit-transition: -webkit-backdrop-filter 10s ease, background-color 10s ease;
     gap: 1px;
 }
 
 .blur {
     background-color: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px); 
 }
 .overlay-content {
     display: flex;
