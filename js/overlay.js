@@ -57,8 +57,6 @@ export function fullScreen () {
         }
     }, { passive: false });
 
-    let initialDistance = null;
-let initialScale = 1;
 
 // Function to calculate distance between two touch points
 function getDistance(touches) {
@@ -69,22 +67,53 @@ function getDistance(touches) {
 }
 
 // Function to handle pinch zoom
+function getMovementVector(touch1, touch2) {
+    return {
+        dx: touch2.clientX - touch1.clientX,
+        dy: touch2.clientY - touch1.clientY
+    };
+}
+
+let initialDistance = null;
+let initialScale = 1;
+let initialTouches = null;
+let initialTranslate = { x: 0, y: 0 };
+
 screen.addEventListener('touchmove', function(event) {
     if (event.touches.length === 2) {
         event.preventDefault(); // Prevent the default pinch behavior
 
         const currentDistance = getDistance(event.touches);
+        const [touch1, touch2] = event.touches;
+        const currentMovementVector = getMovementVector(touch1, touch2);
 
         if (initialDistance === null) {
             initialDistance = currentDistance;
             initialScale = parseFloat(image.style.transform.replace(/[^0-9.]/g, '')) || 1;
+            initialTouches = [touch1, touch2];
+            initialTranslate = {
+                x: parseFloat(image.style.left) || 0,
+                y: parseFloat(image.style.top) || 0
+            };
         } else {
-            const scale = initialScale * (currentDistance / initialDistance);
-            image.style.transform = `scale(${scale})`;
+            const initialMovementVector = getMovementVector(initialTouches[0], initialTouches[1]);
+            const dotProduct = initialMovementVector.dx * currentMovementVector.dx + initialMovementVector.dy * currentMovementVector.dy;
+            const magnitude1 = Math.sqrt(initialMovementVector.dx * initialMovementVector.dx + initialMovementVector.dy * initialMovementVector.dy);
+            const magnitude2 = Math.sqrt(currentMovementVector.dx * currentMovementVector.dx + currentMovementVector.dy * currentMovementVector.dy);
+            const cosTheta = dotProduct / (magnitude1 * magnitude2);
+
+            if (cosTheta > 0.8) { // If the fingers are moving in a similar direction
+                const translateX = initialTranslate.x + (currentMovementVector.dx - initialMovementVector.dx);
+                const translateY = initialTranslate.y + (currentMovementVector.dy - initialMovementVector.dy);
+                image.style.left = `${translateX}px`;
+                image.style.top = `${translateY}px`;
+            } else {
+                const scale = initialScale * (currentDistance / initialDistance);
+                image.style.transform = `scale(${scale})`;
+            }
         }
     }
 }, { passive: false });
-
 // Reset initial distance on touch end
 screen.addEventListener('touchend', function(event) {
     if (event.touches.length < 2) {
