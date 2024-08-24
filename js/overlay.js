@@ -26,14 +26,19 @@ export function fullScreen () {
         const fullScreenOverlay = document.createElement('div');
         fullScreenOverlay.classList.add('fullscreen');
         fullScreenOverlay.innerHTML = `
+                            <div class="overlay-buttons-fullscreen">
+                    <button class="close-button fixed-top-left"><img src="icons/Less creative close icon .png"></button>
         <div class="fullscreen">
             <img class="fullscreen-img" src="${imageUrl}">
-            <div class="overlay-buttons-fullscreen">
-                    <button class="close-button fixed-top-left"><img src="icons/Less creative close icon .png"></button>
             </div>
         </div>
+
+
     `;
+
     document.body.appendChild(fullScreenOverlay);
+    document.querySelector('.close-button').classList.remove('hidden');
+    document.querySelector('.close-button').style.opacity = '1';
     const image = document.querySelector('.fullscreen-img');
     const screen = document.querySelector('.fullscreen');
     screen.addEventListener('wheel', function(event) {
@@ -106,6 +111,7 @@ screen.addEventListener('touchend', function(event) {
 
 export function showOverlay() {
     return new Promise((resolve) => {
+        let buttonsShown = false;
         let overlay = document.querySelector('.overlay');
 
         const current = slides[currentSlide];
@@ -120,6 +126,7 @@ export function showOverlay() {
         // current.classList.add('overlay');
         slides[currentSlide].classList.remove('active');
         if (overlay) {
+            buttonsShown = true;
             overlay.remove();
         }
         overlay = document.createElement('div');
@@ -183,6 +190,10 @@ export function showOverlay() {
                 handleClose();
                 resolve();
             });
+            if (!buttonsShown) {
+                fadeInButtons();
+                buttonsShown = true;
+            }
             overlay.addEventListener('touchstart', handleStart);
             overlay.addEventListener('mousedown', handleStart);
             overlay.addEventListener('touchend', handleEnd);

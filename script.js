@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     
     toggleCollections();
+    toggleMenu();
     // toggleMenu();
     document.querySelector('.menu').classList.add('hidden');
     changeCollection(0);
