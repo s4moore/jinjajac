@@ -8,7 +8,7 @@
     height: 50%;
     max-height: 100%;
     top: 0;
-    right: 0;
+    right: 3%;
     z-index: 1001;
     justify-content: flex-start;
 }
