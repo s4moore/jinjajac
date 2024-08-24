@@ -1,6 +1,6 @@
 .overlay-buttons {
     position: absolute;
-    top: 1%; 
+    bottom: 1%; 
     right: 1%;
     display: flex;
     flex-direction: column;
