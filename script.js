@@ -11,6 +11,18 @@ export function updateViewport(userScalable) {
     }
 }
 
+function goFullscreen(element) {
+    if (element.requestFullscreen) {
+        element.requestFullscreen();
+    } else if (element.mozRequestFullScreen) { // Firefox
+        element.mozRequestFullScreen();
+    } else if (element.webkitRequestFullscreen) { // Chrome, Safari and Opera
+        element.webkitRequestFullscreen();
+    } else if (element.msRequestFullscreen) { // IE/Edge
+        element.msRequestFullscreen();
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
     const carouselContainer = document.querySelector('.carousel');
@@ -24,6 +36,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const menu = document.querySelector('.menu');
     let collectionsHidden = true;
 
+    
+    // Add event listener to the fullscreen button
+    const element = document.documentElement; // Fullscreen the entire document
+    document.addEventListener('click', goFullscreen(element));
+    
+    document.addEventListener('click', () => goFullscreen(element), { once: true });
+    document.addEventListener('touchstart', () => goFullscreen(element), { once: true });
+
+    
     toggleCollections();
     // toggleMenu();
     document.querySelector('.menu').classList.add('hidden');
