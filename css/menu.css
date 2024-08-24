@@ -11,6 +11,7 @@
     top: 0;
     right: 3%;
     z-index: 1001;
+    object-fit: contain;
     justify-content: flex-start;
 }
 
@@ -31,7 +32,7 @@
     pointer-events: auto;
 
     /* position: absolute; */
-    width: 30%;
+    width: 28%;
     /* right: 0; */
     align-self: flex-end;
     padding-right: 3%;
@@ -53,7 +54,7 @@
     opacity: 0.8;
     background: url('/menu/menu-box.png');
     background-size: cover;
-    width: 75%;
+    width: 72%;
     object-fit: contain;
 }
 
