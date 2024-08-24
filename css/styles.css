@@ -115,8 +115,8 @@ html, body {
 }
 
 .fixed-top-left {
-    display: block;
-    position: fixed;
+    /* display: block; */
+    position: absolute;
     top: 10px; /* Adjust as needed */
     left: 10px; /* Adjust as needed */
     z-index: 1000; /* Ensure it stays on top of other elements */

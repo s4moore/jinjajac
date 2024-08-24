@@ -15,13 +15,13 @@
 
 @media (orientation: portrait) {
     .menu-area {
-        width: max(45%, 355px);
+        width: max(55%, 300px);
     }
 }
 
 @media (orientation: landscape) {
     .menu-area {
-        width: max(35%, 355px);
+        width: max(45%, 355px);
     }
 }
 .menu-toggle {

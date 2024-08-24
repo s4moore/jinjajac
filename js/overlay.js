@@ -41,27 +41,43 @@ export function fullScreen () {
     document.querySelector('.close-button').style.opacity = '1';
     const image = document.querySelector('.fullscreen-img');
     const screen = document.querySelector('.fullscreen');
-    screen.addEventListener('wheel', function(event) {
-        if (event.ctrlKey) {
-            event.preventDefault(); // Prevent the default zoom behavior
+    document.addEventListener('click', function(event) {
+        // Get the coordinates of the tap
+        const x = event.clientX;
+        const y = event.clientY;
+    
+        // Create a new button element
+        const button = document.createElement('button');
+        button.textContent = 'Click Me';
+        button.style.position = 'absolute';
+        button.style.left = `${x}px`;
+        button.style.top = `${y}px`;
+        button.style.transform = 'translate(-50%, -50%)'; // Center the button at the tap location
+    
+        // Append the button to the document body
+        document.body.appendChild(button);
+    });
+    // screen.addEventListener('wheel', function(event) {
+    //     if (event.ctrlKey) {
+    //         event.preventDefault(); // Prevent the default zoom behavior
 
-            // Get the current scale of the image
-            let scale = parseFloat(image.style.transform.replace(/[^0-9.]/g, '')) || 1;
+    //         // Get the current scale of the image
+    //         let scale = parseFloat(image.style.transform.replace(/[^0-9.]/g, '')) || 1;
     
-            // Adjust the scale based on the wheel direction
-            if (event.deltaY < 0) {
-                // Wheel up - scale up
-                scale += 0.1;
-            } else {
-                // Wheel down - scale down
-                scale -= 0.1;
-            }
+    //         // Adjust the scale based on the wheel direction
+    //         if (event.deltaY < 0) {
+    //             // Wheel up - scale up
+    //             scale += 0.1;
+    //         } else {
+    //             // Wheel down - scale down
+    //             scale -= 0.1;
+    //         }
     
-            // Set the new scale with a minimum limit to prevent negative or zero scale
-            scale = Math.max(scale, 0.1);
-            image.style.transform = `scale(${scale})`;
-        }
-    }, { passive: false });
+    //         // Set the new scale with a minimum limit to prevent negative or zero scale
+    //         scale = Math.max(scale, 0.1);
+    //         image.style.transform = `scale(${scale})`;
+    //     }
+    // }, { passive: false });
 
     let initialDistance = null;
 let initialScale = 1;
@@ -74,22 +90,22 @@ function getDistance(touches) {
     return Math.sqrt(dx * dx + dy * dy);
 }
 
-// Function to handle pinch zoom
-screen.addEventListener('touchmove', function(event) {
-    if (event.touches.length === 2) {
-        event.preventDefault(); // Prevent the default pinch behavior
+// // Function to handle pinch zoom
+// screen.addEventListener('touchmove', function(event) {
+//     if (event.touches.length === 2) {
+//         event.preventDefault(); // Prevent the default pinch behavior
 
-        const currentDistance = getDistance(event.touches);
+//         const currentDistance = getDistance(event.touches);
 
-        if (initialDistance === null) {
-            initialDistance = currentDistance;
-            initialScale = parseFloat(image.style.transform.replace(/[^0-9.]/g, '')) || 1;
-        } else {
-            const scale = initialScale * (currentDistance / initialDistance);
-            image.style.transform = `scale(${scale})`;
-        }
-    }
-}, { passive: false });
+//         if (initialDistance === null) {
+//             initialDistance = currentDistance;
+//             initialScale = parseFloat(image.style.transform.replace(/[^0-9.]/g, '')) || 1;
+//         } else {
+//             const scale = initialScale * (currentDistance / initialDistance);
+//             image.style.transform = `scale(${scale})`;
+//         }
+//     }
+// }, { passive: false });
 
 // Reset initial distance on touch end
 screen.addEventListener('touchend', function(event) {
