@@ -77,3 +77,15 @@ export function toggleCollections() {
     }
     console.log('Collections hidden:', collectionsHidden);
 }
+
+let fading = null;
+let hiding = null;
+
+export function fadeInButtons() {
+    const buttons = document.querySelectorAll('.overlay button');
+    buttons.forEach(button => {
+        button.classList.remove('hidden');
+        button.classList.add('button-fade');
+        button.addEventListener('animationend', () => button.classList.add('hidden'));
+    });
+}

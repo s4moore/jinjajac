@@ -2,6 +2,8 @@ import { showOverlay, handleClose, fullScreen} from './overlay.js';
 import { changeCollection } from './collection.js';
 import { prevSlide, nextSlide, getNextSlide, slides, currentSlide } from './slides.js';
 import { toggleMenu } from './utils.js';
+import { fadeInButtons } from './utils.js';
+
 
 let startX, endX, startY, endY;
 
@@ -25,6 +27,10 @@ export function handleEnd(e) {
     // }
     if (e.target.tagName.toLowerCase() === 'a') {
         return;
+    }
+
+    if (document.querySelector('.overlay') && document.getElementById('check-hidden-close').classList.contains('hidden')) {
+        fadeInButtons();
     }
     if (!document.querySelector('.menu').classList.contains('hidden')
     && !document.querySelector('.menu').classList.contains('fadeOut')) {
@@ -105,7 +111,10 @@ export function handleEnd(e) {
             showOverlay();
             return ;
         });
-    }
+    } 
 
         console.log('No action taken');
+
+
+
 }

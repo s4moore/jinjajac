@@ -80,11 +80,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     
         // Adjust the image size when the image is loaded
-        if (img.complete) {
-            adjustImageSize();
-        } else {
-            img.onload = adjustImageSize;
-        }
+        // if (img.complete) {
+        //     adjustImageSize();
+        // } else {
+        //     img.onload = adjustImageSize;
+        // }
     
         // Adjust the image size on window resize
         window.addEventListener('resize', adjustImageSize);
