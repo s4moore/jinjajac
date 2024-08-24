@@ -38,11 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     
     // Add event listener to the fullscreen button
-    const element = document.documentElement; // Fullscreen the entire document
-    document.addEventListener('click', goFullscreen(element));
+    // const element = document.documentElement; // Fullscreen the entire document
+    // document.addEventListener('click', goFullscreen(element));
     
-    document.addEventListener('click', () => goFullscreen(element), { once: true });
-    document.addEventListener('touchstart', () => goFullscreen(element), { once: true });
+    // document.addEventListener('click', () => goFullscreen(element), { once: true });
+    // document.addEventListener('touchstart', () => goFullscreen(element), { once: true });
 
     
     toggleCollections();

@@ -69,6 +69,9 @@ function getDistance(touches) {
 }
 
 function getMovementVector(touch1, touch2) {
+    if (!touch1 || !touch2) {
+        throw new Error('Invalid touch points provided to getMovementVector');
+    }
     return {
         dx: touch2.clientX - touch1.clientX,
         dy: touch2.clientY - touch1.clientY
@@ -80,6 +83,9 @@ function dotProduct(vector1, vector2) {
 }
 
 function areTouchesMovingInSameDirection(touch1Start, touch1End, touch2Start, touch2End) {
+    if (!touch1Start || !touch1End || !touch2Start || !touch2End) {
+        return 0;
+    }
     const vector1 = getMovementVector(touch1Start, touch1End);
     const vector2 = getMovementVector(touch2Start, touch2End);
     const dot = dotProduct(vector1, vector2);
@@ -89,74 +95,73 @@ function areTouchesMovingInSameDirection(touch1Start, touch1End, touch2Start, to
 let initialTouches = null;
 let initialTranslate = { x: 0, y: 0 };
 
-screen.addEventListener('touchmove', function(event) {
-    if (event.touches.length === 1 || event.touches.length === 2) {
-        event.preventDefault(); // Prevent the default behavior
+// screen.addEventListener('touchmove', function(event) {
+//     if (event.touches.length === 1 || event.touches.length === 2) {
+//         event.preventDefault(); // Prevent the default behavior
 
-        const touch1 = event.touches[0];
-        const touch2 = event.touches.length === 2 ? event.touches[1] : null;
+//         const touch1 = event.touches[0];
+//         const touch2 = event.touches.length === 2 ? event.touches[1] : null;
 
-        if (!initialTouches) {
-            initialTouches = [
-                { clientX: touch1.clientX, clientY: touch1.clientY },
-                touch2 ? { clientX: touch2.clientX, clientY: touch2.clientY } : null
-            ];
-            initialTranslate = {
-                x: parseFloat(image.style.left) || 0,
-                y: parseFloat(image.style.top) || 0
-            };
-        } else {
-            const touch1Start = initialTouches[0];
-            const touch1End = { clientX: touch1.clientX, clientY: touch1.clientY };
+//         if (!initialTouches) {
+//             initialTouches = [
+//                 { clientX: touch1.clientX, clientY: touch1.clientY },
+//                 touch2 ? { clientX: touch2.clientX, clientY: touch2.clientY } : null
+//             ];
+//             initialTranslate = {
+//                 x: parseFloat(image.style.left) || 0,
+//                 y: parseFloat(image.style.top) || 0
+//             };
+//         } else {
+//             const touch1Start = initialTouches[0];
+//             const touch1End = { clientX: touch1.clientX, clientY: touch1.clientY };
 
-            if (touch2) {
-                const touch2Start = initialTouches[1];
-                const touch2End = { clientX: touch2.clientX, clientY: touch2.clientY };
+//             if (touch2) {
+//                 const touch2Start = initialTouches[1];
+//                 const touch2End = { clientX: touch2.clientX, clientY: touch2.clientY };
 
-                const sameDirection = areTouchesMovingInSameDirection(touch1Start, touch1End, touch2Start, touch2End);
+//                 const sameDirection = areTouchesMovingInSameDirection(touch1Start, touch1End, touch2Start, touch2End);
 
-                if (sameDirection) {
-                    // Handle translation
-                    const movementVector1 = getMovementVector(touch1Start, touch1End);
-                    const movementVector2 = getMovementVector(touch2Start, touch2End);
+//                 if (sameDirection) {
+//                     // Handle translation
+//                     const movementVector1 = getMovementVector(touch1Start, touch1End);
+//                     const movementVector2 = getMovementVector(touch2Start, touch2End);
 
-                    const avgMovementVector = {
-                        dx: (movementVector1.dx + movementVector2.dx) / 2,
-                        dy: (movementVector1.dy + movementVector2.dy) / 2
-                    };
+//                     const avgMovementVector = {
+//                         dx: (movementVector1.dx + movementVector2.dx) / 2,
+//                         dy: (movementVector1.dy + movementVector2.dy) / 2
+//                     };
 
-                    const translateX = initialTranslate.x + avgMovementVector.dx;
-                    const translateY = initialTranslate.y + avgMovementVector.dy;
+//                     const translateX = initialTranslate.x + avgMovementVector.dx;
+//                     const translateY = initialTranslate.y + avgMovementVector.dy;
 
-                    image.style.left = `${translateX}px`;
-                    image.style.top = `${translateY}px`;
-                } else {
-                    // Handle pinch zoom
-                    const currentDistance = getDistance(event.touches);
-                    const initialDistance = getDistance(initialTouches);
-                    const initialScale = parseFloat(image.style.transform.replace(/[^0-9.]/g, '')) || 1;
-                    const scale = initialScale * (currentDistance / initialDistance);
-                    image.style.transform = `scale(${scale})`;
-                }
-            } else {
-                // Handle translation for single touch
-                const movementVector = getMovementVector(touch1Start, touch1End);
+//                     image.style.left = `${translateX}px`;
+//                     image.style.top = `${translateY}px`;
+//                 } else {
+//                     // Handle pinch zoom
+//                     const currentDistance = getDistance(event.touches);
+//                     const initialDistance = getDistance(initialTouches);
+//                     const initialScale = parseFloat(image.style.transform.replace(/[^0-9.]/g, '')) || 1;
+//                     const scale = initialScale * (currentDistance / initialDistance);
+//                     image.style.transform = `scale(${scale})`;
+//                 }
+//             } else {
+//                 // Handle translation for single touch
+//                 const movementVector = getMovementVector(touch1Start, touch1End);
 
-                const translateX = initialTranslate.x + movementVector.dx;
-                const translateY = initialTranslate.y + movementVector.dy;
+//                 const translateX = initialTranslate.x + movementVector.dx;
+//                 const translateY = initialTranslate.y + movementVector.dy;
 
-                image.style.left = `${translateX}px`;
-                image.style.top = `${translateY}px`;
-            }
+//                 screen.style.transform = `translate(${translateX}px, ${translateY}px)`;
+//             }
 
-            // Update initial touches for the next move event
-            initialTouches = [
-                { clientX: touch1.clientX, clientY: touch1.clientY },
-                touch2 ? { clientX: touch2.clientX, clientY: touch2.clientY } : null
-            ];
-        }
-    }
-}, { passive: false });
+//             // Update initial touches for the next move event
+//             initialTouches = [
+//                 { clientX: touch1.clientX, clientY: touch1.clientY },
+//                 touch2 ? { clientX: touch2.clientX, clientY: touch2.clientY } : null
+//             ];
+//         }
+//     }
+// }, { passive: false });
 
     const closeButton = document.querySelector('.fullscreen .close-button');
 
@@ -168,6 +173,33 @@ screen.addEventListener('touchmove', function(event) {
     });
     });
 }
+
+screen.addEventListener('touchmove', function(event) {
+    if (event.touches.length === 1 || event.touches.length === 2) {
+        event.preventDefault(); // Prevent the default behavior
+
+        const touch1 = event.touches[0];
+        const touch2 = event.touches.length === 2 ? event.touches[1] : null;
+
+        if (initialTouches) {
+            const currentTouches = Array.from(event.touches).map(touch => ({
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            }));
+
+            const deltaX = currentTouches[0].clientX - initialTouches[0].clientX;
+            const deltaY = currentTouches[0].clientY - initialTouches[0].clientY;
+
+            currentTranslate = {
+                x: initialTranslate.x + deltaX,
+                y: initialTranslate.y + deltaY
+            };
+            const img = document.querySelector('.fullscreen-img');
+            // Apply the translation to the element
+            img.style.transform = `translate(${currentTranslate.x}px, ${currentTranslate.y}px)`;
+        }
+    }
+});
 
 export function showOverlay() {
     return new Promise((resolve) => {
