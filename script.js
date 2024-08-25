@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuArea = document.querySelector('.menu-area');
     const menu = document.querySelector('.menu');
     let collectionsHidden = true;
+    let header1Timer, header2Timer, header3Timer;
 
     
     // Add event listener to the fullscreen button
@@ -103,6 +104,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: false });
 
     toggleCollection.addEventListener('click', () => {
+        if (header2Timer) {
+            clearTimeout(header2Timer);
+        }
+        document.querySelector('.header-2').classList.add('highlight');
+        header2Timer = setTimeout(() => {
+            document.querySelector('.header-2').classList.remove('highlight');
+        }, 1000);
         toggleCollections();
         collectionsHidden = !collectionsHidden;
     });
@@ -123,6 +131,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // });
     headerUpButton.addEventListener('click', () => 
         {
+            if (header1Timer) {
+                clearTimeout(header1Timer);
+            }
+            document.querySelector('.header-1').classList.add('highlight');
+            header1Timer = setTimeout(() => {
+                document.querySelector('.header-1').classList.remove('highlight');
+            }, 1000);
             if (collectionsHidden) {
                 handleEnd();
             } else {
@@ -131,6 +146,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     headerDownButton.addEventListener('click', () => 
     {
+        if (header3Timer) {
+            clearTimeout(header3Timer);
+        }
+        document.querySelector('.header-3').classList.add('highlight');
+        header3Timer = setTimeout(() => {
+            document.querySelector('.header-3').classList.remove('highlight');
+        }, 1000);
         if (collectionsHidden) {
             handleEnd();
         } else {

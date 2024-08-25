@@ -26,6 +26,19 @@ html, body {
     box-sizing: inherit;
 } */
 
+.highlight {
+    animation: highlight-fade 1s;
+}
+
+@keyframes highlight-fade {
+    0% {
+        filter: url(#outline);
+    }
+    100% {
+        filter: none;
+    }
+}
+
 .background-video {
     display: block;
     position: fixed;

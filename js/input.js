@@ -17,6 +17,7 @@ export function handleStart(e) {
         startY = e.touches ? e.touches[0].clientY : e.clientY;
     }
 }
+let menuToggleTimer;
 
 
 export function handleEnd(e) {
@@ -32,8 +33,16 @@ export function handleEnd(e) {
     if (document.querySelector('.overlay') && document.getElementById('check-hidden-close').classList.contains('hidden')) {
         fadeInButtons();
     }
+
     if (!document.querySelector('.menu').classList.contains('hidden')
-    && !document.querySelector('.menu').classList.contains('fadeOut')) {
+        && !document.querySelector('.menu').classList.contains('fadeOut')) {
+        if (menuToggleTimer) {
+            clearTimeout(menuToggleTimer);
+        }
+        document.getElementById('change-menu-btn').classList.add('highlight');
+        menuToggleTimer = setTimeout(() => {
+            document.getElementById('change-menu-btn').classList.remove('highlight');
+        }, 1000);
         toggleMenu();
         return ;
     }
@@ -41,6 +50,13 @@ export function handleEnd(e) {
 
 
     if (target.closest('.menu')) {
+        if (menuToggleTimer) {
+            clearTimeout(menuToggleTimer);
+        }
+        document.getElementById('change-menu-btn').classList.add('highlight');
+        menuToggleTimer = setTimeout(() => {
+            document.getElementById('change-menu-btn').classList.remove('highlight');
+        }, 1000);
         return ;
     }
     e.preventDefault();
@@ -50,6 +66,13 @@ export function handleEnd(e) {
         return ;
     }
     if (target && target.closest('#change-menu-btn')) {
+        if (menuToggleTimer) {
+            clearTimeout(menuToggleTimer);
+        }
+        document.getElementById('change-menu-btn').classList.add('highlight');
+        menuToggleTimer = setTimeout(() => {
+            document.getElementById('change-menu-btn').classList.remove('highlight');
+        }, 1000);
         console.log('Menu button clicked');
         toggleMenu();
         return ;
