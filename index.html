@@ -19,7 +19,7 @@
     <svg width="0" height="0">
         <filter id="outline">
             <feMorphology operator="dilate" radius="1" in="SourceAlpha" result="dilated"/>
-            <feFlood flood-color="white" result="flood"/>
+            <feFlood flood-color="#FFD700" result="flood"/>
             <feComposite in="flood" in2="dilated" operator="in" result="outline"/>
             <feMerge>
                 <feMergeNode in="outline"/>
