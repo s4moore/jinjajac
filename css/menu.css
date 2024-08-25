@@ -49,7 +49,7 @@
 }
 
 .menu-toggle img:hover {
-    filter: url(#outline);
+    animation: highlight-fade 2s;
 }
 .menu {
     display: flex;
@@ -130,12 +130,10 @@
     /* position: relative; */
 }
 .menu-item img:hover {
-    filter: url(#outline);
+    animation: highlight-fade 2s;
 }
 
-.menu-item img:active {
-    filter: url(#outline);
-}
+
 
 .menu-item img {
     width: 100%;

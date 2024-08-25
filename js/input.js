@@ -8,25 +8,27 @@ import { fadeInButtons } from './utils.js';
 let startX, endX, startY, endY;
 
 export function handleStart(e) {
+    e.preventDefault();
     if (!e.target.closest('.overlay') && !e.target.closest('.overlay-img')
         && !e.target.closest('.carousel-slide')) {
         e.target.classList.add('highlight');
+        e.target.addEventListener('animationend', () => {
+            e.target.classList.remove('highlight');
+        });
     }
     if (e.target.tagName.toLowerCase() === 'a' || e.target.closest('a')) {
         return;
     }
-    if (!e.target.closest('.blurb')) {
-        e.preventDefault();
         startX = e.touches ? e.touches[0].clientX : e.clientX;
         startY = e.touches ? e.touches[0].clientY : e.clientY;
-    }
 }
 let collectionsHidden = true;
 
 
 export function handleEnd(e) {
-    e.target.classList.remove('highlight');
     const target = e.target;
+    e.preventDefault();
+
     console.log('End event target:', target);
     // if (e.target.closest('.menu')) {
     //     return;
@@ -66,7 +68,6 @@ export function handleEnd(e) {
     if (target.closest('.menu')) {
         return ;
     }
-    e.preventDefault();
     const menu = document.querySelector('.menu');
     if (menu.style.display === 'flex' && !target.closest('.menu')) {
         toggleMenu();

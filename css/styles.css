@@ -27,12 +27,39 @@ html, body {
 } */
 
 .highlight {
-    filter: url(#outline);
+    animation: highlight-fade 1s;
 }
 
 @keyframes highlight-fade {
     0% {
-        filter: url(#outline);
+        filter: url(#outline1);
+    }
+    10% {
+        filter: url(#outline2);
+    }
+    20% {
+        filter: url(#outline3);
+    }
+    30% {
+        filter: url(#outline4);
+    }
+    40% {
+        filter: url(#outline5);
+    }
+    50% {
+        filter: url(#outline6);
+    }
+    60% {
+        filter: url(#outline7);
+    }
+    70% {
+        filter: url(#outline5);
+    }
+    80% {
+        filter: url(#outline3);
+    }
+    90% {
+        filter: url(#outline1);
     }
     100% {
         filter: none;

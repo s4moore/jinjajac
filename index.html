@@ -17,9 +17,63 @@
 </head>
 <body>
     <svg width="0" height="0">
-        <filter id="outline">
+        <filter id="outline1">
             <feMorphology operator="dilate" radius="1" in="SourceAlpha" result="dilated"/>
-            <feFlood flood-color="#FFD700" result="flood"/>
+            <feFlood flood-color="#FFFFFF" flood-opacity="0.03" result="flood"/>
+            <feComposite in="flood" in2="dilated" operator="in" result="outline"/>
+            <feMerge>
+                <feMergeNode in="outline"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+        <filter id="outline2">
+            <feMorphology operator="dilate" radius="1" in="SourceAlpha" result="dilated"/>
+            <feFlood flood-color="#FFFFFF" flood-opacity="0.06" result="flood"/>
+            <feComposite in="flood" in2="dilated" operator="in" result="outline"/>
+            <feMerge>
+                <feMergeNode in="outline"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+        <filter id="outline3">
+            <feMorphology operator="dilate" radius="1" in="SourceAlpha" result="dilated"/>
+            <feFlood flood-color="#FFFFFF" flood-opacity="0.09" result="flood"/>
+            <feComposite in="flood" in2="dilated" operator="in" result="outline"/>
+            <feMerge>
+                <feMergeNode in="outline"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+        <filter id="outline4">
+            <feMorphology operator="dilate" radius="1" in="SourceAlpha" result="dilated"/>
+            <feFlood flood-color="#FFFFFF" flood-opacity="0.12" result="flood"/>
+            <feComposite in="flood" in2="dilated" operator="in" result="outline"/>
+            <feMerge>
+                <feMergeNode in="outline"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+        <filter id="outline5">
+            <feMorphology operator="dilate" radius="1" in="SourceAlpha" result="dilated"/>
+            <feFlood flood-color="#FFFFFF" flood-opacity="0.15" result="flood"/>
+            <feComposite in="flood" in2="dilated" operator="in" result="outline"/>
+            <feMerge>
+                <feMergeNode in="outline"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+        <filter id="outline6">
+            <feMorphology operator="dilate" radius="1" in="SourceAlpha" result="dilated"/>
+            <feFlood flood-color="#FFFFFF" flood-opacity="0.18" result="flood"/>
+            <feComposite in="flood" in2="dilated" operator="in" result="outline"/>
+            <feMerge>
+                <feMergeNode in="outline"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+        <filter id="outline7">
+            <feMorphology operator="dilate" radius="1" in="SourceAlpha" result="dilated"/>
+            <feFlood flood-color="#FFFFFF" flood-opacity="0.21" result="flood"/>
             <feComposite in="flood" in2="dilated" operator="in" result="outline"/>
             <feMerge>
                 <feMergeNode in="outline"/>

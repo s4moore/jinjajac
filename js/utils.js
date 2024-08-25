@@ -52,26 +52,41 @@ export function fadeIn(item) {
         item.classList.remove('fadeIn');
     });
 }
+const header1 = document.querySelector('.header-1');
+const header3 = document.querySelector('.header-3');
+function onAnimationEnd() {
+    header1.classList.add('hidden');
+    header1.classList.remove('fadeCollections');
+    header3.classList.add('hidden');
+    header3.classList.remove('fadeCollections');
+    collectionsHidden = true;
+}
 
 export function toggleCollections() {
-    const header1 = document.querySelector('.header-1');
-    const header3 = document.querySelector('.header-3');
+
     if (collectionsHidden)
     {
+        header1.removeEventListener('animationend', onAnimationEnd);
+
         header1.classList.remove('hidden');
         header3.classList.remove('hidden');
+        header1.classList.remove('fadeOut');
+        header3.classList.remove('fadeOut');
         header1.style.opacity = '0';
         header3.style.opacity = '0';
-        header1.classList.add('fadeMenu');
-        header3.classList.add('fadeMenu');
+        header1.classList.add('fadeCollections');
+        header3.classList.add('fadeCollections');
         collectionsHidden = false;
-        header1.addEventListener('animationend', () => {
-            header1.classList.add('hidden');
-            header1.classList.remove('fadeMenu');
-            header3.classList.add('hidden');
-            header3.classList.remove('fadeMenu');
-            collectionsHidden = true;
-        });
+        header1.addEventListener('animationend', onAnimationEnd);
+    } else {
+        header1.style.opacity = '1';
+        header3.style.opacity = '1';
+        header1.removeEventListener('animationend', onAnimationEnd);
+        header1.classList.remove('fadeCollections');
+        header3.classList.remove('fadeCollections');
+        header1.classList.add('fadeOut');
+        header3.classList.add('fadeOut');
+        header1.addEventListener('animationend', onAnimationEnd);
     }
 }
 // export function toggleCollections() {

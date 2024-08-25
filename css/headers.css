@@ -95,22 +95,22 @@
     z-index: 1005;
 }   
 
-.fadeMenu {
-    animation: menufade 5s forwards;
+.fadeCollections {
+    animation: collectionfade 8s forwards;
 }
 
 .header-1:hover,
 .header-2:hover,
 .header-3:hover {
-    filter: url(#outline);
+    animation: highlight-fade 2s;
 }
 
-@keyframes menufade {
+@keyframes collectionfade {
     /* 0% {
         opacity: 0;
         
     } */
-    15% {
+    10% {
         opacity: 100;
     }
     85% {

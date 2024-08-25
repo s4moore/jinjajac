@@ -40,7 +40,7 @@
 }
 
 .overlay-buttons button:hover {
-    filter: url(#outline);
+    animation: highlight-fade 2s;
 }
 .info-button {
     opacity: 1;

@@ -212,10 +212,10 @@ export function showOverlay() {
                 fadeInButtons();
                 buttonsShown = true;
             }
-            overlay.addEventListener('touchstart', handleStart);
-            overlay.addEventListener('mousedown', handleStart);
-            overlay.addEventListener('touchend', handleEnd);
-            overlay.addEventListener('mouseup', handleEnd);
+            // overlay.addEventListener('touchstart', handleStart);
+            // overlay.addEventListener('mousedown', handleStart);
+            // overlay.addEventListener('touchend', handleEnd);
+            // overlay.addEventListener('mouseup', handleEnd);
         });
     }
 

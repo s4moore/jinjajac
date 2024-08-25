@@ -81,8 +81,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    window.addEventListener('touchstart', handleStart);
-    window.addEventListener('mousedown', handleStart);      
-    window.addEventListener('touchend', handleEnd);
-    window.addEventListener('mouseup', handleEnd);
+    document.addEventListener('touchstart', handleStart);
+    document.addEventListener('mousedown', handleStart);      
+    document.addEventListener('touchend', handleEnd);
+    document.addEventListener('mouseup', handleEnd);
 });
