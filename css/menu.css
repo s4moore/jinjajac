@@ -48,6 +48,9 @@
     /* flex-grow: 1; */
 }
 
+.menu-toggle img:hover {
+    filter: url(#outline);
+}
 .menu {
     display: flex;
     flex-direction: column;
@@ -127,12 +130,11 @@
     /* position: relative; */
 }
 .menu-item img:hover {
-    transform: translateX(-10%) scale(1.2);
+    filter: url(#outline);
 }
 
 .menu-item img:active {
-    transform: translate(0) scale(1);
-    background-color: gray;
+    filter: url(#outline);
 }
 
 .menu-item img {

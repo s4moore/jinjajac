@@ -99,6 +99,12 @@
     animation: menufade 5s forwards;
 }
 
+.header-1:hover,
+.header-2:hover,
+.header-3:hover {
+    filter: url(#outline);
+}
+
 @keyframes menufade {
     /* 0% {
         opacity: 0;
