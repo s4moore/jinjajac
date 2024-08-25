@@ -27,7 +27,7 @@ html, body {
 } */
 
 .highlight {
-    animation: highlight-fade 1s;
+    filter: url(#outline);
 }
 
 @keyframes highlight-fade {

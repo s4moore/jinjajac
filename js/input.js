@@ -1,13 +1,17 @@
 import { showOverlay, handleClose, fullScreen} from './overlay.js';
 import { changeCollection } from './collection.js';
 import { prevSlide, nextSlide, getNextSlide, slides, currentSlide } from './slides.js';
-import { toggleMenu } from './utils.js';
+import { toggleMenu, toggleCollections } from './utils.js';
 import { fadeInButtons } from './utils.js';
 
 
 let startX, endX, startY, endY;
 
 export function handleStart(e) {
+    if (!e.target.closest('.overlay') && !e.target.closest('.overlay-img')
+        && !e.target.closest('.carousel-slide')) {
+        e.target.classList.add('highlight');
+    }
     if (e.target.tagName.toLowerCase() === 'a' || e.target.closest('a')) {
         return;
     }
@@ -17,32 +21,42 @@ export function handleStart(e) {
         startY = e.touches ? e.touches[0].clientY : e.clientY;
     }
 }
-let menuToggleTimer;
+let collectionsHidden = true;
 
 
 export function handleEnd(e) {
+    e.target.classList.remove('highlight');
     const target = e.target;
     console.log('End event target:', target);
     // if (e.target.closest('.menu')) {
     //     return;
     // }
-    if (e.target.tagName.toLowerCase() === 'a') {
+    if (target.tagName.toLowerCase() === 'a') {
         return;
     }
-
+    if (target && target.closest('.header-2')) {
+        toggleCollections();
+        collectionsHidden = !collectionsHidden;
+        return ;
+    }
+    if (target && target.closest('.header-1')) {
+        // if (!collectionsHidden) {
+        changeCollection(1);
+        return ;
+        // }
+    }
+    if (target && target.closest('.header-3')) {
+        // if (!collectionsHidden) {
+        changeCollection(-1);
+        return ;
+        // }
+    }
     if (document.querySelector('.overlay') && document.getElementById('check-hidden-close').classList.contains('hidden')) {
         fadeInButtons();
     }
 
     if (!document.querySelector('.menu').classList.contains('hidden')
         && !document.querySelector('.menu').classList.contains('fadeOut')) {
-        if (menuToggleTimer) {
-            clearTimeout(menuToggleTimer);
-        }
-        document.getElementById('change-menu-btn').classList.add('highlight');
-        menuToggleTimer = setTimeout(() => {
-            document.getElementById('change-menu-btn').classList.remove('highlight');
-        }, 1000);
         toggleMenu();
         return ;
     }
@@ -50,13 +64,6 @@ export function handleEnd(e) {
 
 
     if (target.closest('.menu')) {
-        if (menuToggleTimer) {
-            clearTimeout(menuToggleTimer);
-        }
-        document.getElementById('change-menu-btn').classList.add('highlight');
-        menuToggleTimer = setTimeout(() => {
-            document.getElementById('change-menu-btn').classList.remove('highlight');
-        }, 1000);
         return ;
     }
     e.preventDefault();
@@ -66,13 +73,13 @@ export function handleEnd(e) {
         return ;
     }
     if (target && target.closest('#change-menu-btn')) {
-        if (menuToggleTimer) {
-            clearTimeout(menuToggleTimer);
-        }
-        document.getElementById('change-menu-btn').classList.add('highlight');
-        menuToggleTimer = setTimeout(() => {
-            document.getElementById('change-menu-btn').classList.remove('highlight');
-        }, 1000);
+        // if (menuToggleTimer) {
+        //     clearTimeout(menuToggleTimer);
+        // }
+        // document.getElementById('change-menu-btn').classList.add('highlight');
+        // menuToggleTimer = setTimeout(() => {
+        //     document.getElementById('change-menu-btn').classList.remove('highlight');
+        // }, 1000);
         console.log('Menu button clicked');
         toggleMenu();
         return ;

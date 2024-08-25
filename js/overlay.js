@@ -6,7 +6,9 @@ let overlay = null;
 
 export function handleClose() {
     overlay = document.querySelector('.overlay');
-    overlay.remove();
+    if (overlay){
+        overlay.remove();
+    }
     overlay = null; 
     slides[currentSlide].classList.add('hidden');
     slides.forEach( (slide) => {

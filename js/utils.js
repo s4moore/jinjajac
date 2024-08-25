@@ -1,20 +1,23 @@
-let collectionsHidden = false, menuHidden = false, menuFadeTimeOut = null, collectionsFadeTimeOut = null;
+let collectionsHidden = true, menuHidden = false, menuFadeTimeOut = null, collectionsFadeTimeOut = null;
 const menu = document.querySelector('.menu');
 
 export function toggleMenu() {
     if (menuHidden) {
-        if (menuFadeTimeOut) {
-            clearTimeout(menuFadeTimeOut);
-        }
+        // if (menuFadeTimeOut) {
+        //     clearTimeout(menuFadeTimeOut);
+        // }
         fadeIn(menu);
+        menuHidden = false;
         menuFadeTimeOut = setTimeout(() => {
             fadeOut(menu);
             menuHidden = true;
-        }, 10000);
-        menuHidden = false;
+            menuFadeTimeOut = null;
+        }, 5000);
+
     } else {
         if (menuFadeTimeOut) {
             clearTimeout(menuFadeTimeOut);
+            menuFadeTimeOut = null;
         }
         fadeOut(menu);
         menuHidden = true;
@@ -51,32 +54,54 @@ export function fadeIn(item) {
 }
 
 export function toggleCollections() {
-    console.log('Toggling collections');
     const header1 = document.querySelector('.header-1');
     const header3 = document.querySelector('.header-3');
-    if (!collectionsHidden)
+    if (collectionsHidden)
     {
-        if (collectionsFadeTimeOut) {
-            clearTimeout(collectionsFadeTimeOut);
-        }
-        fadeOut(header1);
-        fadeOut(header3);
-        collectionsHidden = true;
-    } else {
-        if (collectionsFadeTimeOut) {
-            clearTimeout(collectionsFadeTimeOut);
-        }
-        fadeInHeader(header1);
-        fadeInHeader(header3);
-        collectionsFadeTimeOut = setTimeout(() => {
-            fadeOut(header1);
-            fadeOut(header3);
-            collectionsHidden = true;
-        }, 5000);
+        header1.classList.remove('hidden');
+        header3.classList.remove('hidden');
+        header1.style.opacity = '0';
+        header3.style.opacity = '0';
+        header1.classList.add('fadeMenu');
+        header3.classList.add('fadeMenu');
         collectionsHidden = false;
+        header1.addEventListener('animationend', () => {
+            header1.classList.add('hidden');
+            header1.classList.remove('fadeMenu');
+            header3.classList.add('hidden');
+            header3.classList.remove('fadeMenu');
+            collectionsHidden = true;
+        });
     }
-    console.log('Collections hidden:', collectionsHidden);
 }
+// export function toggleCollections() {
+//     console.log('Toggling collections');
+//     const header1 = document.querySelector('.header-1');
+//     const header3 = document.querySelector('.header-3');
+//     if (!collectionsHidden)
+//     {
+//         if (collectionsFadeTimeOut) {
+//             clearTimeout(collectionsFadeTimeOut);
+//         }
+//         fadeOut(header1);
+//         fadeOut(header3);
+//         collectionsHidden = true;
+//     } else {
+//         if (collectionsFadeTimeOut) {
+//             clearTimeout(collectionsFadeTimeOut);
+//         }
+//         fadeInHeader(header1);
+//         fadeInHeader(header3);
+//         collectionsFadeTimeOut = setTimeout(() => {
+//             fadeOut(header1);
+//             fadeOut(header3);
+//             collectionsHidden = true;
+//             collectionsFadeTimeOut = null;
+//         }, 5000);
+//         collectionsHidden = false;
+//     }
+//     console.log('Collections hidden:', collectionsHidden);
+// }
 
 let fading = null;
 let hiding = null;
