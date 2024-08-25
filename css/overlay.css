@@ -39,7 +39,9 @@
     z-index: 1050;
 }
 
-
+.overlay-buttons button:hover {
+    filter: url(#outline);
+}
 .info-button {
     opacity: 1;
     display: flex;
