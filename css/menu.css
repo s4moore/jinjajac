@@ -1,42 +1,53 @@
-
+:root {
+    --menu-width: 311.3px;
+    --menu-height: 272.6px;
 .menu-area {
-    display: flex;
+    margin: 0;
+    padding: 0;
+    /* display: flex; */
     pointer-events: none;
-    flex-direction: column;
+    /* flex-direction: column; */
     position: fixed;
-    width: 50%;
+    /* width: 42%; */
     /* height: 40%; */
     max-height: 100%;
-    max-height: 100%;
     top: 0;
-    right: 3%;
+    right: 0;
     z-index: 1001;
     object-fit: contain;
-    justify-content: flex-start;
+    /* justify-content: flex-start; */
+    height: calc(var(--menu-height)  * 1.2);
+    width: calc(var(--menu-width) * 1.2);
 }
 
-@media (orientation: portrait) {
+/* @media (orientation: portrait) {
     .menu-area {
-        width: max(55%, 370px);
+        --menu-width: max(75%, 300px);
+        width: var(--menu-width);
+        height: calc(var(--menu-width) / 1.4);
     }
 }
 
 @media (orientation: landscape) {
     .menu-area {
-        width: max(45%, 355px);
+        --menu-width: max(25%, 300px);
+        width: var(--menu-width);
+        height: calc(var(--menu-width) / 1.4);
     }
-}
+} */
 .menu-toggle {
     /* display: flex; */
-    justify-content: flex-end;
+    /* justify-content: flex-end; */
     pointer-events: auto;
-
+    position: fixed;
+    right: 0;
+    top: 0;
     /* position: absolute; */
     width: 28%;
     /* right: 0; */
     align-self: flex-end;
-    padding-right: 3%;
-    padding-top: 5%;
+    /* padding-right: 3%;
+    padding-top: 5%; */
 }
 
 .menu-toggle img {
@@ -51,24 +62,121 @@
 .menu-toggle img:hover {
     animation: highlight-fade 2s;
 }
+
 .menu {
-    display: flex;
+    display: block;
     flex-direction: column;
+    position: relative;
+    top: 0;
+    right: 0;
+    /* align-self: flex-end; */
+    /* padding-right: 3%;
+    padding-top: 5%; */
     opacity: 0;
-    background: url('/menu/menu-box.png');
-    background-size: cover;
-    width: 72%;
-    max-height: 90%;
+    width: 100%;
+    /* height: 60%; */
+    /* background-size: contain; */
+    /* width: 100%;
+    max-height: 100%;
+    height: 100%; */
+    /* height: 40%; */
     object-fit: contain;
+    height: 100%;
+}
+
+#rings {
+    /* display: flex; */
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    /* height: 77%; */
 }
 
 .menu img {
     opacity: 0.8;
+    position: absolute;
     width: 100%;
     height: 100%;
     object-fit: contain;
     z-index: 1002;
 }
+
+.links {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    /* top: 0;
+    right: 0; */
+    width: 100%;
+    height: 100%;
+    /* height: 77%; */
+    z-index: 1003;
+}
+
+.links img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 1003;
+}
+
+.More {
+    position: absolute;
+    width: 22%;
+    height: 27%;
+    left: 32%;
+    top: 9%;
+    object-fit: contain;
+}
+
+.Digital {
+    position: absolute;
+    width: 22%;
+    height: 25%;
+    left: 33%;
+    top: 38%;
+    object-fit: contain;
+}
+
+.Connect{
+    position: absolute;
+    width: 24%;
+    height: 27%;
+    left: 31%;
+    top: 58%;
+    object-fit: contain;
+}
+
+
+.Shop {
+    position: absolute;
+    width: 28%;
+    height: 28%;
+    right: 9%;
+    top: 56%;
+    object-fit: contain;
+}
+
+.Concrete {
+    position: absolute;
+    width: 22%;
+    height: 75%;
+    left: 18%;
+    top: 48%;
+    object-fit: contain;
+}
+
+.Light {
+    position: absolute;
+    width: 23%;
+    height: 75%;
+    left: 46%;
+    top: 47%;
+    object-fit: contain;
+}
+
 /* 
 @media (orientation: portrait) {
     .menu{

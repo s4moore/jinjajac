@@ -77,7 +77,37 @@ export function fullScreen () {
         }
     }, { passive: false });
 
-
+    let isDragging = false;
+    let initialX, initialY;
+    
+    image.addEventListener('mousedown', (event) => {
+        isDragging = true;
+        startX = event.clientX;
+        startY = event.clientY;
+        const transform = image.style.transform.match(/translate\(([^)]+)\)/);
+        if (transform) {
+            const [x, y] = transform[1].split(',').map(val => parseFloat(val));
+            initialX = x;
+            initialY = y;
+        } else {
+            initialX = 0;
+            initialY = 0;
+        }
+        event.preventDefault();
+    }, { passive: false });
+    
+    document.addEventListener('mousemove', (event) => {
+        if (isDragging) {
+            const dx = event.clientX - startX;
+            const dy = event.clientY - startY;
+            image.style.transform = `translate(${initialX + dx}px, ${initialY + dy}px)`;
+        }
+    }, { passive: false });
+    
+    document.addEventListener('mouseup', () => {
+        isDragging = false;
+    }, { passive: false });
+x
 // Function to calculate distance between two touch points
 function getDistance(touches) {
     const [touch1, touch2] = touches;

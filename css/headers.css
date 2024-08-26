@@ -30,8 +30,8 @@
     object-fit: contain;
     position: absolute;
     /* bottom: 3%; */
-    left: 50%;
-    transform: translateX(-50%);
+    left: 8%;
+    /* transform: translateX(-50%); */
     width: max(150px, var(--header-2-width));
     z-index: 1005;
 }
@@ -39,16 +39,16 @@
 @media (orientation: landscape) {
     .header-2 {
         top: 3%;
-        left: 50%;
-        transform: translateX(-50%);
+        /* left: 50%;
+        transform: translateX(-50%); */
     }
 }
 
 @media (orientation: portrait) {
     .header-2 {
         top: 10%;
-        left: 50%;
-        transform: translateX(-50%);
+        /* left: 50%;
+        transform: translateX(-50%); */
     }
 }
 

@@ -13,7 +13,7 @@ export function toggleMenu() {
             fadeOut(menu);
             menuHidden = true;
             menuFadeTimeOut = null;
-        }, 5000);
+        }, 25000);
 
     } else {
         if (menuFadeTimeOut) {
