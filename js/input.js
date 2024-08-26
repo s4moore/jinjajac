@@ -1,8 +1,9 @@
-import { showOverlay, handleClose, fullScreen} from './overlay.js';
+import { showOverlay, handleClose} from './overlay.js';
 import { changeCollection } from './collection.js';
 import { prevSlide, nextSlide, getNextSlide, slides, currentSlide } from './slides.js';
 import { toggleMenu, toggleCollections } from './utils.js';
 import { fadeInButtons } from './utils.js';
+import { fullScreen } from './fullscreen.js';
 
 
 let startX, endX, startY, endY;

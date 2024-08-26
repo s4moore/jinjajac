@@ -102,22 +102,25 @@
         transform: translate(-50%, -50%) scale(1);
 
     }
-    75% {
+    /* 60% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1.9);
+    } */
+    60% {
         opacity: 0;
         /* transform: scale(1.8); */
-        transform: translate(-50%, -50%) scale(1.5);
-
+        transform: translate(-50%, -50%) scale(1.7);
     } 
-    85% {
+    80% {
         opacity: 0;
         /* transform: scale(1.8); */
-        transform: translate(-50%, -50%) scale(1.8);
+        transform: translate(-50%, -50%) scale(1.9);
 
     }
     100% {
         opacity: 0;
         /* transform: scale(1.8); */
-        transform: translate(-50%, -50%) scale(1.8);
+        transform: translate(-50%, -50%) scale(2.5);
 
     } 
 } 
