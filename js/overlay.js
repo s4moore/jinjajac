@@ -164,6 +164,44 @@ export function showOverlay() {
         `;
 
         document.body.appendChild(overlay);
+        window.addEventListener('load', function() {
+            const img = document.getElementById('dynamic-img');
+            const overlay = document.querySelector('.overlay');
+            const overlayContent = document.querySelector('.overlay-content');
+            let aspectRatio, containerWidth, containerHeight;
+    
+            function adjustImageSize() {
+                if (overlay.clientWidth < overlay.clientHeight) {
+                 aspectRatio = img.naturalWidth / img.naturalHeight;
+                 containerWidth = overlay.clientWidth * 0.95;
+                 containerHeight = containerWidth / aspectRatio;
+                } else {
+                     aspectRatio = img.naturalWidth / img.naturalHeight;
+                     if (screen.width > screen.height * 1.5) {
+                     containerHeight = overlay.clientHeight * 0.9;
+                     } else{
+                        containerHeight = overlay.clientHeight * 0.7;
+                     }
+                     containerWidth = containerHeight * aspectRatio;
+                }
+                console.log('Container width:', containerWidth);
+                console.log('Container height:', containerHeight);
+                overlayContent.style.height = `${containerHeight}px`;
+                overlayContent.style.width = `${containerWidth}px`;
+    
+            }
+        
+            // Adjust the image size when the image is loaded
+            // if (img.complete) {
+            //     adjustImageSize();
+            // } else {
+            //     img.onload = adjustImageSize;
+            // }
+        
+            // Adjust the image size on window resize
+            window.addEventListener('resize', adjustImageSize);
+        });
+    
         overlay.classList.add('blur');
             const img = document.getElementById('dynamic-img');
             const overlayContent = document.querySelector('.overlay-content');

@@ -22,10 +22,10 @@ export function createSlides(data) {
             slide.setAttribute('data-caption', image.caption || '');
             slide.setAttribute('data-blurb', image.blurb || '');
             slide.setAttribute('landscape', `../collections/${collection}/landscape/${image.src}`);
-            console.log(`Slide created for image: ${slide.getAttribute('landscape')}`);
+            // console.log(`Slide created for image: ${slide.getAttribute('landscape')}`);
             carousel.appendChild(slide);
             slides.push(slide);
-            console.log(`Slide created for image: ${image.src}`);
+            // console.log(`Slide created for image: ${image.src}`);
         });
     slides = document.querySelectorAll('.carousel-slide');
 }
@@ -59,7 +59,7 @@ export function showSlide(index) {
 
 function expandDone(event) {
     const slide = event.target;
-    console.log('Expand done:', slide);
+    // console.log('Expand done:', slide);
     slide.removeEventListener('animationend', expandDone);
     slide.classList.remove('active');
     slide.classList.add('disolve');
@@ -68,7 +68,7 @@ function expandDone(event) {
 }
 
 function disolveDone(event) {
-    console.log('Disolve done:', event.target);
+    // console.log('Disolve done:', event.target);
     const slide = event.target;
     slide.removeEventListener('animationend', disolveDone);
     slide.classList.add('hidden');

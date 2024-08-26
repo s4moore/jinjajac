@@ -36,7 +36,7 @@ export function setBackgroundVideo() {
     // document.addEventListener('touchstart', playVideo, { once: true });
 
     videoElement.addEventListener('canplaythrough', () => {
-        console.log('Video can play through without stopping for buffering.');
+        // console.log('Video can play through without stopping for buffering.');
         videoElement.play().catch(error => {
             console.error('Error attempting to play the video:', error);
         });

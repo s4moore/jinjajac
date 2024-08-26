@@ -11,7 +11,7 @@ export function changeCollection(change) {
     } else if (currentCollection >= collections.length) {
         currentCollection = 0;
     }
-    console.log(`Changing collection to: ${currentCollection}`);
+    // console.log(`Changing collection to: ${currentCollection}`);
     fetch('collections.json')
     .then(response => response.json())
     .then(data => {
@@ -39,7 +39,7 @@ export function changeCollection(change) {
         header3.innerHTML = `
         <img src="headers/${data[header3Number].name}.png" alt="3">
         `;
-        console.log(`Changing collection to: ${collection}`);
+        // console.log(`Changing collection to: ${collection}`);
         fetchSlides(collection);
     });
 }
