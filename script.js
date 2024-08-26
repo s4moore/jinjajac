@@ -3,6 +3,7 @@ import {handleStart, handleEnd} from "./js/input.js";
 export let overlay = null;
 import { setBackgroundVideo } from "./js/background.js";
 import {changeCollection} from "./js/collection.js";
+import { getNextSlide } from "./js/slides.js";
 
 export function updateViewport(userScalable) {
     let viewportMeta = document.querySelector('meta[name="viewport"]');
@@ -42,7 +43,25 @@ document.addEventListener('DOMContentLoaded', () => {
         if (event.ctrlKey) {
             event.preventDefault();
         }
-    });
+    }, { passive: false });
+    document.addEventListener('touchmove', function(event) {
+        event.preventDefault();
+        if (event.touches.length === 2) {
+            // Handle two-finger swipe
+            console.log('Two-finger swipe detected');
+            // Add your custom logic here
+        }
+    }, { passive: false });
+
+    // document.addEventListener('pointermove', function(event) {
+    //     event.preventDefault();
+    //     // if (event.pointerType === 'touch') {
+    //         // Handle two-finger swipe
+    //         console.log('Two-finger swipe detected');
+    //         // Add your custom logic here
+    //         getNextSlide();
+    //     // }
+    // }, { passive: false });
 
     document.addEventListener('touchstart', handleStart, { passive: false });
     document.addEventListener('mousedown', handleStart, { passive: false });      
