@@ -5,6 +5,10 @@ import { fadeInButtons } from './utils.js';
 
 export function fullScreen () {
     return new Promise((resolve) => {
+        document.removeEventListener('touchstart', handleStart, { passive: false });
+        document.removeEventListener('mousedown', handleStart, { passive: false });
+        document.removeEventListener('touchend', handleEnd, { passive: false });
+        document.removeEventListener('mouseup', handleEnd, { passive: false });
         updateViewport('yes');
         const current = slides[currentSlide];
         const imageUrl = current.getAttribute('landscape');               
@@ -12,8 +16,7 @@ export function fullScreen () {
         const fullScreenOverlay = document.createElement('div');
         fullScreenOverlay.classList.add('fullscreen');
         fullScreenOverlay.innerHTML = `
-                            <div class="overlay-buttons-fullscreen">
-                    <button class="close-button fixed-top-left"><img src="icons/Less creative close icon .png"></button>
+        <div class="close-button-fullscreen fixed-top-left"><img src="icons/Less creative close icon .png"></div>
         <div class="fullscreen">
             <img class="fullscreen-img" src="${imageUrl}">
             </div>
@@ -23,50 +26,47 @@ export function fullScreen () {
     `;
 
     document.body.appendChild(fullScreenOverlay);
-    document.querySelector('.close-button').classList.remove('hidden');
-    document.querySelector('.close-button').style.opacity = '1';
+    // document.querySelector('.close-button').classList.remove('hidden');
+    // document.querySelector('.close-button').style.opacity = '1';
     const image = document.querySelector('.fullscreen-img');
     const screen = document.querySelector('.fullscreen');
-    document.addEventListener('click', function(event) {
-        // Get the coordinates of the tap
-        const x = event.clientX;
-        const y = event.clientY;
-    
-        // Create a new button element
-        const button = document.createElement('button');
-        button.textContent = 'Click Me';
-        button.style.position = 'absolute';
-        button.style.left = `${x}px`;
-        button.style.top = `${y}px`;
-        button.style.transform = 'translate(-50%, -50%)'; // Center the button at the tap location
-    
-        // Append the button to the document body
-        document.body.appendChild(button);
-    });
-    // screen.addEventListener('wheel', function(event) {
-    //     if (event.ctrlKey) {
-    //         event.preventDefault(); // Prevent the default zoom behavior
+    const closeButton = document.querySelector('.close-button-fullscreen img');
 
-    //         // Get the current scale of the image
-    //         let scale = parseFloat(image.style.transform.replace(/[^0-9.]/g, '')) || 1;
-    
-    //         // Adjust the scale based on the wheel direction
-    //         if (event.deltaY < 0) {
-    //             // Wheel up - scale up
-    //             scale += 0.1;
-    //         } else {
-    //             // Wheel down - scale down
-    //             scale -= 0.1;
-    //         }
-    
-    //         // Set the new scale with a minimum limit to prevent negative or zero scale
-    //         scale = Math.max(scale, 0.1);
-    //         image.style.transform = `scale(${scale})`;
-    //     }
-    // }, { passive: false });
+    closeButton.addEventListener('click', () => {
+        console.log('Fullscreen button clicked');
+        fullScreenOverlay.remove();
+        updateViewport('no');
+        document.addEventListener('touchstart', handleStart, { passive: false });
+        document.addEventListener('mousedown', handleStart, { passive: false });      
+        document.addEventListener('touchend', handleEnd, { passive: false });
+        document.addEventListener('mouseup', handleEnd, { passive: false });
+        fadeInButtons();
+        resolve();
+    }, {passive: false});
 
-    let initialDistance = null;
-let initialScale = 1;
+
+    screen.addEventListener('wheel', function(event) {
+        if (event.ctrlKey) {
+            event.preventDefault(); // Prevent the default zoom behavior
+
+            // Get the current scale of the image
+            let scale = parseFloat(image.style.transform.replace(/[^0-9.]/g, '')) || 1;
+    
+            // Adjust the scale based on the wheel direction
+            if (event.deltaY < 0) {
+                // Wheel up - scale up
+                scale += 0.1;
+            } else {
+                // Wheel down - scale down
+                scale -= 0.1;
+            }
+    
+            // Set the new scale with a minimum limit to prevent negative or zero scale
+            scale = Math.max(scale, 0.1);
+            image.style.transform = `scale(${scale})`;
+        }
+    }, { passive: false });
+
 
 // Function to calculate distance between two touch points
 function getDistance(touches) {
@@ -76,37 +76,80 @@ function getDistance(touches) {
     return Math.sqrt(dx * dx + dy * dy);
 }
 
-// // Function to handle pinch zoom
-// screen.addEventListener('touchmove', function(event) {
-//     if (event.touches.length === 2) {
-//         event.preventDefault(); // Prevent the default pinch behavior
+// Function to handle pinch zoom
+let initialDistance = null;
+let initialScale = 1;
+let initialTouches = null;
+let initialTranslateX = 0;
+let initialTranslateY = 0;
 
-//         const currentDistance = getDistance(event.touches);
+function getDistance(touches) {
+    const [touch1, touch2] = touches;
+    const dx = touch1.clientX - touch2.clientX;
+    const dy = touch1.clientY - touch2.clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+}
 
-//         if (initialDistance === null) {
-//             initialDistance = currentDistance;
-//             initialScale = parseFloat(image.style.transform.replace(/[^0-9.]/g, '')) || 1;
-//         } else {
-//             const scale = initialScale * (currentDistance / initialDistance);
-//             image.style.transform = `scale(${scale})`;
-//         }
-//     }
-// }, { passive: false });
+function getMidpoint(touches) {
+    const [touch1, touch2] = touches;
+    return {
+        x: (touch1.clientX + touch2.clientX) / 2,
+        y: (touch1.clientY + touch2.clientY) / 2
+    };
+}
 
-// Reset initial distance on touch end
-screen.addEventListener('touchend', function(event) {
+let isMoving = false;
+let startX = 0;
+let startY = 0;
+
+window.addEventListener('touchmove', function(event) {
+    if (event.touches.length === 2) {
+        event.preventDefault(); // Prevent the default pinch behavior
+
+        const currentDistance = getDistance(event.touches);
+        const midpoint = getMidpoint(event.touches);
+
+        if (initialDistance === null) {
+            initialDistance = currentDistance;
+            initialScale = parseFloat(image.style.transform.replace(/[^0-9.]/g, '')) || 1;
+            initialTouches = midpoint;
+            const transform = image.style.transform.match(/translate\(([^)]+)\)/);
+            if (transform) {
+                const [x, y] = transform[1].split(',').map(parseFloat);
+                initialTranslateX = x;
+                initialTranslateY = y;
+            }
+        } else {
+            const scale = initialScale * (currentDistance / initialDistance);
+            const translateX = initialTranslateX + (midpoint.x - initialTouches.x);
+            const translateY = initialTranslateY + (midpoint.y - initialTouches.y);
+            image.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
+        }
+    // } else if (event.touches.length === 1) {
+    //     if (!isMoving) {
+    //         isMoving = true;
+    //         startX = event.touches[0].clientX;
+    //         startY = event.touches[0].clientY;
+    //         const transform = image.style.transform.match(/translate\(([^)]+)\)/);
+    //         if (transform) {
+    //             const [x, y] = transform[1].split(',').map(parseFloat);
+    //             initialTranslateX = x;
+    //             initialTranslateY = y;
+    //         }
+    //     } else {
+    //         const translateX = initialTranslateX + (event.touches[0].clientX - startX);
+    //         const translateY = initialTranslateY + (event.touches[0].clientY - startY);
+    //         image.style.transform = `translate(${translateX}px, ${translateY}px)`;
+    //     }
+    }
+}, { passive: false });
+
+window.addEventListener('touchend', function(event) {
     if (event.touches.length < 2) {
         initialDistance = null;
+        initialTouches = null;
     }
 });
 
-    const closeButton = document.querySelector('.fullscreen .close-button');
-
-    closeButton.addEventListener('click', () => {
-        console.log('Fullscreen button clicked');
-        fullScreenOverlay.remove();
-        updateViewport('no');
-        resolve();
-    });
     });
 }
