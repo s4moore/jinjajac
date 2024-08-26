@@ -45,6 +45,10 @@ export function handleEnd(e) {
     if (target.tagName.toLowerCase() === 'a') {
         return;
     }
+    if (target && target.closest('.overlay-buttons')) {
+        fadeInButtons();
+        return ;
+    }
     if (target && target.closest('.header-2')) {
         toggleCollections();
         collectionsHidden = !collectionsHidden;

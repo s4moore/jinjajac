@@ -54,7 +54,7 @@
 .menu {
     display: flex;
     flex-direction: column;
-    opacity: 0.8;
+    opacity: 0;
     background: url('/menu/menu-box.png');
     background-size: cover;
     width: 72%;

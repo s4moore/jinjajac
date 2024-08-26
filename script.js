@@ -12,7 +12,7 @@ export function updateViewport(userScalable) {
     }
 }
 
-
+toggleMenu();
 document.addEventListener('DOMContentLoaded', () => {
 
     const carouselContainer = document.querySelector('.carousel');
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     headerUpButton.classList.add('hidden');
     headerDownButton.classList.add('hidden');
     // toggleCollections();
-    toggleMenu();
+
     // document.querySelector('.menu').classList.add('hidden');
     changeCollection(0);
     setBackgroundVideo();

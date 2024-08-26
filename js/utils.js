@@ -6,6 +6,7 @@ export function toggleMenu() {
         // if (menuFadeTimeOut) {
         //     clearTimeout(menuFadeTimeOut);
         // }
+        menu.style.opacity = '0.8';
         fadeIn(menu);
         menuHidden = false;
         menuFadeTimeOut = setTimeout(() => {
