@@ -41,7 +41,7 @@ export function fullScreen () {
     } else if (fullScreenOverlay.msRequestFullscreen) { // IE/Edge
         fullScreenOverlay.msRequestFullscreen();
     }
-    
+
     closeButton.addEventListener('click', () => {
         console.log('Fullscreen button clicked');
         fullScreenOverlay.remove();

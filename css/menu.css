@@ -17,7 +17,7 @@
 
 @media (orientation: portrait) {
     .menu-area {
-        width: max(55%, 300px);
+        width: max(55%, 370px);
     }
 }
 

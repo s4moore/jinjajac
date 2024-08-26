@@ -29,23 +29,29 @@
     background: transparent;
     object-fit: contain;
     position: absolute;
-    top: 8%;
-    left: 4%;
-    width: var(--header-2-width);
+    /* bottom: 3%; */
+    left: 50%;
+    transform: translateX(-50%);
+    width: max(150px, var(--header-2-width));
     z-index: 1005;
 }
 
-.header-2-button {
-    display: block;
-    background: transparent;
-    object-fit: contain;
-    position: absolute;
-    top: 8%;
-    bottom: 86%;
-    left: 4%;
-    width: 20%;
-    z-index: 1005;
+@media (orientation: landscape) {
+    .header-2 {
+        top: 3%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }
+
+@media (orientation: portrait) {
+    .header-2 {
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
 
 .header-2 img {
     height: 100%;
