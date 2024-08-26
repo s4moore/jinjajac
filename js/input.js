@@ -9,12 +9,20 @@ let startX, endX, startY, endY;
 
 export function handleStart(e) {
     e.preventDefault();
+    console.log('Start event target:', e.target);
     if (!e.target.closest('.overlay') && !e.target.closest('.overlay-img')
         && !e.target.closest('.carousel-slide')) {
+        if (e.target.closest('#change-menu-btn')) {
+            e.target.classList.add('highlight2');
+            e.target.addEventListener('animationend', () => {
+                e.target.classList.remove('highlight2');
+            });
+        } else {
         e.target.classList.add('highlight');
         e.target.addEventListener('animationend', () => {
             e.target.classList.remove('highlight');
         });
+    }
     }
     if (e.target.tagName.toLowerCase() === 'a' || e.target.closest('a')) {
         return;

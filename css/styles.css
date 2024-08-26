@@ -21,10 +21,10 @@ html, body {
     font-size: 14px;
     font-weight: 400;
 }
-/* 
+
 *, *::before, *::after {
     box-sizing: inherit;
-} */
+}
 
 .highlight {
     animation: highlight-fade 1s;
@@ -60,6 +60,46 @@ html, body {
     }
     90% {
         filter: url(#outline1);
+    }
+    100% {
+        filter: none;
+    }
+}
+
+.highlight2 {
+    animation: highlight-fade2 1s;
+}
+
+@keyframes highlight-fade2 {
+    0% {
+        filter: url(#outline21);
+    }
+    10% {
+        filter: url(#outline22);
+    }
+    20% {
+        filter: url(#outline23);
+    }
+    30% {
+        filter: url(#outline24);
+    }
+    40% {
+        filter: url(#outline25);
+    }
+    50% {
+        filter: url(#outline26);
+    }
+    60% {
+        filter: url(#outline27);
+    }
+    70% {
+        filter: url(#outline25);
+    }
+    80% {
+        filter: url(#outline23);
+    }
+    90% {
+        filter: url(#outline21);
     }
     100% {
         filter: none;
