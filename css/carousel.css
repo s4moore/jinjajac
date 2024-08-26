@@ -50,9 +50,9 @@
     display: flex;
     position: absolute;
     object-fit: contain; 
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    left: -25%;
+    top: -25%;
+    transform: translate(-110%, -125%) scale(0.01);
     animation: expandAndMove 7.2s cubic-bezier(0.12, .1 , 0.5, 0.5) forwards;
 }
 
@@ -60,25 +60,36 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(50%, 50%);
     max-width: 100%;
     animation: fade-out 2s ;
 }
 
 @keyframes expandAndMove {
     0% {
-        transform: translate(-110%, -125%) scale(0.1);
+        /* left: 50%;
+        top: 50%; */
+        transform: translate(-110%, -125%) scale(0.01);
         opacity: .4;
     }
-    20% {
-        transform: translate(-50%, -50%) scale(0.8);
+    /* 28% {
+        transform: translate(-50%, -50%) scale(0.5);
+    } */
+    37% {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) scale(0.9);
         opacity: .9 ;
     }
-    22% {
+    39% {
+        left: 50%;
+        top: 50%;
         transform: translate(-50%, -50%) scale(1);
         opacity: 1;
     }
     100% {
+        left: 50%;
+        top: 50%;
         transform: translate(-50%, -50%) scale(1);
         opacity: 1;
     }
