@@ -9,7 +9,7 @@ export function fullScreen () {
         document.removeEventListener('mousedown', handleStart, { passive: false });
         document.removeEventListener('touchend', handleEnd, { passive: false });
         document.removeEventListener('mouseup', handleEnd, { passive: false });
-        updateViewport('yes');
+        // updateViewport('yes');
         const current = slides[currentSlide];
         const imageUrl = current.getAttribute('landscape');               
 
@@ -32,6 +32,16 @@ export function fullScreen () {
     const screen = document.querySelector('.fullscreen');
     const closeButton = document.querySelector('.close-button-fullscreen img');
 
+    if (fullScreenOverlay.requestFullscreen) {
+        fullScreenOverlay.requestFullscreen();
+    } else if (fullScreenOverlay.mozRequestFullScreen) { // Firefox
+        fullScreenOverlay.mozRequestFullScreen();
+    } else if (fullScreenOverlay.webkitRequestFullscreen) { // Chrome, Safari and Opera
+        fullScreenOverlay.webkitRequestFullscreen();
+    } else if (fullScreenOverlay.msRequestFullscreen) { // IE/Edge
+        fullScreenOverlay.msRequestFullscreen();
+    }
+    
     closeButton.addEventListener('click', () => {
         console.log('Fullscreen button clicked');
         fullScreenOverlay.remove();
