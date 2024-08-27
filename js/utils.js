@@ -14,7 +14,8 @@ export function toggleMenu() {
         // if (menuFadeTimeOut) {
         //     clearTimeout(menuFadeTimeOut);
         // }
-        const scale = Math.min(window.innerWidth, window.innerHeight) / 400;
+        const scale = Math.min(window.innerWidth, window.innerHeight) / 337;
+        console.log('Scale:', scale);   
         setVar('--menu-scale', scale);
         menu.style.opacity = '0.1';
         fadeIn(menu);
