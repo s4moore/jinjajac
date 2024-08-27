@@ -6,17 +6,19 @@ function getVar(variableName) {
     return getComputedStyle(root).getPropertyValue(variableName).trim();
 }
 
-function setVar(variableName, value) {
+export function setVar(variableName, value) {
     root.style.setProperty(variableName, value);
 }
+
 export function toggleMenu() {
     if (menuHidden) {
         // if (menuFadeTimeOut) {
         //     clearTimeout(menuFadeTimeOut);
         // }
         let scale = Math.min(window.innerWidth, window.innerHeight) / 500;
-        if (Math.min(window.innerWidth, window.innerHeight) > 768)
+        if (Math.min(window.innerWidth, window.innerHeight) > 768) {
             scale *= 0.75;
+        }
         console.log('Scale:', scale);   
         setVar('--menu-scale', scale);
         menu.style.opacity = '0.1';

@@ -2,6 +2,7 @@
     --menu-width: 311.3px;
     --menu-height: 272.6px;
     --menu-scale: 1;
+    --img-scale: 0%;
 }
 
 .menu-area {
@@ -44,11 +45,14 @@
     pointer-events: auto;
     position: fixed;
     right: 0;
-    top: 0;
+    top: 0; 
     /* position: absolute; */
-    width: min(200px, 28%);
+    /* width: calc(3 * var(--img-scale)); */
+    width: calc(var(--img-scale) * var(--menu-width));
+    /* height: auto; */
+    object-fit: contain;
     /* right: 0; */
-    align-self: flex-end;
+    /* align-self: flex-end; */
     /* padding-right: 3%;
     padding-top: 5%; */
 }

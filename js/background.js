@@ -1,8 +1,20 @@
+import { setVar } from './utils.js';
+
 export function setBackgroundVideo() {
     const existingVideo = document.querySelector('.background-video');
     if (existingVideo) {
         existingVideo.remove();
     }
+
+    let scale = Math.min(window.innerWidth, window.innerHeight) / 500;
+    if (Math.min(window.innerWidth, window.innerHeight) > 768) {
+        scale *= 0.75;
+    }
+    console.log('Scale:', scale);
+    console.log('Window width:', window.innerWidth);
+    console.log('Window height:', window.innerHeight);
+    const newScale = scale / 2.5; // Calculate the new width
+    setVar('--img-scale', newScale); // Set the new width
 
     const isLandscape = window.matchMedia("(orientation: landscape)").matches;
     const videoElement = document.createElement('video'); // Create a new video element
