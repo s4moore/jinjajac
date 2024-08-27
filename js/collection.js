@@ -1,24 +1,32 @@
 import {fetchSlides} from "./slides.js";
 
 export let collection;
-let currentCollection = 0;
+export let currentCollection = 0;
 let collections = [];
+let set = 0;
 
 export function changeCollection(change) {
-    currentCollection += change;
+    let datafile = 'collections.json';
+    if (change !== 20) {
+    currentCollection -= change;
     if (currentCollection < 0) {
         currentCollection = collections.length - 1;
     } else if (currentCollection >= collections.length) {
         currentCollection = 0;
     }
+    set = currentCollection;
+} else {
+        datafile = 'concrete.json';
+        set = 0;
+    }
     // console.log(`Changing collection to: ${currentCollection}`);
-    fetch('collections.json')
+    fetch(`${datafile}`)
     .then(response => response.json())
     .then(data => {
         console.log('Collections data length:', data.length 
         );
         collections = data;
-        collection = data[currentCollection].name;
+        collection = data[set].name;
         let header1Number = currentCollection - 1;
         let header3Number = currentCollection + 1;
         if (header1Number < 0) {

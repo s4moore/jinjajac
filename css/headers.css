@@ -17,9 +17,10 @@
     padding: 0;
     margin: 0;
     position: absolute;
+    display: block;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 85%;
     height: 100%;
 }
 
@@ -31,14 +32,15 @@
     position: absolute;
     /* bottom: 3%; */
     left: 8%;
+    top: 59%;
     /* transform: translateX(-50%); */
-    width: max(150px, var(--header-2-width));
+    width: max(130px, var(--header-2-width));
     z-index: 1005;
 }
 
 @media (orientation: landscape) {
     .header-2 {
-        top: 3%;
+        top: 14%;
         /* left: 50%;
         transform: translateX(-50%); */
     }

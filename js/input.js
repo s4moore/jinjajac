@@ -1,5 +1,5 @@
 import { showOverlay, handleClose} from './overlay.js';
-import { changeCollection } from './collection.js';
+import { changeCollection, currentCollection } from './collection.js';
 import { prevSlide, nextSlide, getNextSlide, slides, currentSlide } from './slides.js';
 import { toggleMenu, toggleCollections } from './utils.js';
 import { fadeInButtons } from './utils.js';
@@ -42,6 +42,10 @@ export function handleEnd(e) {
     // if (e.target.closest('.menu')) {
     //     return;
     // }
+    if (!document.querySelector('.menu').classList.contains('hidden')
+        && !document.querySelector('.menu').classList.contains('fadeOut')) {
+        toggleMenu();
+    }
     if (target.tagName.toLowerCase() === 'a') {
         return;
     }
@@ -50,8 +54,19 @@ export function handleEnd(e) {
     //     return ;
     // }
     if (target && target.closest('.header-2')) {
+        if (currentCollection !== 20) {
+            console.log('Current collection:', currentCollection);
         toggleCollections();
         collectionsHidden = !collectionsHidden;
+        }
+        return ;
+    }
+    if (target && target.closest('.Concrete')) {
+        changeCollection(20);
+        return ;
+    }
+    if (target && target.closest('.Digital')) {
+        changeCollection(currentCollection);
         return ;
     }
     if (target && target.closest('.header-1')) {
@@ -70,11 +85,7 @@ export function handleEnd(e) {
         fadeInButtons();
     }
 
-    if (!document.querySelector('.menu').classList.contains('hidden')
-        && !document.querySelector('.menu').classList.contains('fadeOut')) {
-        toggleMenu();
-        return ;
-    }
+
     const screenWidth = window.innerWidth;
 
 
