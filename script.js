@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         if (event.touches.length === 2) {
             // Handle two-finger swipe
-            console.log('Two-finger swipe detected');
+            // console.log('Two-finger swipe detected');
             // Add your custom logic here
         }
     }, { passive: false });
