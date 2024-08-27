@@ -1,18 +1,34 @@
 let collectionsHidden = true, menuHidden = false, menuFadeTimeOut = null, collectionsFadeTimeOut = null;
 const menu = document.querySelector('.menu');
+const root = document.documentElement;
 
+function getVar(variableName) {
+    return getComputedStyle(root).getPropertyValue(variableName).trim();
+}
+
+function setVar(variableName, value) {
+    root.style.setProperty(variableName, value);
+}
 export function toggleMenu() {
     if (menuHidden) {
         // if (menuFadeTimeOut) {
         //     clearTimeout(menuFadeTimeOut);
         // }
-        menu.style.opacity = '0.8';
+        const scale = Math.min(window.innerWidth, window.innerHeight) / 400;
+        setVar('--menu-scale', scale);
+        menu.style.opacity = '0.1';
         fadeIn(menu);
         menuHidden = false;
+        // document.querySelectorAll('.carousel-slide').forEach(slide => slide.classList.add('paused'));
+        // document.querySelector('.header-2').classList.add('hidden');
+        // document.querySelector('.carousel').classList.add('blur');
         menuFadeTimeOut = setTimeout(() => {
             fadeOut(menu);
             menuHidden = true;
             menuFadeTimeOut = null;
+            // document.querySelectorAll('.carousel-slide').forEach(slide => slide.classList.remove('paused'));
+            // document.querySelector('.carousel').classList.remove('blur');
+            // document.querySelector('.header-2').classList.remove('hidden');
         }, 25000);
 
     } else {
@@ -47,8 +63,10 @@ export function fadeOut(item) {
 export function fadeIn(item) {
     item.classList.remove('hidden');         
     item.classList.add('fadeIn');
+    item.style.opacity = '0';
+
     item.addEventListener('animationend', () => {
-        item.style.opacity = '0.8';
+        item.style.opacity = '1';
         item.classList.remove('hidden');         
         item.classList.remove('fadeIn');
     });

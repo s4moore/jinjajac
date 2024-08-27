@@ -5,6 +5,12 @@ import { setBackgroundVideo } from "./js/background.js";
 import {changeCollection} from "./js/collection.js";
 import { getNextSlide } from "./js/slides.js";
 
+export function stopZooming(event) {
+    if (event.ctrlKey) {
+        event.preventDefault();
+}
+}
+
 export function updateViewport(userScalable) {
     let viewportMeta = document.querySelector('meta[name="viewport"]');
     if (viewportMeta) {
@@ -39,11 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
     //         event.preventDefault();
     //     }
     // }, { passive: false });
-    window.addEventListener('wheel', function(event) {
-        if (event.ctrlKey) {
-            event.preventDefault();
-        }
-    }, { passive: false });
+
+
+    window.addEventListener('wheel', stopZooming, { passive: false });
+
     document.addEventListener('touchmove', function(event) {
         event.preventDefault();
         if (event.touches.length === 2) {

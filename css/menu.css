@@ -1,6 +1,9 @@
 :root {
     --menu-width: 311.3px;
     --menu-height: 272.6px;
+    --menu-scale: 1;
+}
+
 .menu-area {
     margin: 0;
     padding: 0;
@@ -16,8 +19,8 @@
     z-index: 1001;
     object-fit: contain;
     /* justify-content: flex-start; */
-    height: calc(var(--menu-height)  * 1.2);
-    width: calc(var(--menu-width) * 1.2);
+    height: calc(var(--menu-height) * var(--menu-scale));
+    width: calc(var(--menu-width) * var(--menu-scale));
 }
 
 /* @media (orientation: portrait) {
@@ -43,7 +46,7 @@
     right: 0;
     top: 0;
     /* position: absolute; */
-    width: 28%;
+    width: min(200px, 28%);
     /* right: 0; */
     align-self: flex-end;
     /* padding-right: 3%;
@@ -133,9 +136,9 @@
 
 .Digital {
     position: absolute;
-    width: 22%;
+    width: 22.4%;
     height: 25%;
-    left: 33%;
+    left: 32%;
     top: 38%;
     object-fit: contain;
 }
@@ -154,7 +157,7 @@
     position: absolute;
     width: 28%;
     height: 28%;
-    right: 9%;
+    left: 63%;
     top: 56%;
     object-fit: contain;
 }

@@ -1,10 +1,11 @@
 import {slides, nextSlide, currentSlide} from './slides.js';
 import {handleStart, handleEnd} from './input.js';
-import {updateViewport} from '../script.js';
+import {updateViewport, stopZooming} from '../script.js';
 import { fadeInButtons } from './utils.js';
 
 export function fullScreen () {
     return new Promise((resolve) => {
+        // document.removeEventListener('wheel', stopZooming, { passive: false });
         document.removeEventListener('touchstart', handleStart, { passive: false });
         document.removeEventListener('mousedown', handleStart, { passive: false });
         document.removeEventListener('touchend', handleEnd, { passive: false });
@@ -29,6 +30,7 @@ export function fullScreen () {
     // document.querySelector('.close-button').classList.remove('hidden');
     // document.querySelector('.close-button').style.opacity = '1';
     const image = document.querySelector('.fullscreen-img');
+    image.style.transform = 'scale(1)';
     const screen = document.querySelector('.fullscreen');
     const closeButton = document.querySelector('.close-button-fullscreen img');
 
@@ -50,12 +52,20 @@ export function fullScreen () {
         document.addEventListener('mousedown', handleStart, { passive: false });      
         document.addEventListener('touchend', handleEnd, { passive: false });
         document.addEventListener('mouseup', handleEnd, { passive: false });
+        // document.addEventListener('wheel', stopZooming, { passive: false });
         fadeInButtons();
         resolve();
     }, {passive: false});
 
+    let scale = 1;
+    let translateX = 0;
+    let translateY = 0;
 
-    screen.addEventListener('wheel', function(event) {
+    function updateTransform() {
+        image.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
+    }
+
+    document.addEventListener('wheel', function(event) {
         if (event.ctrlKey) {
             event.preventDefault(); // Prevent the default zoom behavior
 
@@ -73,7 +83,8 @@ export function fullScreen () {
     
             // Set the new scale with a minimum limit to prevent negative or zero scale
             scale = Math.max(scale, 0.1);
-            image.style.transform = `scale(${scale})`;
+            // image.style.transform = `scale(${scale})`;
+            updateTransform();
         }
     }, { passive: false });
 
@@ -94,6 +105,7 @@ export function fullScreen () {
             initialY = 0;
         }
         event.preventDefault();
+        updateTransform();
     }, { passive: false });
     
     document.addEventListener('mousemove', (event) => {
@@ -107,7 +119,7 @@ export function fullScreen () {
     document.addEventListener('mouseup', () => {
         isDragging = false;
     }, { passive: false });
-x
+
 // Function to calculate distance between two touch points
 function getDistance(touches) {
     const [touch1, touch2] = touches;
@@ -160,11 +172,12 @@ window.addEventListener('touchmove', function(event) {
                 initialTranslateY = y;
             }
         } else {
-            const scale = initialScale * (currentDistance / initialDistance);
-            const translateX = initialTranslateX + (midpoint.x - initialTouches.x);
-            const translateY = initialTranslateY + (midpoint.y - initialTouches.y);
+            scale = initialScale * (currentDistance / initialDistance);
+            translateX = initialTranslateX + (midpoint.x - initialTouches.x);
+            translateY = initialTranslateY + (midpoint.y - initialTouches.y);
             image.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
         }
+        updateTransform();
     // } else if (event.touches.length === 1) {
     //     if (!isMoving) {
     //         isMoving = true;
