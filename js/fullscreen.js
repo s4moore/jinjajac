@@ -5,12 +5,15 @@ import { fadeInButtons } from './utils.js';
 
 export function fullScreen () {
     return new Promise((resolve) => {
-        // document.removeEventListener('wheel', stopZooming, { passive: false });
+        
+    let scale = 1;
+    let translateX = 0;
+    let translateY = 0;
+        document.removeEventListener('wheel', stopZooming, { passive: false });
         document.removeEventListener('touchstart', handleStart, { passive: false });
         document.removeEventListener('mousedown', handleStart, { passive: false });
         document.removeEventListener('touchend', handleEnd, { passive: false });
         document.removeEventListener('mouseup', handleEnd, { passive: false });
-        // updateViewport('yes');
         const current = slides[currentSlide];
         const imageUrl = current.getAttribute('landscape');               
 
@@ -22,13 +25,8 @@ export function fullScreen () {
             <img class="fullscreen-img" src="${imageUrl}">
             </div>
         </div>
-
-
     `;
-
     document.body.appendChild(fullScreenOverlay);
-    // document.querySelector('.close-button').classList.remove('hidden');
-    // document.querySelector('.close-button').style.opacity = '1';
     const image = document.querySelector('.fullscreen-img');
     image.style.transform = 'scale(1)';
     const screen = document.querySelector('.fullscreen');
@@ -52,45 +50,47 @@ export function fullScreen () {
         document.addEventListener('mousedown', handleStart, { passive: false });      
         document.addEventListener('touchend', handleEnd, { passive: false });
         document.addEventListener('mouseup', handleEnd, { passive: false });
-        // document.addEventListener('wheel', stopZooming, { passive: false });
+        document.addEventListener('wheel', stopZooming, { passive: false });
         fadeInButtons();
         resolve();
     }, {passive: false});
 
-    let scale = 1;
-    let translateX = 0;
-    let translateY = 0;
-
-    function updateTransform() {
-        image.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
-    }
-
     document.addEventListener('wheel', function(event) {
         if (event.ctrlKey) {
-            event.preventDefault(); // Prevent the default zoom behavior
-
-            // Get the current scale of the image
-            let scale = parseFloat(image.style.transform.replace(/[^0-9.]/g, '')) || 1;
+            event.preventDefault(); 
     
-            // Adjust the scale based on the wheel direction
-            if (event.deltaY < 0) {
-                // Wheel up - scale up
-                scale += 0.1;
-            } else {
-                // Wheel down - scale down
-                scale -= 0.1;
+            let currentScale = 1;
+            let translateX = 0;
+            let translateY = 0;
+            const transform = image.style.transform;
+            const scaleMatch = transform.match(/scale\(([^)]+)\)/);
+            const translateMatch = transform.match(/translate\(([^)]+)px, ([^)]+)px\)/);
+    
+            if (scaleMatch) {
+                currentScale = parseFloat(scaleMatch[1]);
+            }
+            if (translateMatch) {
+                translateX = parseFloat(translateMatch[1]);
+                translateY = parseFloat(translateMatch[2]);
             }
     
-            // Set the new scale with a minimum limit to prevent negative or zero scale
-            scale = Math.max(scale, 0.1);
-            // image.style.transform = `scale(${scale})`;
-            updateTransform();
+            if (event.deltaY < 0) {
+                currentScale += 0.1;
+            } else {
+                currentScale -= 0.1;
+            }
+    
+            currentScale = Math.max(currentScale, 0.1);
+            scale = currentScale;
+    
+            image.style.transform = `scale(${currentScale}) translate(${translateX}px, ${translateY}px)`;
         }
     }, { passive: false });
 
-    let isDragging = false;
-    let initialX, initialY;
     
+    let isDragging = false;
+    let initialX, initialY, startX, startY;
+
     image.addEventListener('mousedown', (event) => {
         isDragging = true;
         startX = event.clientX;
@@ -105,14 +105,16 @@ export function fullScreen () {
             initialY = 0;
         }
         event.preventDefault();
-        updateTransform();
     }, { passive: false });
     
     document.addEventListener('mousemove', (event) => {
         if (isDragging) {
             const dx = event.clientX - startX;
             const dy = event.clientY - startY;
-            image.style.transform = `translate(${initialX + dx}px, ${initialY + dy}px)`;
+            const newX = initialX + dx;
+            const newY = initialY + dy;
+            const currentScale = parseFloat(image.style.transform.match(/scale\(([^)]+)\)/)?.[1] || 1);
+            image.style.transform = `translate(${newX}px, ${newY}px) scale(${currentScale})`;
         }
     }, { passive: false });
     
@@ -120,7 +122,6 @@ export function fullScreen () {
         isDragging = false;
     }, { passive: false });
 
-// Function to calculate distance between two touch points
 function getDistance(touches) {
     const [touch1, touch2] = touches;
     const dx = touch1.clientX - touch2.clientX;
@@ -128,7 +129,6 @@ function getDistance(touches) {
     return Math.sqrt(dx * dx + dy * dy);
 }
 
-// Function to handle pinch zoom
 let initialDistance = null;
 let initialScale = 1;
 let initialTouches = null;
@@ -150,20 +150,15 @@ function getMidpoint(touches) {
     };
 }
 
-let isMoving = false;
-let startX = 0;
-let startY = 0;
-
 window.addEventListener('touchmove', function(event) {
     if (event.touches.length === 2) {
-        event.preventDefault(); // Prevent the default pinch behavior
-
+        event.preventDefault(); 
         const currentDistance = getDistance(event.touches);
         const midpoint = getMidpoint(event.touches);
 
         if (initialDistance === null) {
             initialDistance = currentDistance;
-            initialScale = parseFloat(image.style.transform.replace(/[^0-9.]/g, '')) || 1;
+            initialScale = scale || 1;
             initialTouches = midpoint;
             const transform = image.style.transform.match(/translate\(([^)]+)\)/);
             if (transform) {
@@ -177,23 +172,6 @@ window.addEventListener('touchmove', function(event) {
             translateY = initialTranslateY + (midpoint.y - initialTouches.y);
             image.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
         }
-        updateTransform();
-    // } else if (event.touches.length === 1) {
-    //     if (!isMoving) {
-    //         isMoving = true;
-    //         startX = event.touches[0].clientX;
-    //         startY = event.touches[0].clientY;
-    //         const transform = image.style.transform.match(/translate\(([^)]+)\)/);
-    //         if (transform) {
-    //             const [x, y] = transform[1].split(',').map(parseFloat);
-    //             initialTranslateX = x;
-    //             initialTranslateY = y;
-    //         }
-    //     } else {
-    //         const translateX = initialTranslateX + (event.touches[0].clientX - startX);
-    //         const translateY = initialTranslateY + (event.touches[0].clientY - startY);
-    //         image.style.transform = `translate(${translateX}px, ${translateY}px)`;
-    //     }
     }
 }, { passive: false });
 

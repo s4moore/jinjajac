@@ -15,8 +15,8 @@
     /* width: 42%; */
     /* height: 40%; */
     max-height: 100%;
-    top: 0;
-    right: 0;
+    top: 5%;
+    right: 3%;
     z-index: 1001;
     object-fit: contain;
     /* justify-content: flex-start; */
@@ -260,4 +260,26 @@
 
 .hidden {
     display: none !important;
+}
+
+.gallery-button {
+    display: block;
+    position: absolute;
+    left: 3%;
+    bottom: 0;
+    width: 20%;
+    /* height: 50%; */
+    z-index: 1001;
+    background: transparent;
+}
+
+.gallery-button img {
+    /* transform: translate(-100%, -100%); */
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    /* height: 100%; */
+    object-fit: contain;
+    z-index: 1001;
 }
