@@ -169,18 +169,18 @@
 .Concrete {
     position: absolute;
     width: 22%;
-    height: 75%;
+    height: 28%;
     left: 18%;
-    top: 48%;
+    top: 72%;
     object-fit: contain;
 }
 
 .Light {
     position: absolute;
     width: 23%;
-    height: 75%;
+    height: 28%;
     left: 46%;
-    top: 47%;
+    top: 71%;
     object-fit: contain;
 }
 

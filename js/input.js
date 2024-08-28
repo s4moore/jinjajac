@@ -13,7 +13,7 @@ export function handleStart(e) {
     console.log('Start event target:', e.target);
     if (!e.target.closest('.overlay') && !e.target.closest('.overlay-img')
         && !e.target.closest('.carousel-slide')) {
-        if (e.target.closest('#change-menu-btn')) {
+        if (e.target.closest('#change-menu-btn') || e.target.closest('.links')) {
             e.target.classList.add('highlight2');
             e.target.addEventListener('animationend', () => {
                 e.target.classList.remove('highlight2');
