@@ -17,7 +17,7 @@ export function createSlides(data) {
             slide.classList.add('carousel-slide');
             slide.classList.add('hidden');
             slide.innerHTML = `
-            <img src="../collections/${collection}/${image.src}" alt="Image ${index + 1}">
+            <img src="../collections/${collection}/${image.src}" alt="Image ${index + 1} class="blurred-edges">
             `;
             slide.setAttribute('data-caption', image.caption || '');
             slide.setAttribute('data-blurb', image.blurb || '');
@@ -75,6 +75,17 @@ function disolveDone(event) {
     slide.classList.remove('disolve');
 }
 
+function adjustCarouselSize() {
+    const carousel = document.querySelector('.carousel');
+    const activeSlide = document.querySelector('.carousel-slide:not(.hidden) img');
+    if (activeSlide) {
+        activeSlide.onload = () => {
+            carousel.style.width = `${activeSlide.naturalWidth}px`;
+            carousel.style.height = `${activeSlide.naturalHeight}px`;
+        };
+    }
+}
+
 export function nextSlide() {
     const activeSlides = document.querySelectorAll('.carousel-slide.active');
     activeSlides.forEach(activeSlide => {
@@ -84,6 +95,7 @@ export function nextSlide() {
         }
     });
     currentSlide = (currentSlide + 1) % slides.length;
+	// adjustCarouselSize();
     if (document.querySelector('.overlay')) {
         updateOverlayImage();
     } else {

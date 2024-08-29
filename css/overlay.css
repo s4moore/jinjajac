@@ -47,8 +47,8 @@
 	position: absolute;
 	right: 0;
 	bottom: 0;
-	width: 2rem;
-	height: 4rem;
+	width: 4rem;
+	height: 8rem;
 	background: none;
 	align-items: space-evenly; 
     justify-content: space-evenly;
@@ -58,9 +58,11 @@
 }
 
 .close-button {
+	justify-self: center;
+	align-self: center;
     opacity: 1;
     display: flex;
-	width: 100%;
+	width: 80%;
     z-index: 1050 !important;
     /* animation: fadein 5s forwards; */
     transform: scale(1.4);
@@ -71,9 +73,11 @@
 }
 
 .fullscreen-button {
+	justify-self: center;
+	align-self: center;
     opacity: 1;
     display: flex;
-	width: 100%;
+	width: 80%;
     z-index: 1050 !important;
     transform: scale(1.4);
     /* animation: fadein 5s forwards; */

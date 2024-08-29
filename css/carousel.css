@@ -20,6 +20,24 @@
     align-items: center;
     justify-content: center;
     transform: translate(-50%, -50%);
+	
+}
+
+.blurred-edges {
+    filter: url(#blurEdges);
+}
+
+.carousel-slide::before {
+	content: "";
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0px 0px 12px 10px rgba(0, 0, 0, 0.97);
+    border-radius: inherit;
+    z-index: 1010; /* Ensure the shadow is above the image */
 }
 
 @media (orientation: portrait) {
@@ -38,11 +56,13 @@
 
 .carousel-slide img {
     border-radius: 3%;
-    box-shadow: 0px 0px 27px 20px rgba(0, 0, 0, 0.97);
-    background-color: rgba(0, 0, 0, 0.97);
+    /* box-shadow: 0px 0px 27px 20px rgba(0, 0, 0, 0.97); */
+    /* background-color: rgba(0, 0, 0, 0.97); */
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+	box-shadow: 0px 0px 27px 20px rgba(0, 0, 0, 0.97);
+
 }
 
 

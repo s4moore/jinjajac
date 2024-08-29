@@ -1,4 +1,4 @@
-let collectionsHidden = true, menuHidden = false, menuFadeTimeOut = null, collectionsFadeTimeOut = null;
+let collectionsHidden = true, menuHidden = true, menuFadeTimeOut = null, collectionsFadeTimeOut = null;
 const menu = document.querySelector('.menu');
 const root = document.documentElement;
 
@@ -12,9 +12,9 @@ export function setVar(variableName, value) {
 
 export function toggleMenu() {
     if (menuHidden) {
-        // if (menuFadeTimeOut) {
-        //     clearTimeout(menuFadeTimeOut);
-        // }
+        if (menuFadeTimeOut) {
+            clearTimeout(menuFadeTimeOut);
+        }
         let scale = Math.min(window.innerWidth, window.innerHeight) / 470;
         if (Math.min(window.innerWidth, window.innerHeight) > 768) {
             scale *= 0.75;
@@ -22,21 +22,32 @@ export function toggleMenu() {
         console.log('Scale:', scale);   
         setVar('--menu-scale', scale);
         menu.style.opacity = '0.1';
+		menuHidden = false;
         fadeIn(menu);
-        menuHidden = false;
         menuFadeTimeOut = setTimeout(() => {
-            fadeOut(menu);
-            menuHidden = true;
-            menuFadeTimeOut = null;
-        }, 5000);
+			menu.classList.add('fadeOut');
+			menu.addEventListener('animationend', function fadeOutListener() {
+				menuHidden = true;
+				menuFadeTimeOut = null;
+				menu.classList.add('hidden');
+				menu.classList.remove('fadeOut');
+				menu.removeEventListener('animationend', fadeOutListener);
+			});
+        }, 9000);
 
     } else {
         if (menuFadeTimeOut) {
             clearTimeout(menuFadeTimeOut);
             menuFadeTimeOut = null;
         }
-        fadeOut(menu);
-        menuHidden = true;
+		menu.classList.add('fadeOut');
+		menu.addEventListener('animationend', function fadeOutListener() {
+			menuHidden = true;
+			menu.classList.add('hidden');
+			menu.style.opacity = '0';
+			menu.classList.remove('fadeOut');
+			menu.removeEventListener('animationend', fadeOutListener);
+		});
     }
 }
 
@@ -60,7 +71,8 @@ export function fadeOut(item) {
 }
 
 export function fadeIn(item) {
-    item.classList.remove('hidden');         
+    item.classList.remove('hidden');      
+	item.classList.remove('fadeOut');            
     item.classList.add('fadeIn');
     item.style.opacity = '0';
 
@@ -78,6 +90,7 @@ function onAnimationEnd() {
     header3.classList.add('hidden');
     header3.classList.remove('fadeCollections');
     collectionsHidden = true;
+	header1.removeEventListener('animationend', onAnimationEnd);
 }
 
 export function toggleCollections() {
@@ -113,10 +126,11 @@ export function fadeInButtons() {
     // buttons.forEach(button => {
         buttons.classList.remove('hidden');
         buttons.classList.add('button-fade');
-		buttons.addEventListener('animationend', () => {
+		buttons.addEventListener('animationend', function buttonFader() {
 			buttons.classList.remove('button-fade');
 			buttons.classList.add('hidden');
 			buttons.style.opacity = '0';
+			buttons.removeEventListener('animationend', buttonFader);
 		});
 
     //     button.addEventListener('animationend', () => button.classList.add('hidden'));

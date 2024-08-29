@@ -41,11 +41,11 @@ export function showOverlay() {
             buttonsShown = true;
             overlay.remove();
         }
-		document.querySelector('.gallery-button').classList.add('fadeOut');
-		document.querySelector('.gallery-button').addEventListener('animationend', () => {
-			document.querySelector('.gallery-button').classList.add('hidden');
-			document.querySelector('.gallery-button').classList.remove('fadeOut');
-		});
+		// document.querySelector('.gallery-button').classList.add('fadeOut');
+		// document.querySelector('.gallery-button').addEventListener('animationend', () => {
+		// 	document.querySelector('.gallery-button').classList.add('hidden');
+		// 	document.querySelector('.gallery-button').classList.remove('fadeOut');
+		// });
         overlay = document.createElement('div');
         overlay.classList.add('overlay');
         overlay.innerHTML = `
