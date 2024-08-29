@@ -24,7 +24,7 @@ function setVar(variable, value) {
 
 // toggleMenu();
 document.addEventListener('DOMContentLoaded', () => {
-
+	document.querySelector('.menu').classList.add('hidden');
     const headerUpButton = document.querySelector('.header-1');
     const headerDownButton = document.querySelector('.header-3');
 
