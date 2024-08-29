@@ -139,20 +139,28 @@
                 <feMergeNode in="SourceGraphic"/>
             </feMerge>
         </filter>
+	<filter id="header-border">
+		<feMorphology operator="dilate" radius="5" in="SourceAlpha" result="dilated"/>
+		<feFlood flood-color="#000000" flood-opacity="0.86" result="flood"/>
+		<feComposite in="flood" in2="dilated" operator="in" result="outline"/>
+		<feMerge>
+			<feMergeNode in="outline"/>
+			<feMergeNode in="SourceGraphic"/>
+		</feMerge>
+	</filter>
+	
 
     </svg>
     <div id="loading-overlay">
         <div class="spinner"></div>
         <p>Loading...</p>
     </div>
-    <div class="gallery-button"><img src="/menu/gallery/Untitled_Artwork-1.png"></div>
 
     <div class="collection-header">
         <div class="header-1"></div>
         <div class="header-2"></div>
         <div class="header-3"></div>
     </div>
-    <div class="carousel"></div>
     <div class="menu-area">
         <div class="menu-toggle" >
             <img id="change-menu-btn" src="/menu/Logo + tag.png" alt="logo">
@@ -183,7 +191,9 @@
             </div>
 
     </div>
+    <div class="carousel"></div>
 
+    <div class="gallery-button"><img src="/menu/gallery/Untitled_Artwork-1.png"></div>
 
     <script type="module" src="script.js">
     </script>

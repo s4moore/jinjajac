@@ -107,43 +107,18 @@ export function toggleCollections() {
         header1.addEventListener('animationend', onAnimationEnd);
     }
 }
-// export function toggleCollections() {
-//     console.log('Toggling collections');
-//     const header1 = document.querySelector('.header-1');
-//     const header3 = document.querySelector('.header-3');
-//     if (!collectionsHidden)
-//     {
-//         if (collectionsFadeTimeOut) {
-//             clearTimeout(collectionsFadeTimeOut);
-//         }
-//         fadeOut(header1);
-//         fadeOut(header3);
-//         collectionsHidden = true;
-//     } else {
-//         if (collectionsFadeTimeOut) {
-//             clearTimeout(collectionsFadeTimeOut);
-//         }
-//         fadeInHeader(header1);
-//         fadeInHeader(header3);
-//         collectionsFadeTimeOut = setTimeout(() => {
-//             fadeOut(header1);
-//             fadeOut(header3);
-//             collectionsHidden = true;
-//             collectionsFadeTimeOut = null;
-//         }, 5000);
-//         collectionsHidden = false;
-//     }
-//     console.log('Collections hidden:', collectionsHidden);
-// }
-
-let fading = null;
-let hiding = null;
 
 export function fadeInButtons() {
-    const buttons = document.querySelectorAll('.overlay button');
-    buttons.forEach(button => {
-        button.classList.remove('hidden');
-        button.classList.add('button-fade');
-        button.addEventListener('animationend', () => button.classList.add('hidden'));
-    });
+    const buttons = document.querySelector('.overlay-buttons');
+    // buttons.forEach(button => {
+        buttons.classList.remove('hidden');
+        buttons.classList.add('button-fade');
+		buttons.addEventListener('animationend', () => {
+			buttons.classList.remove('button-fade');
+			buttons.classList.add('hidden');
+			buttons.style.opacity = '0';
+		});
+
+    //     button.addEventListener('animationend', () => button.classList.add('hidden'));
+    // });
 }

@@ -41,22 +41,25 @@ export function showOverlay() {
             buttonsShown = true;
             overlay.remove();
         }
+		document.querySelector('.gallery-button').classList.add('fadeOut');
+		document.querySelector('.gallery-button').addEventListener('animationend', () => {
+			document.querySelector('.gallery-button').classList.add('hidden');
+			document.querySelector('.gallery-button').classList.remove('fadeOut');
+		});
         overlay = document.createElement('div');
         overlay.classList.add('overlay');
         overlay.innerHTML = `
             <div class="overlay-content">
                 <img class="overlay-img" src="${imageUrl}"  id="dynamic-img">
                 <div class="overlay-buttons">
-                    <button class="close-button hidden" id="check-hidden-close"><img src="icons/Less creative close icon .png"></button>
-                    <button class="info-button hidden"><img src="icons/Information .png"></button>
-                    <button class="fullscreen-button hidden"><img src="icons/Less creative fullscreen icon .png"></button>
+                    <button class="close-button " id="check-hidden-close"><img id="close-overlay-button" src="icons/Less creative close icon .png"></button>
+                    <button class="fullscreen-button "><img src="icons/Less creative fullscreen icon .png"></button>
                 </div>
 
                 <div class="caption"></div>
             </div>
 
         `;
-
         document.body.appendChild(overlay);
         window.addEventListener('load', function() {
             const img = document.getElementById('dynamic-img');
@@ -84,15 +87,6 @@ export function showOverlay() {
                 overlayContent.style.width = `${containerWidth}px`;
     
             }
-        
-            // Adjust the image size when the image is loaded
-            // if (img.complete) {
-            //     adjustImageSize();
-            // } else {
-            //     img.onload = adjustImageSize;
-            // }
-        
-            // Adjust the image size on window resize
             window.addEventListener('resize', adjustImageSize);
         });
     
@@ -129,30 +123,18 @@ export function showOverlay() {
                 caption.classList.add('fadeIn');
             }
     
-            // Adjust the image size when the image is loaded
-    
-            // Adjust the image size on window resize
             window.addEventListener('resize', adjustImageSize);
-            // Adjust the image size when the image source changes
     
-            const closeButton = document.querySelector('.close-button');
-            closeButton.addEventListener('click', () => {
-                handleClose();
-                resolve();
-            });
-            if (!buttonsShown) {
+
+            // if (!buttonsShown) {
                 fadeInButtons();
-                buttonsShown = true;
-            }
-            // overlay.addEventListener('touchstart', handleStart);
-            // overlay.addEventListener('mousedown', handleStart);
-            // overlay.addEventListener('touchend', handleEnd);
-            // overlay.addEventListener('mouseup', handleEnd);
+                // buttonsShown = true;
+            // }
         });
     }
 
 export function updateOverlayImage() {
-    overlay = document.querySelector('.overlay'); // Ensure overlay is reassigned
+    overlay = document.querySelector('.overlay'); 
     // if (overlay) {
         const current = slides[currentSlide];
         const imageUrl = current.querySelector('img').src;
@@ -161,10 +143,8 @@ export function updateOverlayImage() {
             overlayImage.src = imageUrl;
         // }
         const captionElement = overlay.querySelector('.caption');
-        // const blurbElement = document.querySelector('.blurb');
         function updateCaptionAndBlurb() {
             captionElement.innerText = slides[currentSlide].getAttribute('data-caption');
-            // blurbElement.innerText = current.getAttribute('data-blurb');
         }
         
     updateCaptionAndBlurb();

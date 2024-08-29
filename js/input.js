@@ -10,6 +10,9 @@ let startX, endX, startY, endY;
 
 export function handleStart(e) {
     e.preventDefault();
+	if (document.querySelector('.overlay')) {
+        fadeInButtons();
+    }
     console.log('Start event target:', e.target);
     if (!e.target.closest('.overlay') && !e.target.closest('.overlay-img')
         && !e.target.closest('.carousel-slide')) {
@@ -42,6 +45,7 @@ export function handleEnd(e) {
     // if (e.target.closest('.menu')) {
     //     return;
     // }
+
     if (!document.querySelector('.menu').classList.contains('hidden')
         && !document.querySelector('.menu').classList.contains('fadeOut')) {
         toggleMenu();
@@ -81,9 +85,7 @@ export function handleEnd(e) {
         return ;
         // }
     }
-    if (document.querySelector('.overlay') && document.getElementById('check-hidden-close').classList.contains('hidden')) {
-        fadeInButtons();
-    }
+
 
 
     const screenWidth = window.innerWidth;
@@ -110,12 +112,32 @@ export function handleEnd(e) {
         return ;
     }
     if (target && target.closest('.close-button')) {
+		const galleryButton = document.querySelector('.gallery-button');
 
-            console.log('Close button clicked');
-            slides[currentSlide].classList.add('hidden');
-            handleClose();
-            nextSlide();
-            return ;
+		console.log('Close button clicked');
+		console.log('Before:', galleryButton.classList);
+	
+		galleryButton.classList.remove('hidden');
+		galleryButton.classList.remove('fadeOut');
+		galleryButton.style.opacity = '0';
+		galleryButton.classList.add('fadeIn');
+		galleryButton.addEventListener('animationend', () => {
+			galleryButton.style.opacity = '1';
+			galleryButton.classList.remove('fadeIn');
+			galleryButton.classList.remove('hidden');
+
+		});
+	
+		console.log('After:', galleryButton.classList);
+		// document.querySelector('.gallery-buttons').addEventListener('animationend', () => {
+		// 	document.querySelector('.gallery-buttons').classList.remove('fadeOut');
+		// });
+		slides[currentSlide].classList.add('hidden');
+
+		handleClose();
+		nextSlide();
+		resolve();
+		return ;
     }
     if (target && target.closest('.fullscreen-button')) {
         fullScreen();
