@@ -31,6 +31,8 @@
 	position: absolute;
 	right: 0;
 	bottom: 0;
+	padding: 5px;
+	opacity: 1;
 	/* width: 2rem;
 	height: 4rem; */
 	background: none;
@@ -38,21 +40,21 @@
     justify-content: space-evenly;
 	background-color: rgba(0, 0, 0, 1);
 	border-radius: 10px;
-	z-index: 1050;
+	z-index: 2000;
 }
 
-@media (min-height: 1181px) {
+@media (min-height: 1001px) {
 	.overlay-buttons {
-		width: 5%;
-		height: 17%;
+		width: 6%;
+		height: 13%;
 	}
 	
 }
 
-@media (max-height: 1180px) {
+@media (max-height: 1000px) {
 	.overlay-buttons {
-		width: 7%;
-		height: 20%;
+		width: 10%;
+		height: 21%;
 	}
 	
 }
@@ -88,7 +90,7 @@
     opacity: 1; 
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     z-index: 1050;
 }
 
