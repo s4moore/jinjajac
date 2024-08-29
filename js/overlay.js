@@ -75,7 +75,7 @@ export function showOverlay() {
                 } else {
                      aspectRatio = img.naturalWidth / img.naturalHeight;
                      if (screen.width > screen.height * 1.5) {
-                     containerHeight = overlay.clientHeight * 0.9;
+                     containerHeight = overlay.clientHeight * 0.89;
                      } else{
                         containerHeight = overlay.clientHeight * 0.7;
                      }

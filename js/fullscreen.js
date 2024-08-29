@@ -20,7 +20,7 @@ export function fullScreen () {
         const fullScreenOverlay = document.createElement('div');
         fullScreenOverlay.classList.add('fullscreen');
         fullScreenOverlay.innerHTML = `
-        <div class="close-button-fullscreen fixed-top-left"><img src="icons/Less creative close icon .png"></div>
+        <div class="close-button-fullscreen"><img src="icons/Less creative close icon .png"></div>
         <div class="fullscreen">
             <img class="fullscreen-img" src="${imageUrl}">
             </div>
