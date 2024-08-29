@@ -43,7 +43,7 @@
 
 @media (min-height: 1181px) {
 	.overlay-buttons {
-		width: 7%;
+		width: 5%;
 		height: 17%;
 	}
 	
@@ -51,8 +51,8 @@
 
 @media (max-height: 1180px) {
 	.overlay-buttons {
-		width: 6%;
-		height: 12%;
+		width: 7%;
+		height: 20%;
 	}
 	
 }
@@ -112,11 +112,11 @@
 
 .caption{
     display: block;
-    background: rgba(0, 0, 0, 0.8);
+    /* background: rgba(0, 0, 0, 0.8); */
     opacity: 0;
     font-size: 1rem;
     position: absolute;
-    bottom: -1.2rem;
+    bottom: -1.8rem;
     left: 50%;
     transform: translateX(-50%);
     margin: auto;
