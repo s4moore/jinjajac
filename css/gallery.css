@@ -45,9 +45,22 @@
 
 .gallery-icon {
     display: block;
-    height: 20%;
     width: auto;
     /* object-fit: contain; */
+}
+
+@media (orientation: portrait) {
+    .gallery-icon {
+        height: 15%;
+        width: auto;
+    }
+}
+
+@media (orientation: landscape) {
+    .gallery-icon {
+        height: auto;
+        width: 15%;
+    }
 }
 
 .gallery-icon img {
