@@ -3,7 +3,7 @@ import {handleStart, handleEnd} from './input.js';
 import {stopZooming} from '../script.js';
 import { fadeInButtons } from './utils.js';
 import { showOverlay } from './overlay.js';
-let startX, startY, endX, endY;
+let startX, startY, currentY;
 export function openGallery () {
     return new Promise((resolve) => {
         document.removeEventListener('touchstart', handleStart, { passive: false });
@@ -48,47 +48,24 @@ function handleTouchStart(event) {
 
 function handleTouchMove(event) {
     const touch = event.touches[0];
-    endX = touch.clientX;
-    endY = touch.clientY;
+    const galleryPopup = document.getElementById('gallery-popup');
+    const galleryGrid = galleryPopup.querySelector('.gallery');
+    
+    const deltaY = touch.clientY - currentY;
+    currentY = touch.clientY;
+
+    galleryGrid.scrollTop -= deltaY;
+
+    // Ensure we don't scroll beyond the end of the slides
+    if (galleryGrid.scrollTop < 0) {
+        galleryGrid.scrollTop = 0;
+    }
+    if (galleryGrid.scrollTop > galleryGrid.scrollHeight - galleryGrid.clientHeight) {
+        galleryGrid.scrollTop = galleryGrid.scrollHeight - galleryGrid.clientHeight;
+    }
 }
 
 function handleTouchEnd() {
-    const deltaX = endX - startX;
-    const deltaY = endY - startY;
-
-    if (Math.abs(deltaX) > Math.abs(deltaY)) {
-        // Horizontal swipe
-        if (deltaX > 0) {
-            // Swipe right
-            console.log('Swiped right');
-            // Implement logic to show the previous slide
-        } else {
-            // Swipe left
-            console.log('Swiped left');
-            // Implement logic to show the next slide
-        }
-    } else {
-        // Vertical swipe
-        const galleryPopup = document.getElementById('gallery-popup');
-        const galleryGrid = galleryPopup.querySelector('.gallery');
-        const scrollAmount = 100; // Adjust this value as needed
-
-        if (deltaY > 0) {
-            // Swipe down
-            console.log('Swiped down');
-            galleryGrid.scrollTop -= scrollAmount;
-        } else {
-            // Swipe up
-            console.log('Swiped up');
-            galleryGrid.scrollTop += scrollAmount;
-        }
-
-        // Ensure we don't scroll beyond the end of the slides
-        if (galleryGrid.scrollTop < 0) {
-            galleryGrid.scrollTop = 0;
-        }
-        if (galleryGrid.scrollTop > galleryGrid.scrollHeight - galleryGrid.clientHeight) {
-            galleryGrid.scrollTop = galleryGrid.scrollHeight - galleryGrid.clientHeight;
-        }
-    }
+    // Reset the currentY value
+    currentY = null;
 }
