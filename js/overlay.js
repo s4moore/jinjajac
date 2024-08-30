@@ -11,6 +11,9 @@ export function handleClose() {
     if (overlay){
         overlay.remove();
     }
+    if (!document.querySelector('.gallery-popup').classList.contains('hidden')) {
+        document.querySelector('.gallery-popup').classList.add('hidden');
+    }
     overlay = null; 
     slides[currentSlide].classList.add('hidden');
     slides.forEach( (slide) => {
@@ -22,7 +25,7 @@ export function handleClose() {
 }
 
 export function showOverlay() {
-    return new Promise((resolve) => {
+    return new Promise(() => {
         let buttonsShown = false;
         let overlay = document.querySelector('.overlay');
 
@@ -61,6 +64,7 @@ export function showOverlay() {
 
         `;
         document.body.appendChild(overlay);
+        const closeButton = document.getElementById('close-overlay-button');
         window.addEventListener('load', function() {
             const img = document.getElementById('dynamic-img');
             const overlay = document.querySelector('.overlay');

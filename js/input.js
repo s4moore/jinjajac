@@ -5,6 +5,7 @@ import { toggleMenu, toggleCollections } from './utils.js';
 import { fadeInButtons } from './utils.js';
 import { fullScreen } from './fullscreen.js';
 import { openGallery } from './gallery.js';
+import { overlay } from '../script.js';
 
 
 let startX, endX, startY, endY;
@@ -61,15 +62,22 @@ export function handleEnd(e) {
         // return;
     }
     if (target.closest('.Gallery')) {
+            const overlay = document.querySelector('.overlay');
+        if (overlay){
+            overlay.remove();
+            openGallery();
+
+        }   else {
         document.querySelectorAll('.active').forEach(element => {
             element.classList.add('hidden');
             // showOverlay();
             console.log('going to overlay mode');
-            const overlay = document.querySelector('.overlay');
             slides.forEach (slide => slide.classList.add('paused'));
             openGallery();
-            return ;
+
         });
+        return ;
+        }
     }
 	if (target.closest('.toggle-menu')) {
 		toggleMenu();
@@ -88,11 +96,13 @@ export function handleEnd(e) {
         return ;
     }
     if (target.closest('.Concrete')) {
+        handleClose ();
         changeCollection(20);
         return ;
     }
     if (target.closest('.Digital')) {
         changeCollection(currentCollection);
+        handleClose ();
         return ;
     }
     if (target.closest('.header-1')) {
@@ -134,32 +144,12 @@ export function handleEnd(e) {
         toggleMenu();
         return ;
     }
-    if (target.closest('.close-button')) {
-	// 	const galleryButton = document.querySelector('.gallery-button');
-
-	// 	console.log('Close button clicked');
-	// 	console.log('Before:', galleryButton.classList);
-	
-	// 	galleryButton.classList.remove('hidden');
-	// 	galleryButton.classList.remove('fadeOut');
-	// 	galleryButton.style.opacity = '0';
-	// 	galleryButton.classList.add('fadeIn');
-	// 	galleryButton.addEventListener('animationend', () => {
-	// 		galleryButton.style.opacity = '1';
-	// 		galleryButton.classList.remove('fadeIn');
-	// 		galleryButton.classList.remove('hidden');
-
-	// 	});
-	
-		// console.log('After:', galleryButton.classList);
-		// document.querySelector('.gallery-buttons').addEventListener('animationend', () => {
-		// 	document.querySelector('.gallery-buttons').classList.remove('fadeOut');
-		// });
+    if (target.closest('#close-overlay-button')) {
 		slides[currentSlide].classList.add('hidden');
 
 		handleClose();
 		nextSlide();
-		resolve();
+		// resolve();
 		return ;
     }
     if (target.closest('.fullscreen-button')) {

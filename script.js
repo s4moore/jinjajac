@@ -2,6 +2,7 @@ import {toggleMenu} from "./js/utils.js";
 import {handleStart, handleEnd} from "./js/input.js";
 import { setBackgroundVideo } from "./js/background.js";
 import {changeCollection} from "./js/collection.js";
+import { handleClose } from "./js/overlay.js";
 
 export let overlay = null;
 
@@ -22,11 +23,12 @@ function setVar(variable, value) {
     document.documentElement.style.setProperty(variable, value);
 }
 
+
 // toggleMenu();
 document.addEventListener('DOMContentLoaded', () => {
-	document.querySelector('.menu').classList.add('hidden');
     const headerUpButton = document.querySelector('.header-1');
     const headerDownButton = document.querySelector('.header-3');
+    const menuButton = document.getElementById('change-menu-btn');
 
     headerUpButton.classList.add('hidden');
     headerDownButton.classList.add('hidden');
@@ -39,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('touchmove', function(event) {
         event.preventDefault();
     }, { passive: false });
-
+    menuButton.addEventListener('click', toggleMenu);
     document.addEventListener('touchstart', handleStart, { passive: false });
     document.addEventListener('mousedown', handleStart, { passive: false });      
     document.addEventListener('touchend', handleEnd, { passive: false });
