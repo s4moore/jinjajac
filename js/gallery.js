@@ -3,7 +3,7 @@ import {handleStart, handleEnd} from './input.js';
 import {stopZooming} from '../script.js';
 import { fadeInButtons } from './utils.js';
 import { showOverlay } from './overlay.js';
-let startX, startY, currentY;
+
 export function openGallery () {
     return new Promise((resolve) => {
         document.removeEventListener('touchstart', handleStart, { passive: false });
@@ -40,11 +40,16 @@ export function openGallery () {
     });
 }
 
+let startX, startY, currentY, lastY, velocityY, animationFrameId;
+
 function handleTouchStart(event) {
     const touch = event.touches[0];
     startX = touch.clientX;
     startY = touch.clientY;
     currentY = startY;
+    lastY = startY;
+    velocityY = 0;
+    cancelAnimationFrame(animationFrameId); // Cancel any ongoing animation
 }
 
 function handleTouchMove(event) {
@@ -57,6 +62,10 @@ function handleTouchMove(event) {
 
     galleryGrid.scrollTop -= deltaY;
 
+    // Calculate velocity
+    velocityY = currentY - lastY;
+    lastY = currentY;
+
     // Ensure we don't scroll beyond the end of the slides
     if (galleryGrid.scrollTop < 0) {
         galleryGrid.scrollTop = 0;
@@ -67,6 +76,27 @@ function handleTouchMove(event) {
 }
 
 function handleTouchEnd() {
-    // Reset the currentY value
-    currentY = null;
+    const galleryPopup = document.getElementById('gallery-popup');
+    const galleryGrid = galleryPopup.querySelector('.gallery');
+
+    function decelerate() {
+        galleryGrid.scrollTop -= velocityY;
+        velocityY *= 0.95; // Apply friction
+
+        // Ensure we don't scroll beyond the end of the slides
+        if (galleryGrid.scrollTop < 0) {
+            galleryGrid.scrollTop = 0;
+            velocityY = 0;
+        }
+        if (galleryGrid.scrollTop > galleryGrid.scrollHeight - galleryGrid.clientHeight) {
+            galleryGrid.scrollTop = galleryGrid.scrollHeight - galleryGrid.clientHeight;
+            velocityY = 0;
+        }
+
+        if (Math.abs(velocityY) > 0.5) {
+            animationFrameId = requestAnimationFrame(decelerate);
+        }
+    }
+
+    decelerate();
 }
