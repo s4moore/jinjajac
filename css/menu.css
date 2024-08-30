@@ -28,13 +28,14 @@
     top: 0; 
     width: calc(var(--img-scale) * var(--menu-width));
     object-fit: contain;
+    z-index: 1015;
 }
 
 .menu-toggle img {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    z-index: 1010;
+    z-index: 1015;
 }
 
 .menu-toggle img:hover {
@@ -55,17 +56,19 @@
 
 #rings {
     position: absolute;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
+    top: -5%;
+    right: -8%;
+    width: 119%;
+    height: 110%;
 }
 
 .menu img {
     opacity: 0.9;
     position: absolute;
-    width: 100%;
-    height: 100%;
+    top: -5%;
+    right: -8%;
+    width: 119%;
+    height: 110%;
     object-fit: contain;
     z-index: 1002;
 }
@@ -126,6 +129,18 @@
     width: 28%;
     height: 28%;
     left: 63%;
+    top: 56%;
+    object-fit: contain;
+	z-index: 1003;
+}
+
+
+.Gallery {
+	pointer-events: auto;
+    position: absolute;
+    width: 28%;
+    height: 28%;
+    left: -7%;
     top: 56%;
     object-fit: contain;
 	z-index: 1003;

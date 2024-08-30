@@ -1,7 +1,12 @@
 import { overlay } from '../script.js';
 import { collection } from './collection.js';
 import {updateOverlayImage} from './overlay.js';
-export let slides =[], images = [], currentSlide = 0;
+export let slides =[], images = [];
+export var currentSlide = 0;
+
+export function setCurrentSlide(index) {
+    currentSlide = index;
+}
 
 const loadingOverlay = document.getElementById('loading-overlay');
 

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/menu.css">
     <link rel="stylesheet" href="css/carousel.css">
     <link rel="stylesheet" href="css/overlay.css">
+    <link rel="stylesheet" href="css/gallery.css">
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
 </head>
 <body>
@@ -155,7 +156,13 @@
         <div class="spinner"></div>
         <p>Loading...</p>
     </div>
-
+    <div id="gallery-popup" class="gallery-popup hidden">
+        <div class="gallery-icon"><img src="/menu/Gallery mode.png"></div>
+        <div class="gallery-popup-content">
+            <span class="close-gallery">&times;</span>
+            <div class="gallery"></div>
+        </div>
+    </div>
     <div class="collection-header">
         <div class="header-1"></div>
         <div class="header-2"></div>
@@ -166,8 +173,8 @@
             <img id="change-menu-btn" src="/menu/Logo + tag.png" alt="logo">
         </div>
             <div class="menu">
-                    <img src="/menu/new.png">
-                    <img id="rings" src="/menu/Rings.png">
+                    <img src="/menu/Mandelbrot.png">
+                    <img id="rings" src="/menu/All rings.png">
                     <div class="links">
                         <div class="More">
                     <a class="menu-item" href="pages/about.html"><img src="menu/tabs/More.png"></a>
@@ -181,6 +188,9 @@
                     <div class="Shop">
                     <a class="menu-item " href="#"><img class="link" src="menu/tabs/Shop.png"></a>
                     </div>
+                    <div class="Gallery">
+                        <a class="menu-item " href="#"><img class="link" src="menu/tabs/Gallery.png"></a>
+                        </div>
                     <div class="Concrete">
                     <a class="menu-item" href="#"><img class="link" src="menu/tabs/Concrete.png"></a>
                     </div>
@@ -193,7 +203,8 @@
     </div>
     <div class="carousel"></div>
 
-    <div class="gallery-button"><img src="/menu/gallery/Untitled_Artwork-1.png"></div>
+    <div class="gallery-button"><img class="gallery-button" src="/menu/gallery/Untitled_Artwork-1.png"></div>
+
 
     <script type="module" src="script.js">
     </script>

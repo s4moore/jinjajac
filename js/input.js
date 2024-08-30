@@ -4,6 +4,7 @@ import { prevSlide, nextSlide, getNextSlide, slides, currentSlide } from './slid
 import { toggleMenu, toggleCollections } from './utils.js';
 import { fadeInButtons } from './utils.js';
 import { fullScreen } from './fullscreen.js';
+import { openGallery } from './gallery.js';
 
 
 let startX, endX, startY, endY;
@@ -58,6 +59,17 @@ export function handleEnd(e) {
     if (anchor) {
 			setTimeout(toggleMenu, 1000);
         // return;
+    }
+    if (target.closest('.Gallery')) {
+        document.querySelectorAll('.active').forEach(element => {
+            element.classList.add('hidden');
+            // showOverlay();
+            console.log('going to overlay mode');
+            const overlay = document.querySelector('.overlay');
+            slides.forEach (slide => slide.classList.add('paused'));
+            openGallery();
+            return ;
+        });
     }
 	if (target.closest('.toggle-menu')) {
 		toggleMenu();
@@ -170,10 +182,10 @@ export function handleEnd(e) {
     if (Math.abs(xMove) > 10 || Math.abs(yMove) > 10) {
         if (Math.abs (xMove) > Math.abs(yMove)) {
             if (startX > endX + 10) {
-                prevSlide();
+                getNextSlide();
                 return ;
             } else if (startX < endX - 10) {
-                getNextSlide();
+                prevSlide();
                 return ;
             }
         } else if (Math.abs(yMove) > 10) {

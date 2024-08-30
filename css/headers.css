@@ -48,7 +48,7 @@
 
 @media (orientation: portrait) {
     .header-2 {
-        top: 14%;
+        top: 10%;
         /* left: 50%;
         transform: translateX(-50%); */
     }
