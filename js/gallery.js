@@ -68,11 +68,27 @@ function handleTouchEnd() {
             // Implement logic to show the next slide
         }
     } else {
-        // Vertical swipe (optional, if needed)
+        // Vertical swipe
+        const galleryPopup = document.getElementById('gallery-popup');
+        const galleryGrid = galleryPopup.querySelector('.gallery');
+        const scrollAmount = 100; // Adjust this value as needed
+
         if (deltaY > 0) {
+            // Swipe down
             console.log('Swiped down');
+            galleryGrid.scrollTop -= scrollAmount;
         } else {
+            // Swipe up
             console.log('Swiped up');
+            galleryGrid.scrollTop += scrollAmount;
+        }
+
+        // Ensure we don't scroll beyond the end of the slides
+        if (galleryGrid.scrollTop < 0) {
+            galleryGrid.scrollTop = 0;
+        }
+        if (galleryGrid.scrollTop > galleryGrid.scrollHeight - galleryGrid.clientHeight) {
+            galleryGrid.scrollTop = galleryGrid.scrollHeight - galleryGrid.clientHeight;
         }
     }
 }
