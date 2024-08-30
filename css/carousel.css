@@ -22,10 +22,10 @@
     transform: translate(-50%, -50%);
 	
 }
-
+/* 
 .blurred-edges {
-    /* filter: url(#blurEdges); */
-}
+     filter: url(#blurEdges); 
+} */
 
 /* .carousel-slide::before {
 	content: "";
@@ -37,7 +37,7 @@
     height: 100%;
     box-shadow: inset 0px 0px 12px 10px rgba(0, 0, 0, 0.97);
     border-radius: inherit;
-    z-index: 1010; /* Ensure the shadow is above the image */
+    z-index: 1010; /* Ensure the shadow is above the image 
 } */
 
 @media (orientation: portrait) {
