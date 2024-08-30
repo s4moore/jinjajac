@@ -44,6 +44,7 @@ function handleTouchStart(event) {
     const touch = event.touches[0];
     startX = touch.clientX;
     startY = touch.clientY;
+    currentY = startY;
 }
 
 function handleTouchMove(event) {
