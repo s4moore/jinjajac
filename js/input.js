@@ -10,6 +10,9 @@ let startX, endX, startY, endY;
 
 export function handleStart(e) {
     e.preventDefault();
+	if (document.querySelector('.overlay')) {
+        fadeInButtons();
+    }
     console.log('Start event target:', e.target);
     if (!e.target.closest('.overlay') && !e.target.closest('.overlay-img')
         && !e.target.closest('.carousel-slide')) {
@@ -25,9 +28,9 @@ export function handleStart(e) {
         });
     }
     }
-    if (e.target.tagName.toLowerCase() === 'a' || e.target.closest('a')) {
-        return;
-    }
+    // if (e.target.tagName.toLowerCase() === 'a' || e.target.closest('a')) {
+    //     return;
+    // }
         startX = e.touches ? e.touches[0].clientX : e.clientX;
         startY = e.touches ? e.touches[0].clientY : e.clientY;
 }
@@ -36,24 +39,35 @@ let collectionsHidden = true;
 
 export function handleEnd(e) {
     const target = e.target;
+	// if (target.closest('.links')) {
+	// 	setTimeout(toggleMenu, 1000);
+	// 	return ;
+	// }
     e.preventDefault();
 
     console.log('End event target:', target);
     // if (e.target.closest('.menu')) {
     //     return;
     // }
-    if (!document.querySelector('.menu').classList.contains('hidden')
-        && !document.querySelector('.menu').classList.contains('fadeOut')) {
-        toggleMenu();
+
+    // if (!document.querySelector('.menu').classList.contains('hidden')
+    //     && !document.querySelector('.menu').classList.contains('fadeOut')) {
+    //     toggleMenu();
+    // }
+	const anchor = target.closest('a');
+    if (anchor) {
+			setTimeout(toggleMenu, 1000);
+        // return;
     }
-    if (target.tagName.toLowerCase() === 'a') {
-        return;
-    }
+	if (target.closest('.toggle-menu')) {
+		toggleMenu();
+	}
     // if (target && target.closest('.overlay-buttons')) {
     //     fadeInButtons();
     //     return ;
     // }
-    if (target && target.closest('.header-2')) {
+
+    if (target.closest('.header-2')) {
         if (currentCollection !== 20) {
             console.log('Current collection:', currentCollection);
         toggleCollections();
@@ -61,29 +75,27 @@ export function handleEnd(e) {
         }
         return ;
     }
-    if (target && target.closest('.Concrete')) {
+    if (target.closest('.Concrete')) {
         changeCollection(20);
         return ;
     }
-    if (target && target.closest('.Digital')) {
+    if (target.closest('.Digital')) {
         changeCollection(currentCollection);
         return ;
     }
-    if (target && target.closest('.header-1')) {
+    if (target.closest('.header-1')) {
         // if (!collectionsHidden) {
         changeCollection(1);
         return ;
         // }
     }
-    if (target && target.closest('.header-3')) {
+    if (target.closest('.header-3')) {
         // if (!collectionsHidden) {
         changeCollection(-1);
         return ;
         // }
     }
-    if (document.querySelector('.overlay') && document.getElementById('check-hidden-close').classList.contains('hidden')) {
-        fadeInButtons();
-    }
+
 
 
     const screenWidth = window.innerWidth;
@@ -93,11 +105,12 @@ export function handleEnd(e) {
         return ;
     }
     const menu = document.querySelector('.menu');
-    if (menu.style.display === 'flex' && !target.closest('.menu')) {
+    if (menu.style.display === 'block' && !target.closest('.link')) {
         toggleMenu();
         return ;
     }
-    if (target && target.closest('#change-menu-btn')) {
+
+    if (target.closest('#change-menu-btn')) {
         // if (menuToggleTimer) {
         //     clearTimeout(menuToggleTimer);
         // }
@@ -109,15 +122,35 @@ export function handleEnd(e) {
         toggleMenu();
         return ;
     }
-    if (target && target.closest('.close-button')) {
+    if (target.closest('.close-button')) {
+	// 	const galleryButton = document.querySelector('.gallery-button');
 
-            console.log('Close button clicked');
-            slides[currentSlide].classList.add('hidden');
-            handleClose();
-            nextSlide();
-            return ;
+	// 	console.log('Close button clicked');
+	// 	console.log('Before:', galleryButton.classList);
+	
+	// 	galleryButton.classList.remove('hidden');
+	// 	galleryButton.classList.remove('fadeOut');
+	// 	galleryButton.style.opacity = '0';
+	// 	galleryButton.classList.add('fadeIn');
+	// 	galleryButton.addEventListener('animationend', () => {
+	// 		galleryButton.style.opacity = '1';
+	// 		galleryButton.classList.remove('fadeIn');
+	// 		galleryButton.classList.remove('hidden');
+
+	// 	});
+	
+		// console.log('After:', galleryButton.classList);
+		// document.querySelector('.gallery-buttons').addEventListener('animationend', () => {
+		// 	document.querySelector('.gallery-buttons').classList.remove('fadeOut');
+		// });
+		slides[currentSlide].classList.add('hidden');
+
+		handleClose();
+		nextSlide();
+		resolve();
+		return ;
     }
-    if (target && target.closest('.fullscreen-button')) {
+    if (target.closest('.fullscreen-button')) {
         fullScreen();
         return ;
     }

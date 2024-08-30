@@ -1,56 +1,15 @@
-.overlay-buttons {
-    position: absolute;
-    bottom: 1%; 
-    right: 1%;
-    display: flex;
-    flex-direction: column;
-    align-items: space-evenly;
-    justify-content: space-evenly;
-    width: 2rem;
-    height: 7rem;
-    gap: 10px;
-    align-items: center; 
-    justify-content: center;
-    z-index: 1050;
-}
-
-.overlay-buttons-fullscreen {
-    position: absolute;
-    top: 5px; 
-    left: 2px; 
-
-    /* gap: 10px;
-    align-items: center; 
-    /* justify-content: center; */
-    /* transform-origin: 0 0; */
-}
-
-.overlay-buttons button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    max-height: 2rem;
-    max-width: 2rem;
-    padding: 0;
-    display: flex;
-    align-items: center; 
-    justify-content: center;
-    z-index: 1050;
-}
 
 .overlay-buttons button:hover {
     animation: highlight-fade 2s;
-}
-.info-button {
-    opacity: 1;
-    display: flex;
-    z-index: 1050 !important;
 }
 
 
 .close-button-fullscreen {
     /* opacity: 1; */
-    /* display: flex; */
+    display: flex;
+	position: absolute;
+	top: 1%;
+	right: 1%;
     z-index: 1050 !important;
     /* animation: fadein 5s forwards; */
     /* transform: scale(1.4); */
@@ -66,41 +25,82 @@
     z-index: 1050;
 }
 
+.overlay-buttons{
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	padding: 5px;
+	opacity: 1;
+	/* width: 2rem;
+	height: 4rem; */
+	background: none;
+	align-items: space-evenly; 
+    justify-content: space-evenly;
+	background-color: rgba(0, 0, 0, 1);
+	border-radius: 10px;
+	z-index: 2000;
+}
+
+@media (min-width: 1080px) {
+	.overlay-buttons {
+		width: 5%;
+		height: 15%;
+	}
+	
+}
+
+@media (min-width: 641px) and (max-width: 1079px) {
+	.overlay-buttons {
+		width: 6%;
+		height: 13%;
+	}
+	
+}
+
+@media (max-width: 640px) {
+	.overlay-buttons {
+		width: 10%;
+		height: 21%;
+	}
+	
+}
 .close-button {
+	justify-self: center;
+	align-self: center;
     opacity: 1;
     display: flex;
     z-index: 1050 !important;
+	width: 100%;
     /* animation: fadein 5s forwards; */
     transform: scale(1.4);
+	/* padding: 5%; */
+	border-radius: 50%;
+	background: none;
+	border: 0px;
 }
 
 .fullscreen-button {
+	justify-self: center;
+	align-self: center;
     opacity: 1;
     display: flex;
-
-    margin-left: -5px;
+	width: 100%;
     z-index: 1050 !important;
-    transform: scale(1.1);
+    transform: scale(1.4);
     /* animation: fadein 5s forwards; */
+	/* padding: 5%; */
+	border-radius: 50%;
+	background: none;
+	border: 0px;
 }
 .overlay-buttons img {
-    /* opacity: 0.8; */
+    opacity: 1; 
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     z-index: 1050;
-}
-.overlay-buttons-fullscreen button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    /* opacity: 0; */
-    max-height: 2rem; 
-    max-width: 2rem;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .overlay-buttons-fullscreen img {
@@ -109,9 +109,6 @@
     height: 100%;
     object-fit: contain;
 }
-
-
-
 
 .overlay .text-boxes {
     width: 100%;
@@ -124,24 +121,13 @@
     touch-action: auto;
 }
 
-
-.info-button img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    animation: fadein 10s forwards;
-}
-.blurb::-webkit-scrollbar {
-    display: none;
-}
-
 .caption{
     display: block;
-    background: rgba(98, 118, 115, 0.8);
+    /* background: rgba(0, 0, 0, 0.8); */
     opacity: 0;
     font-size: 1rem;
     position: absolute;
-    bottom: -1.2rem;
+    bottom: -1.8rem;
     left: 50%;
     transform: translateX(-50%);
     margin: auto;
@@ -150,6 +136,7 @@
     text-wrap: nowrap;
     animation: fadein 10s forwards;
     height: 2rem;
+	z-index: 1050;
 }
 
 .overlay {
@@ -174,8 +161,10 @@
 .blur {
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px); 
+    -webkit-backdrop-filter: blur(5px);
+	z-index: 1000;
 }
+
 .overlay-content {
     display: flex;
     align-items: center;
@@ -208,4 +197,5 @@
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+	z-index: 1005;
 }
