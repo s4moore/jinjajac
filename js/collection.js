@@ -33,6 +33,7 @@ export function changeCollection(change) {
         if (header3Number >= data.length) {
             header3Number = 0;
         }
+
         const header1 = document.querySelector('.header-1');
         const header2 = document.querySelector('.header-2');
         const header3 = document.querySelector('.header-3');
