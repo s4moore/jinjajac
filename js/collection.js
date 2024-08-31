@@ -3,30 +3,28 @@ import {fetchSlides} from "./slides.js";
 export let collection;
 export let currentCollection = 0;
 let collections = [];
-let set = 0;
 
 export function changeCollection(change) {
-    let datafile = 'collections.json';
-    if (change !== 20) {
-    currentCollection -= change;
-    if (currentCollection < 0) {
-        currentCollection = collections.length - 1;
-    } else if (currentCollection >= collections.length) {
-        currentCollection = 0;
-    }
-    set = currentCollection;
-} else {
-        datafile = 'concrete.json';
-        set = 0;
-    }
-    // console.log(`Changing collection to: ${currentCollection}`);
-    fetch(`${datafile}`)
+    console.log('Change:', change);
+
+    fetch(`collections.json`)
     .then(response => response.json())
     .then(data => {
-        console.log('Collections data length:', data.length 
-        );
+        console.log('Collections data length:', data.length);
+        if (change === 1 || change === 0 || change === -1) {
+            currentCollection -= change;
+            if (currentCollection < 0) {
+                currentCollection = collections.length - 1;
+            } else if (currentCollection >= collections.length) {
+                currentCollection = 0;
+            }
+        } else {
+            console.log('Change:', change);
+            currentCollection = data.findIndex(item => item.collection === change);
+            console.log('Current collection:', currentCollection);
+        }
         collections = data;
-        collection = data[set].name;
+        collection = data[currentCollection].name;
         let header1Number = currentCollection - 1;
         let header3Number = currentCollection + 1;
         if (header1Number < 0) {
@@ -48,6 +46,11 @@ export function changeCollection(change) {
         <img src="headers/${data[header3Number].name}.png" alt="3">
         `;
         // console.log(`Changing collection to: ${collection}`);
+        const galleryButton = document.querySelector('.gallery-button');
+        galleryButton.innerHTML = `<img class="gallery-button" src="/headers/${data[currentCollection].collection}.png">`;
         fetchSlides(collection);
+        console.log(`Changing collection to: ${collections[currentCollection].collection}`);
+
     });
+    
 }

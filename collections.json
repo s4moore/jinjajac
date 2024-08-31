@@ -1,11 +1,18 @@
 [
     {
-        "name": "Early 24"
+        "name": "Early 24",
+        "collection": "Digital Works"
     },
     {
-        "name": "Mid 24"
+        "name": "Mid 24",
+        "collection": "Digital Works"
     },
     {
-        "name": "Late 23"
+        "name": "Late 23",
+        "collection": "Digital Works"
+    },
+    {
+        "name": "Concrete",
+        "collection": "Concrete Works"
     }
 ]

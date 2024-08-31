@@ -97,11 +97,11 @@ export function handleEnd(e) {
     }
     if (target.closest('.Concrete')) {
         handleClose ();
-        changeCollection(20);
+        changeCollection('Concrete Works');
         return ;
     }
     if (target.closest('.Digital')) {
-        changeCollection(currentCollection);
+        changeCollection('Digital Works');
         handleClose ();
         return ;
     }

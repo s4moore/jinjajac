@@ -26,6 +26,10 @@ function setVar(variable, value) {
 
 // toggleMenu();
 document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('.gallery-button').classList.remove('hidden');
+    document.querySelector('.menu-toggle').classList.remove('hidden');
+    document.querySelector('.header-2').classList.remove('hidden');
+
     const headerUpButton = document.querySelector('.header-1');
     const headerDownButton = document.querySelector('.header-3');
     const menuButton = document.getElementById('change-menu-btn');
@@ -36,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     changeCollection(0);
     setBackgroundVideo();
 
-    window.addEventListener('resize', setBackgroundVideo);
+    document.addEventListener('resize', setBackgroundVideo);
     document.addEventListener('wheel', stopZooming, { passive: false });
     document.addEventListener('touchmove', function(event) {
         event.preventDefault();
