@@ -6,6 +6,7 @@ import { fadeInButtons, toggleConnect, toggleAbout } from './utils.js';
 import { fullScreen } from './fullscreen.js';
 import { openGallery } from './gallery.js';
 import { overlay } from '../script.js';
+import { moreAbout } from './about.js';
 
 
 let startX, endX, startY, endY;
@@ -96,17 +97,7 @@ export function handleEnd(e) {
 	}
 	if (target.closest('.More')) {
 		// toggleAbout();
-		console.log('More clicked');
-		document.querySelectorAll('.active').forEach(element => {
-            element.classList.add('hidden');
-            // showOverlay();
-            console.log('going to overlay mode');
-            const overlay = document.querySelector('.overlay');
-            slides.forEach (slide => slide.classList.add('paused'));
-            // showOverlay();
-            // return ;
-        });
-		document.querySelector('.more-about').classList.remove('hidden');
+		moreAbout();
 		return ;
 	}
     if (target.closest('.Concrete')) {
