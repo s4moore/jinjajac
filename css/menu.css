@@ -150,7 +150,7 @@
     width: 28%;
     height: 28%;
     left: -7%;
-    top: 56%;
+    top: 58%;
     object-fit: contain;
 	z-index: 1003;
 }
@@ -160,7 +160,7 @@
     position: absolute;
     width: 22%;
     height: 28%;
-    left: 18%;
+    left: 17%;
     top: 72%;
     object-fit: contain;
 	z-index: 1003;
@@ -197,7 +197,7 @@
     width: 23%;
     height: 28%;
     left: 7%;
-    bottom: -5%;
+    bottom: -7%;
     object-fit: contain;
 	z-index: 1003;
 }
@@ -209,7 +209,7 @@
     width: 23%;
     height: 28%;
     left: 58%;
-    bottom: -5%;
+    bottom: -7%;
     object-fit: contain;
 	z-index: 1003;
 }
