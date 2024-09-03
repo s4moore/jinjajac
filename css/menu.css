@@ -24,8 +24,8 @@
 .menu-toggle {
     pointer-events: auto;
     position: fixed;
-    right: 0;
-    top: 0; 
+    right: 3%;
+    top: 2%; 
     width: calc(var(--img-scale) * var(--menu-width));
     object-fit: contain;
     z-index: 1015;
@@ -240,7 +240,7 @@
     display: block;
     position: absolute;
     right: 3%;
-    bottom: 0;
+    bottom: 3%;
     z-index: 1001;
     background: transparent;
 }
