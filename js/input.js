@@ -95,6 +95,14 @@ export function handleEnd(e) {
 		toggleConnect();
 		return ;
 	}
+	if (target.closest('.Email')) {
+		const emailLink = document.getElementById('emailLink');
+		const emailAddress = 'info@jinjajac.com'; // Replace with the desired email address
+		const subject = '';
+		const body = '';
+	
+		emailLink.href = `mailto:${emailAddress}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+	}
 	if (target.closest('.More')) {
 		// toggleAbout();
 		moreAbout();
@@ -103,6 +111,11 @@ export function handleEnd(e) {
     if (target.closest('.Concrete')) {
         handleClose ();
         changeCollection('Concrete Works');
+        return ;
+    }
+	if (target.closest('.Lighting')) {
+        handleClose ();
+        changeCollection('Lighting Works');
         return ;
     }
     if (target.closest('.Digital')) {

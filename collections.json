@@ -14,5 +14,9 @@
     {
         "name": "Concrete",
         "collection": "Concrete Works"
-    }
+    },
+	{
+		"name": "Lighting",
+        "collection": "Lighting Works"
+	}
 ]
