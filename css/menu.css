@@ -63,6 +63,7 @@
 	height: 100%;
 	object-fit: contain;
 }
+
 #rings {
     position: absolute;
     top: -5%;
@@ -103,7 +104,7 @@
     position: absolute;
     width: 22%;
     height: 27%;
-    left: 32%;
+    left: 26%;
     top: 9%;
     object-fit: contain;
 	z-index: 1003;
@@ -125,7 +126,7 @@
     position: absolute;
     width: 24%;
     height: 27%;
-    left: 26%;
+    left: 31%;
     top: 58%;
     object-fit: contain;
 	z-index: 1003;
@@ -150,7 +151,7 @@
     width: 28%;
     height: 28%;
     left: -7%;
-    top: 58%;
+    top: 56%;
     object-fit: contain;
 	z-index: 1003;
 }
@@ -160,7 +161,7 @@
     position: absolute;
     width: 22%;
     height: 28%;
-    left: 17%;
+    left: 18%;
     top: 72%;
     object-fit: contain;
 	z-index: 1003;
@@ -183,7 +184,7 @@
     pointer-events: none;
     position: fixed;
     max-height: 100%;
-    top: 12%;
+    top: 2%;
     right: 3%;
     z-index: 1001;
     object-fit: contain;
@@ -196,30 +197,30 @@
     position: absolute;
     width: 23%;
     height: 28%;
-    left: 7%;
-    bottom: -7%;
+    left: 5%;
+    bottom: 0;
     object-fit: contain;
 	z-index: 1003;
 }
 
-
-.Whatsapp {
-	pointer-events: auto;
-    position: absolute;
-    width: 23%;
-    height: 28%;
-    left: 58%;
-    bottom: -7%;
-    object-fit: contain;
-	z-index: 1003;
-}
 
 .Instagram {
 	pointer-events: auto;
     position: absolute;
     width: 23%;
     height: 28%;
-    left: 32%;
+    left: 58%;
+    bottom: 0;
+    object-fit: contain;
+	z-index: 1003;
+}
+
+.Whatsapp {
+	pointer-events: auto;
+    position: absolute;
+    width: 23%;
+    height: 28%;
+    left: 30%;
     bottom: 0;
     object-fit: contain;
 	z-index: 1003;

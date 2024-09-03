@@ -95,7 +95,18 @@ export function handleEnd(e) {
 		return ;
 	}
 	if (target.closest('.More')) {
-		toggleAbout();
+		// toggleAbout();
+		console.log('More clicked');
+		document.querySelectorAll('.active').forEach(element => {
+            element.classList.add('hidden');
+            // showOverlay();
+            console.log('going to overlay mode');
+            const overlay = document.querySelector('.overlay');
+            slides.forEach (slide => slide.classList.add('paused'));
+            // showOverlay();
+            // return ;
+        });
+		document.querySelector('.more-about').classList.remove('hidden');
 		return ;
 	}
     if (target.closest('.Concrete')) {
