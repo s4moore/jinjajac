@@ -27,6 +27,9 @@ function aboutZoom(event) {
 export function moreAbout () {
 		// updateViewport('yes');
 		console.log('More clicked');
+		document.querySelector('.menu-toggle').classList.add('hidden');
+		document.querySelector('.gallery-button').classList.add('hidden');
+
 		document.querySelectorAll('.active').forEach(element => {
             element.classList.add('hidden');
             // showOverlay();
@@ -53,6 +56,8 @@ export function moreAbout () {
 			document.addEventListener('mousedown', handleStart, { passive: false });
 			document.addEventListener('touchend', handleEnd, { passive: false });
 			document.addEventListener('mouseup', handleEnd, { passive: false });
+			document.querySelector('.menu-toggle').classList.remove('hidden');
+			document.querySelector('.gallery-button').classList.remove('hidden');
 			nextSlide();
 			return ;
 		});
