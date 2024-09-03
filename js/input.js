@@ -95,7 +95,7 @@ export function handleEnd(e) {
 		toggleConnect();
 		return ;
 	}
-	if (target.closest('.Email')) {
+	if (target.closest('.EmailLink')) {
 		const emailLink = document.getElementById('emailLink');
 		const emailAddress = 'info@jinjajac.com'; // Replace with the desired email address
 		const subject = '';
@@ -107,6 +107,14 @@ export function handleEnd(e) {
 		// toggleAbout();
 		moreAbout();
 		return ;
+	}
+	if (target.closest('.Instagram')) {
+		const instagramLink = document.getElementById('instagramLink');
+		const instagramURL = 'https://www.instagram.com/jinjajac'; // Replace with the desired Instagram URL
+
+		instagramLink.href = instagramURL;
+		instagramLink.click(); // Programmatically click the link to open the Instagram page
+		return;
 	}
     if (target.closest('.Concrete')) {
         handleClose ();
