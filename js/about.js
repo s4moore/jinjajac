@@ -25,8 +25,7 @@ function aboutZoom(event) {
 }
 
 export function moreAbout () {
-    return new Promise((resolve) => {
-		updateViewport('yes');
+		// updateViewport('yes');
 		console.log('More clicked');
 		document.querySelectorAll('.active').forEach(element => {
             element.classList.add('hidden');
@@ -38,6 +37,8 @@ export function moreAbout () {
             // return ;
         });
 		document.querySelector('.more-about').classList.remove('hidden');
+		document.querySelector('.more-about-fullscreen-button').classList.remove('hidden');
+
 	    
     let scale = 1;
     let translateX = 0;
@@ -47,7 +48,7 @@ export function moreAbout () {
         document.removeEventListener('mousedown', handleStart, { passive: false });
         document.removeEventListener('touchend', handleEnd, { passive: false });
         document.removeEventListener('mouseup', handleEnd, { passive: false });
-		document.addEventListener('wheel', aboutZoom, { passive: false });
+		document.querySelector('.more-about-content').addEventListener('wheel', aboutZoom, { passive: false });
     // const image = document.querySelector('.fullscreen-img');
     // image.style.transform = 'scale(1)';
     // const screen = document.querySelector('.fullscreen');
@@ -194,5 +195,4 @@ function getDistance(touches) {
 //     }
 // });
 
-    });
 }
