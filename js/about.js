@@ -119,20 +119,20 @@ export function moreAbout () {
     //     event.preventDefault();
     // }, { passive: false });
     
-    document.addEventListener('mousemove', (event) => {
-        if (isDragging) {
-            const dx = event.clientX - startX;
-            const dy = event.clientY - startY;
-            const newX = initialX + dx;
-            const newY = initialY + dy;
-            const currentScale = parseFloat(image.style.transform.match(/scale\(([^)]+)\)/)?.[1] || 1);
-            image.style.transform = `translate(${newX}px, ${newY}px) scale(${currentScale})`;
-        }
-    }, { passive: false });
+    // document.addEventListener('mousemove', (event) => {
+    //     if (isDragging) {
+    //         const dx = event.clientX - startX;
+    //         const dy = event.clientY - startY;
+    //         const newX = initialX + dx;
+    //         const newY = initialY + dy;
+    //         const currentScale = parseFloat(image.style.transform.match(/scale\(([^)]+)\)/)?.[1] || 1);
+    //         image.style.transform = `translate(${newX}px, ${newY}px) scale(${currentScale})`;
+    //     }
+    // }, { passive: false });
     
-    document.addEventListener('mouseup', () => {
-        isDragging = false;
-    }, { passive: false });
+    // document.addEventListener('mouseup', () => {
+    //     isDragging = false;
+    // }, { passive: false });
 
 function getDistance(touches) {
     const [touch1, touch2] = touches;
@@ -141,58 +141,58 @@ function getDistance(touches) {
     return Math.sqrt(dx * dx + dy * dy);
 }
 
-let initialDistance = null;
-let initialScale = 1;
-let initialTouches = null;
-let initialTranslateX = 0;
-let initialTranslateY = 0;
+// let initialDistance = null;
+// let initialScale = 1;
+// let initialTouches = null;
+// let initialTranslateX = 0;
+// let initialTranslateY = 0;
 
-function getDistance(touches) {
-    const [touch1, touch2] = touches;
-    const dx = touch1.clientX - touch2.clientX;
-    const dy = touch1.clientY - touch2.clientY;
-    return Math.sqrt(dx * dx + dy * dy);
-}
+// function getDistance(touches) {
+//     const [touch1, touch2] = touches;
+//     const dx = touch1.clientX - touch2.clientX;
+//     const dy = touch1.clientY - touch2.clientY;
+//     return Math.sqrt(dx * dx + dy * dy);
+// }
 
-function getMidpoint(touches) {
-    const [touch1, touch2] = touches;
-    return {
-        x: (touch1.clientX + touch2.clientX) / 2,
-        y: (touch1.clientY + touch2.clientY) / 2
-    };
-}
+// function getMidpoint(touches) {
+//     const [touch1, touch2] = touches;
+//     return {
+//         x: (touch1.clientX + touch2.clientX) / 2,
+//         y: (touch1.clientY + touch2.clientY) / 2
+//     };
+// }
 
-window.addEventListener('touchmove', function(event) {
-    if (event.touches.length === 2) {
-        event.preventDefault(); 
-        const currentDistance = getDistance(event.touches);
-        const midpoint = getMidpoint(event.touches);
+// window.addEventListener('touchmove', function(event) {
+//     if (event.touches.length === 2) {
+//         event.preventDefault(); 
+//         const currentDistance = getDistance(event.touches);
+//         const midpoint = getMidpoint(event.touches);
 
-        if (initialDistance === null) {
-            initialDistance = currentDistance;
-            initialScale = scale || 1;
-            initialTouches = midpoint;
-            const transform = image.style.transform.match(/translate\(([^)]+)\)/);
-            if (transform) {
-                const [x, y] = transform[1].split(',').map(parseFloat);
-                initialTranslateX = x;
-                initialTranslateY = y;
-            }
-        } else {
-            scale = initialScale * (currentDistance / initialDistance);
-            translateX = initialTranslateX + (midpoint.x - initialTouches.x);
-            translateY = initialTranslateY + (midpoint.y - initialTouches.y);
-            image.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
-        }
-    }
-}, { passive: false });
+//         if (initialDistance === null) {
+//             initialDistance = currentDistance;
+//             initialScale = scale || 1;
+//             initialTouches = midpoint;
+//             const transform = image.style.transform.match(/translate\(([^)]+)\)/);
+//             if (transform) {
+//                 const [x, y] = transform[1].split(',').map(parseFloat);
+//                 initialTranslateX = x;
+//                 initialTranslateY = y;
+//             }
+//         } else {
+//             scale = initialScale * (currentDistance / initialDistance);
+//             translateX = initialTranslateX + (midpoint.x - initialTouches.x);
+//             translateY = initialTranslateY + (midpoint.y - initialTouches.y);
+//             image.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
+//         }
+//     }
+// }, { passive: false });
 
-window.addEventListener('touchend', function(event) {
-    if (event.touches.length < 2) {
-        initialDistance = null;
-        initialTouches = null;
-    }
-});
+// window.addEventListener('touchend', function(event) {
+//     if (event.touches.length < 2) {
+//         initialDistance = null;
+//         initialTouches = null;
+//     }
+// });
 
     });
 }
