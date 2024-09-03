@@ -32,8 +32,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const headerUpButton = document.querySelector('.header-1');
     const headerDownButton = document.querySelector('.header-3');
-    const menuButton = document.getElementById('change-menu-btn');
-
+    const menuButton = document.querySelector('.menu-toggle');
+    if (!menuButton) {
+        console.error('menuButton element not found');
+        return;
+    }	
+	menuButton.addEventListener('click', () => {
+        console.log('menuButton clicked');
+        toggleMenu();
+    }, { passive: false });
     headerUpButton.classList.add('hidden');
     headerDownButton.classList.add('hidden');
 
@@ -45,8 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('touchmove', function(event) {
         event.preventDefault();
     }, { passive: false });
-    menuButton.addEventListener('click', toggleMenu);
-    document.addEventListener('touchstart', handleStart, { passive: false });
+
+	document.addEventListener('touchstart', handleStart, { passive: false });
     document.addEventListener('mousedown', handleStart, { passive: false });      
     document.addEventListener('touchend', handleEnd, { passive: false });
     document.addEventListener('mouseup', handleEnd, { passive: false });

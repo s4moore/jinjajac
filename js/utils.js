@@ -1,6 +1,8 @@
 let collectionsHidden = true, menuHidden = true, menuFadeTimeOut = null, collectionsFadeTimeOut = null;
+let connectHidden = true, connectFadeTimeOut = null;
 const menu = document.querySelector('.menu');
 const root = document.documentElement;
+let menuFading = null, connectFading = null;
 
 function getVar(variableName) {
     return getComputedStyle(root).getPropertyValue(variableName).trim();
@@ -11,43 +13,110 @@ export function setVar(variableName, value) {
 }
 
 export function toggleMenu() {
-    if (menuHidden) {
-        if (menuFadeTimeOut) {
-            clearTimeout(menuFadeTimeOut);
-        }
-        let scale = Math.min(window.innerWidth, window.innerHeight) / 470;
-        if (Math.min(window.innerWidth, window.innerHeight) > 768) {
-            scale *= 0.75;
-        }
-        console.log('Scale:', scale);   
-        setVar('--menu-scale', scale);
-        menu.style.opacity = '0.1';
+	if (menuHidden) {
 		menuHidden = false;
-        fadeIn(menu);
-        menuFadeTimeOut = setTimeout(() => {
-			menu.classList.add('fadeOut');
-			menu.addEventListener('animationend', function fadeOutListener() {
-				menuHidden = true;
-				menuFadeTimeOut = null;
-				menu.classList.add('hidden');
-				menu.classList.remove('fadeOut');
-				menu.removeEventListener('animationend', fadeOutListener);
-			});
-        }, 9000);
-
-    } else {
-        if (menuFadeTimeOut) {
-            clearTimeout(menuFadeTimeOut);
-            menuFadeTimeOut = null;
-        }
-		menu.classList.add('fadeOut');
-		menu.addEventListener('animationend', function fadeOutListener() {
-			menuHidden = true;
+		
+		menu.classList.remove('hidden');
+		menu.classList.add('menu-fade');
+		
+		function menuFin() {
+			menu.classList.remove('menu-fade');
 			menu.classList.add('hidden');
-			menu.style.opacity = '0';
-			menu.classList.remove('fadeOut');
-			menu.removeEventListener('animationend', fadeOutListener);
-		});
+			menuHidden = true;
+			menu.removeEventListener('animationend', menuFin);
+		}
+		
+		menu.addEventListener('animationend', menuFin);
+	}
+    //     if (menuFadeTimeOut) {
+    //         clearTimeout(menuFadeTimeOut);
+    //     }
+    //     let scale = Math.min(window.innerWidth, window.innerHeight) / 470;
+    //     if (Math.min(window.innerWidth, window.innerHeight) > 768) {
+    //         scale *= 0.75;
+    //     }
+    //     console.log('Scale:', scale);   
+    //     setVar('--menu-scale', scale);
+    //     menu.style.opacity = '0.1';
+	// 	menuHidden = false;
+    //     fadeIn(menu);
+    //     menuFadeTimeOut = setTimeout(() => {
+	// 		menu.classList.add('fadeOut');
+	// 		menu.addEventListener('animationend', function fadeOutListener() {
+	// 			menuHidden = true;
+	// 			menuFadeTimeOut = null;
+	// 			menu.classList.add('hidden');
+	// 			menu.classList.remove('fadeOut');
+	// 			menu.removeEventListener('animationend', fadeOutListener);
+	// 		});
+    //     }, 9000);
+
+    // } else {
+    //     if (menuFadeTimeOut) {
+    //         clearTimeout(menuFadeTimeOut);
+    //         menuFadeTimeOut = null;
+    //     }
+	// 	menu.classList.add('fadeOut');
+	// 	menu.addEventListener('animationend', function fadeOutListener() {
+	// 		menuHidden = true;
+	// 		menu.classList.add('hidden');
+	// 		menu.style.opacity = '0';
+	// 		menu.classList.remove('fadeOut');
+	// 		menu.removeEventListener('animationend', fadeOutListener);
+	// 	});
+    
+}
+
+export function toggleConnect() {
+	if (connectHidden) {
+		connectHidden = false;
+		const connect = document.querySelector('.Contact-area');
+		connect.classList.remove('hidden');
+		connect.classList.add('connect-fade');
+		menu.classList.add('paused');
+		function connectFin() {
+			connect.classList.remove('connect-fade');
+			connect.classList.add('hidden');
+			connectHidden = true;
+			connect.removeEventListener('animationend', connectFin);
+			menu.classList.remove('paused');
+			menu.classList.remove('menu-fade');
+			menu.style.opacity = '1';
+			fadeOut(menu);
+		}
+		
+		connect.addEventListener('animationend', connectFin);
+	// 	connectHidden = false;
+	// 	const contact = document.querySelector('.Contact-area');
+    //     fadeIn(contact);
+    //     connectFadeTimeOut = setTimeout(() => {
+	// 		contact.classList.add('fadeOut');
+	// 		contact.addEventListener('animationend', function fadeOutListener() {
+	// 			connectHidden = true;
+	// 			connectFadeTimeOut = null;
+	// 			contact.classList.add('hidden');
+	// 			contact.classList.remove('fadeOut');
+	// 			contact.removeEventListener('animationend', fadeOutListener);
+	// 			document.querySelector('.menu').classList.remove('paused');
+
+	// 		});
+    //     }, 9000);
+
+    // } else {
+    //     if (connectFadeTimeOut) {
+    //         clearTimeout(connectFadeTimeOut);
+    //         connectFadeTimeOut = null;
+    //     }
+	// 	menu.classList.add('fadeOut');
+	// 	menu.addEventListener('animationend', function fadeOutListener() {
+	// 		connectHidden = true;
+	// 		menu.classList.add('hidden');
+	// 		menu.style.opacity = '0';
+	// 		menu.classList.remove('fadeOut');
+	// 		menu.removeEventListener('animationend', fadeOutListener);
+	// 		document.querySelector('.menu').classList.remove('paused');
+
+	// 	});
     }
 }
 

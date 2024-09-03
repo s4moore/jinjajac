@@ -2,7 +2,7 @@ import { showOverlay, handleClose} from './overlay.js';
 import { changeCollection, currentCollection } from './collection.js';
 import { prevSlide, nextSlide, getNextSlide, slides, currentSlide } from './slides.js';
 import { toggleMenu, toggleCollections } from './utils.js';
-import { fadeInButtons } from './utils.js';
+import { fadeInButtons, toggleConnect } from './utils.js';
 import { fullScreen } from './fullscreen.js';
 import { openGallery } from './gallery.js';
 import { overlay } from '../script.js';
@@ -11,6 +11,13 @@ import { overlay } from '../script.js';
 let startX, endX, startY, endY;
 
 export function handleStart(e) {
+	if (e.target.closest('.menu-toggle')) {
+		return ;
+	}
+	if (e.target.closest('.Connect')) {
+		toggleConnect();
+		return;
+	}
     e.preventDefault();
 	if (document.querySelector('.overlay')) {
         fadeInButtons();
@@ -45,22 +52,17 @@ export function handleEnd(e) {
 	// 	setTimeout(toggleMenu, 1000);
 	// 	return ;
 	// }
-    e.preventDefault();
+	if (target.closest('.menu-toggle') || target.closest('.Connect')) {
+		return ;
+	}
+	e.preventDefault();
 
     console.log('End event target:', target);
-    // if (e.target.closest('.menu')) {
-    //     return;
-    // }
-
-    // if (!document.querySelector('.menu').classList.contains('hidden')
-    //     && !document.querySelector('.menu').classList.contains('fadeOut')) {
-    //     toggleMenu();
-    // }
 	const anchor = target.closest('a');
-    if (anchor) {
-			setTimeout(toggleMenu, 1000);
-        // return;
-    }
+    // if (anchor) {
+	// 		setTimeout(toggleMenu, 1000);
+    //     // return;
+    // }
     if (target.closest('.Gallery')) {
             const overlay = document.querySelector('.overlay');
         if (overlay){
@@ -79,13 +81,6 @@ export function handleEnd(e) {
         return ;
         }
     }
-	if (target.closest('.toggle-menu')) {
-		toggleMenu();
-	}
-    // if (target && target.closest('.overlay-buttons')) {
-    //     fadeInButtons();
-    //     return ;
-    // }
 
     if (target.closest('.header-2')) {
         if (currentCollection !== 20) {
@@ -95,6 +90,10 @@ export function handleEnd(e) {
         }
         return ;
     }
+	if (target.closest('.Connect')) {
+		toggleConnect();
+		return ;
+	}
     if (target.closest('.Concrete')) {
         handleClose ();
         changeCollection('Concrete Works');
@@ -123,27 +122,27 @@ export function handleEnd(e) {
     const screenWidth = window.innerWidth;
 
 
-    if (target.closest('.menu')) {
-        return ;
-    }
+    // if (target.closest('.menu')) {
+    //     return ;
+    // }
     const menu = document.querySelector('.menu');
-    if (menu.style.display === 'block' && !target.closest('.link')) {
-        toggleMenu();
-        return ;
-    }
+    // if (menu.style.display === 'block' && !target.closest('.link')) {
+    //     toggleMenu();
+    //     return ;
+    // }
 
-    if (target.closest('#change-menu-btn')) {
-        // if (menuToggleTimer) {
-        //     clearTimeout(menuToggleTimer);
-        // }
-        // document.getElementById('change-menu-btn').classList.add('highlight');
-        // menuToggleTimer = setTimeout(() => {
-        //     document.getElementById('change-menu-btn').classList.remove('highlight');
-        // }, 1000);
-        console.log('Menu button clicked');
-        toggleMenu();
-        return ;
-    }
+    // if (target.closest('#change-menu-btn')) {
+    //     // if (menuToggleTimer) {
+    //     //     clearTimeout(menuToggleTimer);
+    //     // }
+    //     // document.getElementById('change-menu-btn').classList.add('highlight');
+    //     // menuToggleTimer = setTimeout(() => {
+    //     //     document.getElementById('change-menu-btn').classList.remove('highlight');
+    //     // }, 1000);
+    //     console.log('Menu button clicked');
+    //     toggleMenu();
+    //     return ;
+    // }
     if (target.closest('#close-overlay-button')) {
 		slides[currentSlide].classList.add('hidden');
 

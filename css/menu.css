@@ -42,6 +42,10 @@
     animation: highlight-fade 2s;
 }
 
+#change-menu-btn {
+	pointer-events: none;
+
+}
 .menu {
     display: block;
     flex-direction: column;
@@ -54,6 +58,11 @@
     height: 100%;
 }
 
+.menu img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
 #rings {
     position: absolute;
     top: -5%;
@@ -168,6 +177,60 @@
 	z-index: 1003;
 }
 
+.Contact-area {
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
+    position: fixed;
+    max-height: 100%;
+    top: 2%;
+    right: 3%;
+    z-index: 1001;
+    object-fit: contain;
+    height: calc(var(--menu-height) * var(--menu-scale));
+    width: calc(var(--menu-width) * var(--menu-scale));
+}
+
+.Email {
+	pointer-events: auto;
+    position: absolute;
+    width: 23%;
+    height: 28%;
+    left: 5%;
+    bottom: 0;
+    object-fit: contain;
+	z-index: 1003;
+}
+
+
+.Instagram {
+	pointer-events: auto;
+    position: absolute;
+    width: 23%;
+    height: 28%;
+    left: 58%;
+    bottom: 0;
+    object-fit: contain;
+	z-index: 1003;
+}
+
+.Whatsapp {
+	pointer-events: auto;
+    position: absolute;
+    width: 23%;
+    height: 28%;
+    left: 30%;
+    bottom: 0;
+    object-fit: contain;
+	z-index: 1003;
+}
+
+.Contact-area img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	z-index: 1003;
+}
 .hidden {
     display: none !important;
 }
@@ -226,4 +289,27 @@
     /* height: 100%; */
     object-fit: contain;
     z-index: 1001;
+}
+
+.menu-fade {
+	animation: menuFade 8s;
+}
+
+.connect-fade {
+	animation: menuFade 4s;
+}
+
+@keyframes menuFade {
+	0% {
+		opacity: 0;
+	}
+	30% {
+		opacity: 1;
+	}
+	90% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
 }
