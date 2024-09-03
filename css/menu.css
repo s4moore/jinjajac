@@ -125,7 +125,7 @@
     position: absolute;
     width: 24%;
     height: 27%;
-    left: 31%;
+    left: 26%;
     top: 58%;
     object-fit: contain;
 	z-index: 1003;
@@ -183,7 +183,7 @@
     pointer-events: none;
     position: fixed;
     max-height: 100%;
-    top: 2%;
+    top: 12%;
     right: 3%;
     z-index: 1001;
     object-fit: contain;
@@ -196,30 +196,30 @@
     position: absolute;
     width: 23%;
     height: 28%;
-    left: 5%;
-    bottom: 0;
+    left: 7%;
+    bottom: -5%;
     object-fit: contain;
 	z-index: 1003;
 }
 
-
-.Instagram {
-	pointer-events: auto;
-    position: absolute;
-    width: 23%;
-    height: 28%;
-    left: 58%;
-    bottom: 0;
-    object-fit: contain;
-	z-index: 1003;
-}
 
 .Whatsapp {
 	pointer-events: auto;
     position: absolute;
     width: 23%;
     height: 28%;
-    left: 30%;
+    left: 58%;
+    bottom: -5%;
+    object-fit: contain;
+	z-index: 1003;
+}
+
+.Instagram {
+	pointer-events: auto;
+    position: absolute;
+    width: 23%;
+    height: 28%;
+    left: 32%;
     bottom: 0;
     object-fit: contain;
 	z-index: 1003;

@@ -79,6 +79,7 @@
     opacity: 1;
     display: block;
     z-index: 1050 !important;
+    height: 50%;
 	width: 100%;
     /* animation: fadein 5s forwards; */
     /* transform: scale(1.4); */
@@ -93,6 +94,7 @@
 	align-self: center;
     opacity: 1;
     display: block;
+    height: 50%;
 	width: 100%;
     z-index: 1050 !important;
     /* transform: scale(1.4); */

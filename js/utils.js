@@ -13,7 +13,15 @@ export function setVar(variableName, value) {
 }
 
 export function toggleMenu() {
+
 	if (menuHidden) {
+                let scale = Math.min(window.innerWidth, window.innerHeight) / 470;
+        if (Math.min(window.innerWidth, window.innerHeight) > 768) {
+            scale *= 0.75;
+        }
+        console.log('Scale:', scale);   
+        setVar('--menu-scale', scale);
+        menu.style.opacity = '0.1';
 		menuHidden = false;
 		
 		menu.classList.remove('hidden');

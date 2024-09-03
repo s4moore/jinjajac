@@ -53,4 +53,8 @@ export function setBackgroundVideo() {
             console.error('Error attempting to play the video:', error);
         });
     });
+    videoElement.addEventListener('stalled', setBackgroundVideo, {passive: false});
+    videoElement.addEventListener('paused', setBackgroundVideo, {passive: false});
+    videoElement.addEventListener('ended', setBackgroundVideo, {passive: false});
+
 }
