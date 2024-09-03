@@ -116,6 +116,15 @@ export function handleEnd(e) {
 		instagramLink.click(); // Programmatically click the link to open the Instagram page
 		return;
 	}
+	if (target.closest('.Whatsapp')) {
+		const whatsappLink = document.getElementById('whatsappLink');
+		const phoneNumber = '027782940371'; // Replace with the desired phone number
+		const message = 'Hello, I would like to know more about your services.'; // Replace with the desired message
+
+		whatsappLink.href = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+		whatsappLink.click(); // Programmatically click the link to open WhatsApp
+		return;
+	}
     if (target.closest('.Concrete')) {
         handleClose ();
         changeCollection('Concrete Works');
