@@ -2,7 +2,7 @@ import { showOverlay, handleClose} from './overlay.js';
 import { changeCollection, currentCollection } from './collection.js';
 import { prevSlide, nextSlide, getNextSlide, slides, currentSlide } from './slides.js';
 import { toggleMenu, toggleCollections } from './utils.js';
-import { fadeInButtons, toggleConnect } from './utils.js';
+import { fadeInButtons, toggleConnect, toggleAbout } from './utils.js';
 import { fullScreen } from './fullscreen.js';
 import { openGallery } from './gallery.js';
 import { overlay } from '../script.js';
@@ -92,6 +92,10 @@ export function handleEnd(e) {
     }
 	if (target.closest('.Connect')) {
 		toggleConnect();
+		return ;
+	}
+	if (target.closest('.More')) {
+		toggleAbout();
 		return ;
 	}
     if (target.closest('.Concrete')) {
