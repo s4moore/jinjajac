@@ -213,3 +213,8 @@ export function fadeInButtons() {
     //     button.addEventListener('animationend', () => button.classList.add('hidden'));
     // });
 }
+
+export function toggleAbout() {
+	const about = document.querySelector('.more-about');
+	about.classList.remove('hidden');
+}

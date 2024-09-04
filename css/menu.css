@@ -24,8 +24,8 @@
 .menu-toggle {
     pointer-events: auto;
     position: fixed;
-    right: 0;
-    top: 0; 
+    right: 3%;
+    top: 2%; 
     width: calc(var(--img-scale) * var(--menu-width));
     object-fit: contain;
     z-index: 1015;
@@ -63,6 +63,7 @@
 	height: 100%;
 	object-fit: contain;
 }
+
 #rings {
     position: absolute;
     top: -5%;
@@ -103,7 +104,7 @@
     position: absolute;
     width: 22%;
     height: 27%;
-    left: 32%;
+    left: 27.5%;
     top: 9%;
     object-fit: contain;
 	z-index: 1003;
@@ -123,10 +124,10 @@
 .Connect{
 	pointer-events: auto;
     position: absolute;
-    width: 24%;
+    width: 23%;
     height: 27%;
-    left: 26%;
-    top: 58%;
+    left: 27%;
+    top: 57.5%;
     object-fit: contain;
 	z-index: 1003;
 }
@@ -161,7 +162,7 @@
     width: 22%;
     height: 28%;
     left: 17%;
-    top: 72%;
+    top: 71%;
     object-fit: contain;
 	z-index: 1003;
 }
@@ -183,7 +184,7 @@
     pointer-events: none;
     position: fixed;
     max-height: 100%;
-    top: 12%;
+    top: 2%;
     right: 3%;
     z-index: 1001;
     object-fit: contain;
@@ -196,38 +197,38 @@
     position: absolute;
     width: 23%;
     height: 28%;
-    left: 7%;
-    bottom: -7%;
+    left: 47%;
+    bottom: -23%;
     object-fit: contain;
 	z-index: 1003;
 }
 
-
-.Whatsapp {
-	pointer-events: auto;
-    position: absolute;
-    width: 23%;
-    height: 28%;
-    left: 58%;
-    bottom: -7%;
-    object-fit: contain;
-	z-index: 1003;
-}
 
 .Instagram {
 	pointer-events: auto;
     position: absolute;
     width: 23%;
     height: 28%;
-    left: 32%;
-    bottom: 0;
+    left: 29%;
+    bottom: -19%;
+    object-fit: contain;
+	z-index: 1003;
+}
+
+.Whatsapp {
+	pointer-events: auto;
+    position: absolute;
+    width: 23%;
+    height: 28%;
+    left: 11%;
+    bottom: -23%;
     object-fit: contain;
 	z-index: 1003;
 }
 
 .Contact-area img {
-	width: 100%;
-	height: 100%;
+	width: 80%;
+	height: 80%;
 	object-fit: contain;
 	z-index: 1003;
 }
@@ -239,7 +240,7 @@
     display: block;
     position: absolute;
     right: 3%;
-    bottom: 0;
+    bottom: 3%;
     z-index: 1001;
     background: transparent;
 }

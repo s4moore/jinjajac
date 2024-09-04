@@ -2,10 +2,11 @@ import { showOverlay, handleClose} from './overlay.js';
 import { changeCollection, currentCollection } from './collection.js';
 import { prevSlide, nextSlide, getNextSlide, slides, currentSlide } from './slides.js';
 import { toggleMenu, toggleCollections } from './utils.js';
-import { fadeInButtons, toggleConnect } from './utils.js';
+import { fadeInButtons, toggleConnect, toggleAbout } from './utils.js';
 import { fullScreen } from './fullscreen.js';
 import { openGallery } from './gallery.js';
 import { overlay } from '../script.js';
+import { moreAbout } from './about.js';
 
 
 let startX, endX, startY, endY;
@@ -94,9 +95,44 @@ export function handleEnd(e) {
 		toggleConnect();
 		return ;
 	}
+	if (target.closest('.EmailLink')) {
+		const emailLink = document.getElementById('emailLink');
+		const emailAddress = 'info@jinjajac.com'; // Replace with the desired email address
+		const subject = '';
+		const body = '';
+	
+		emailLink.href = `mailto:${emailAddress}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+	}
+	if (target.closest('.More')) {
+		// toggleAbout();
+		moreAbout();
+		return ;
+	}
+	if (target.closest('.Instagram')) {
+		const instagramLink = document.getElementById('instagramLink');
+		const instagramURL = 'https://www.instagram.com/jinjajac'; // Replace with the desired Instagram URL
+
+		instagramLink.href = instagramURL;
+		instagramLink.click(); // Programmatically click the link to open the Instagram page
+		return;
+	}
+	if (target.closest('.Whatsapp')) {
+		const whatsappLink = document.getElementById('whatsappLink');
+		const phoneNumber = '027782940371'; // Replace with the desired phone number
+		const message = 'Hello, I would like to know more about your services.'; // Replace with the desired message
+
+		whatsappLink.href = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+		whatsappLink.click(); // Programmatically click the link to open WhatsApp
+		return;
+	}
     if (target.closest('.Concrete')) {
         handleClose ();
         changeCollection('Concrete Works');
+        return ;
+    }
+	if (target.closest('.Lighting')) {
+        handleClose ();
+        changeCollection('Lighting Works');
         return ;
     }
     if (target.closest('.Digital')) {

@@ -62,7 +62,7 @@
     object-fit: contain;
     background: transparent;
     z-index: 1005;
-	filter: url(#header-border);
+	/* filter: url(#header-border); */
 }
 
 .header-1 {

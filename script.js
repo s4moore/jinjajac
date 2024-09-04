@@ -49,9 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.addEventListener('resize', setBackgroundVideo);
     document.addEventListener('wheel', stopZooming, { passive: false });
-    document.addEventListener('touchmove', function(event) {
-        event.preventDefault();
-    }, { passive: false });
+    // document.addEventListener('touchmove', function(event) {
+        // event.preventDefault();
+    // }, { passive: false });
 
 	document.addEventListener('touchstart', handleStart, { passive: false });
     document.addEventListener('mousedown', handleStart, { passive: false });      
