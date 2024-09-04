@@ -314,3 +314,7 @@
 		opacity: 0;
 	}
 }
+
+.no-animation {
+    animation: none !important;
+}

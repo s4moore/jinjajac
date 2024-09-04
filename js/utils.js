@@ -8,8 +8,37 @@ function getVar(variableName) {
     return getComputedStyle(root).getPropertyValue(variableName).trim();
 }
 
+export function setMenuHidden() {
+    menuHidden = true;
+    menu.removeEventListener('animationend', menuFin);
+
+}
 export function setVar(variableName, value) {
     root.style.setProperty(variableName, value);
+}
+
+function menuFin() {
+    menu.classList.remove('menu-fade');
+    menu.classList.add('hidden');
+    menu.classList.remove('paused');
+    menu.classList.remove('hidden');
+    menu.classList.add('hidden');
+    menuHidden = true;
+    forceEndAnimation();}
+
+function forceEndAnimation() {
+    const animationEndEvent = new Event('animationend');
+    menu.dispatchEvent(animationEndEvent);
+}
+
+function resetAnimation(element, animationClass) {
+    element.classList.remove(animationClass);
+    void element.offsetWidth; // Trigger a reflow
+    element.classList.add('no-animation'); // Add a temporary class to reset the state
+    requestAnimationFrame(() => {
+        element.classList.remove('no-animation'); // Remove the temporary class
+        element.classList.add(animationClass); // Re-add the original animation class
+    });
 }
 
 export function toggleMenu() {
@@ -19,20 +48,17 @@ export function toggleMenu() {
         if (Math.min(window.innerWidth, window.innerHeight) > 768) {
             scale *= 0.75;
         }
+        forceEndAnimation();
         console.log('Scale:', scale);   
         setVar('--menu-scale', scale);
         menu.style.opacity = '0.1';
 		menuHidden = false;
 		
 		menu.classList.remove('hidden');
-		menu.classList.add('menu-fade');
-		
-		function menuFin() {
-			menu.classList.remove('menu-fade');
-			menu.classList.add('hidden');
-			menuHidden = true;
-			menu.removeEventListener('animationend', menuFin);
-		}
+        menu.classList.remove('menu-fade');
+        void menu.offsetWidth; 
+        // menu.classList.add('menu-fade');
+        resetAnimation(menu, 'menu-fade'); 
 		
 		menu.addEventListener('animationend', menuFin);
 	}
