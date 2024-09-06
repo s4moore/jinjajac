@@ -1,20 +1,21 @@
 import { showOverlay, handleClose} from './overlay.js';
 import { changeCollection, currentCollection } from './collection.js';
 import { prevSlide, nextSlide, getNextSlide, slides, currentSlide } from './slides.js';
-import { toggleMenu, toggleCollections } from './utils.js';
+import { toggleMenu, toggleCollections, openGalleryMenu } from './utils.js';
 import { fadeInButtons, toggleConnect, toggleAbout } from './utils.js';
 import { fullScreen } from './fullscreen.js';
 import { openGallery } from './gallery.js';
-import { overlay } from '../script.js';
+import { collections, overlay } from '../script.js';
 import { moreAbout } from './about.js';
+
 
 
 let startX, endX, startY, endY;
 
 export function handleStart(e) {
-	if (e.target.closest('.menu-toggle')) {
-		return ;
-	}
+	// if (e.target.closest('.menu-toggle')) {
+	// 	return ;
+	// }
 	if (e.target.closest('.Connect')) {
 		toggleConnect();
 		return;
@@ -26,6 +27,9 @@ export function handleStart(e) {
     console.log('Start event target:', e.target);
     if (!e.target.closest('.overlay') && !e.target.closest('.overlay-img')
         && !e.target.closest('.carousel-slide')) {
+	if (e.target === '.gallery-button'){
+		e.target = document.querySelector('.gallery-menu');
+	}
         if (e.target.closest('#change-menu-btn') || e.target.closest('.links')) {
             e.target.classList.add('highlight2');
             e.target.addEventListener('animationend', () => {
@@ -53,7 +57,7 @@ export function handleEnd(e) {
 	// 	setTimeout(toggleMenu, 1000);
 	// 	return ;
 	// }
-	if (target.closest('.menu-toggle') || target.closest('.Connect')) {
+	if (target.closest('.Connect')) {
 		return ;
 	}
 	e.preventDefault();
@@ -79,10 +83,48 @@ export function handleEnd(e) {
             openGallery();
 
         });
-        return ;
         }
-    }
+		return ;
 
+    }
+	if (target.closest('.lower-button')) {
+		openGalleryMenu();
+		const current = collections[currentCollection].collection;
+		console.log('Current collection:', current);
+		switch (current) {
+			case '.Concrete':
+				changeCollection('.Lighting');
+				break;
+			case '.Lighting':
+				changeCollection('.Digital');
+				break;
+			case '.Digital':
+				changeCollection('.Concrete');
+				break;
+			default:
+				break;
+		}
+		return ;
+	}
+	if (target.closest('.upper-button')) {
+		openGalleryMenu();
+		const current = collections[currentCollection].collection;
+		console.log('Current collection:', current);
+		switch (current) {
+			case '.Concrete':
+				changeCollection('.Digital');
+				break;
+			case '.Lighting':
+				changeCollection('.Concrete');
+				break;
+			case '.Digital':
+				changeCollection('.Lighting');
+				break;
+			default:
+				break;
+		}
+		return ;
+	}
     if (target.closest('.header-2')) {
         if (currentCollection !== 20) {
             console.log('Current collection:', currentCollection);
@@ -97,7 +139,7 @@ export function handleEnd(e) {
 	}
 	if (target.closest('.EmailLink')) {
 		const emailLink = document.getElementById('emailLink');
-		const emailAddress = 'info@jinjajac.com'; // Replace with the desired email address
+		const emailAddress = 'info@jinjajac.com';
 		const subject = '';
 		const body = '';
 	
@@ -110,33 +152,38 @@ export function handleEnd(e) {
 	}
 	if (target.closest('.Instagram')) {
 		const instagramLink = document.getElementById('instagramLink');
-		const instagramURL = 'https://www.instagram.com/jinjajac'; // Replace with the desired Instagram URL
+		const instagramURL = 'https://www.instagram.com/jinjajac';
 
 		instagramLink.href = instagramURL;
-		instagramLink.click(); // Programmatically click the link to open the Instagram page
+		instagramLink.click();
 		return;
 	}
 	if (target.closest('.Whatsapp')) {
 		const whatsappLink = document.getElementById('whatsappLink');
-		const phoneNumber = '027782940371'; // Replace with the desired phone number
-		const message = 'Hello, I would like to know more about your services.'; // Replace with the desired message
+		const phoneNumber = '027782940371'; 
+		const message = 'Hello, I would like to know more about your services.';
 
 		whatsappLink.href = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-		whatsappLink.click(); // Programmatically click the link to open WhatsApp
+		whatsappLink.click();
 		return;
+	}
+	if (target.closest('.gallery-button')) {
+		console.log('Gallery button clicked');
+		openGalleryMenu();
+		return ;
 	}
     if (target.closest('.Concrete')) {
         handleClose ();
-        changeCollection('Concrete Works');
+        changeCollection('.Concrete');
         return ;
     }
 	if (target.closest('.Lighting')) {
         handleClose ();
-        changeCollection('Lighting Works');
+        changeCollection('.Lighting');
         return ;
     }
     if (target.closest('.Digital')) {
-        changeCollection('Digital Works');
+        changeCollection('.Digital');
         handleClose ();
         return ;
     }
@@ -167,18 +214,18 @@ export function handleEnd(e) {
     //     return ;
     // }
 
-    // if (target.closest('#change-menu-btn')) {
-    //     // if (menuToggleTimer) {
-    //     //     clearTimeout(menuToggleTimer);
-    //     // }
-    //     // document.getElementById('change-menu-btn').classList.add('highlight');
-    //     // menuToggleTimer = setTimeout(() => {
-    //     //     document.getElementById('change-menu-btn').classList.remove('highlight');
-    //     // }, 1000);
-    //     console.log('Menu button clicked');
-    //     toggleMenu();
-    //     return ;
-    // }
+    if (target.closest('#change-menu-btn')) {
+        // if (menuToggleTimer) {
+        //     clearTimeout(menuToggleTimer);
+        // }
+        // document.getElementById('change-menu-btn').classList.add('highlight');
+        // menuToggleTimer = setTimeout(() => {
+        //     document.getElementById('change-menu-btn').classList.remove('highlight');
+        // }, 1000);
+        console.log('Menu button clicked');
+        toggleMenu();
+        return ;
+    }
     if (target.closest('#close-overlay-button')) {
 		slides[currentSlide].classList.add('hidden');
 

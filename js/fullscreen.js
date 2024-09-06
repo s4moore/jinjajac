@@ -42,7 +42,7 @@ export function fullScreen () {
         fullScreenOverlay.msRequestFullscreen();
     }
 
-    closeButton.addEventListener('click', () => {
+    closeButton.addEventListener('touch', () => {
         console.log('Fullscreen button clicked');
         fullScreenOverlay.remove();
         updateViewport('no');

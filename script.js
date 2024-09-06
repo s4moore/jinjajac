@@ -4,7 +4,7 @@ import { setBackgroundVideo } from "./js/background.js";
 import {changeCollection} from "./js/collection.js";
 import { handleClose } from "./js/overlay.js";
 
-export let overlay = null;
+export let overlay = null, collections = [];
 
 export function stopZooming(event) {
     if (event.ctrlKey) {
@@ -23,9 +23,21 @@ function setVar(variable, value) {
     document.documentElement.style.setProperty(variable, value);
 }
 
+async function fetchCollections() {
+    try {
+        const response = await fetch('collections.json');
+        const data = await response.json();
+        collections = data; // Store the fetched data in the collections variable
+        console.log('Collections data:', collections); // Optional: Log the data to verify
+        changeCollection(0);
+        setBackgroundVideo();
+    } catch (error) {
+        console.error('Error fetching collections:', error); // Handle any errors
+    }
+}
 
 // toggleMenu();
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     document.querySelector('.gallery-button').classList.remove('hidden');
     document.querySelector('.menu-toggle').classList.remove('hidden');
     document.querySelector('.header-2').classList.remove('hidden');
@@ -37,15 +49,15 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('menuButton element not found');
         return;
     }	
-	menuButton.addEventListener('click', () => {
-        console.log('menuButton clicked');
-        toggleMenu();
-    }, { passive: false });
+	// menuButton.addEventListener('click', () => {
+    //     console.log('menuButton clicked');
+	// 	document.getElementById('change-menu-btn').classList.add('highlight2');
+    //     toggleMenu();
+    // }, { passive: false });
     headerUpButton.classList.add('hidden');
     headerDownButton.classList.add('hidden');
 
-    changeCollection(0);
-    setBackgroundVideo();
+	await fetchCollections();
 
     document.addEventListener('resize', setBackgroundVideo);
     document.addEventListener('wheel', stopZooming, { passive: false });

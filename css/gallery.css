@@ -28,8 +28,11 @@
 
 .gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
-    gap: 10px;
+	margin-left: 5%;
+	margin-right: 5%;
+    grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
+    column-gap: 20px;
+	row-gap: 10px;
     width: 100%;
     height: 100%;
     overflow-y: auto; /* Make the gallery scrollable */
@@ -85,4 +88,8 @@
 /* For Firefox */
 .gallery {
     scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+.DigitalButton img {
+	pointer-events: none;
 }
