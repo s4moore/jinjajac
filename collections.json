@@ -1,22 +1,22 @@
 [
     {
         "name": "Early 24",
-        "collection": "Digital Works"
+        "collection": ".Digital"
     },
     {
         "name": "Mid 24",
-        "collection": "Digital Works"
+        "collection": ".Digital"
     },
     {
         "name": "Late 23",
-        "collection": "Digital Works"
+        "collection": ".Digital"
     },
     {
         "name": "Concrete",
-        "collection": "Concrete Works"
+        "collection": ".Concrete"
     },
 	{
 		"name": "Lighting",
-        "collection": "Lighting Works"
+        "collection": ".Lighting"
 	}
 ]

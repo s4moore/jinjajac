@@ -1,3 +1,6 @@
+import { collections } from '../script.js';
+import { currentCollection } from './collection.js';
+
 let collectionsHidden = true, menuHidden = true, menuFadeTimeOut = null, collectionsFadeTimeOut = null;
 let connectHidden = true, connectFadeTimeOut = null;
 const menu = document.querySelector('.menu');
@@ -19,12 +22,14 @@ export function setVar(variableName, value) {
 
 function menuFin() {
     menu.classList.remove('menu-fade');
+	menu.classList.remove('fade-out');
+
     menu.classList.add('hidden');
     menu.classList.remove('paused');
     menu.classList.remove('hidden');
     menu.classList.add('hidden');
     menuHidden = true;
-    forceEndAnimation();}
+}
 
 function forceEndAnimation() {
     const animationEndEvent = new Event('animationend');
@@ -42,13 +47,12 @@ function resetAnimation(element, animationClass) {
 }
 
 export function toggleMenu() {
-
 	if (menuHidden) {
                 let scale = Math.min(window.innerWidth, window.innerHeight) / 470;
         if (Math.min(window.innerWidth, window.innerHeight) > 768) {
             scale *= 0.75;
         }
-        forceEndAnimation();
+        // forceEndAnimation();
         console.log('Scale:', scale);   
         setVar('--menu-scale', scale);
         menu.style.opacity = '0.1';
@@ -57,11 +61,18 @@ export function toggleMenu() {
 		menu.classList.remove('hidden');
         menu.classList.remove('menu-fade');
         void menu.offsetWidth; 
-        // menu.classList.add('menu-fade');
-        resetAnimation(menu, 'menu-fade'); 
+        menu.classList.add('menu-fade');
+        // resetAnimation(menu, 'menu-fade'); 
 		
 		menu.addEventListener('animationend', menuFin);
-	}
+	} else {
+		const computedStyle = window.getComputedStyle(menu);
+		menu.classList.remove('menu-fade');
+		console.log('Menu opacity:', computedStyle.opacity);
+		menu.style.opacity = '0.8';
+		menu.classList.add('fadeOut');
+		menu.addEventListener('animationend', menuFin);
+		}
     //     if (menuFadeTimeOut) {
     //         clearTimeout(menuFadeTimeOut);
     //     }
@@ -243,4 +254,39 @@ export function fadeInButtons() {
 export function toggleAbout() {
 	const about = document.querySelector('.more-about');
 	about.classList.remove('hidden');
+}
+
+let galleryHidden = true;
+const lowerButton = document.querySelector('.lower-button');
+const upperButton = document.querySelector('.upper-button');
+export function openGalleryMenu() {
+	if (galleryHidden) {
+		galleryHidden = false;
+	lowerButton.classList.remove('hidden');
+	upperButton.classList.remove('hidden');
+	const collectionMenu = document.querySelector(`${collections[currentCollection].collection}Button`);
+	const galleryMenu = document.querySelector(`${collections[currentCollection].collection}Menu`);
+	console.log('Gallery menu:', `${collections[currentCollection].collection}Menu`);
+	console.log('Collection menu:', `${collections[currentCollection].collection}`);
+	// collectionMenu.classList.add('hidden');
+	galleryMenu.classList.remove('hidden');
+	galleryMenu.classList.add('menu-fade');
+	galleryMenu.addEventListener('animationend', () => {
+		galleryMenu.classList.remove('menu-fade');
+		galleryMenu.classList.add('hidden');
+		lowerButton.classList.add('hidden');
+		upperButton.classList.add('hidden');
+		galleryHidden = true;
+	});
+	} else {
+		const galleryMenu = document.querySelector(`${collections[currentCollection].collection}Menu`);
+		galleryMenu.classList.remove('menu-fade');
+		galleryMenu.classList.add('fadeOut');
+		galleryMenu.addEventListener('animationend', () => {
+			galleryMenu.classList.add('hidden');
+			galleryMenu.classList.remove('fadeOut');
+			lowerButton.classList.add('hidden');
+			upperButton.classList.add('hidden');
+		});
+	}
 }

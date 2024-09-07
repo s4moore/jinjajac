@@ -22,7 +22,7 @@
 
 
 .menu-toggle {
-    pointer-events: auto;
+    pointer-events: none;
     position: fixed;
     right: 3%;
     top: 2%; 
@@ -43,7 +43,7 @@
 }
 
 #change-menu-btn {
-	pointer-events: none;
+	pointer-events: auto;
 
 }
 .menu {
@@ -236,64 +236,8 @@
     display: none !important;
 }
 
-.gallery-button {
-    display: block;
-    position: absolute;
-    right: 3%;
-    bottom: 3%;
-    z-index: 1001;
-    background: transparent;
-}
-
-@media (max-height: 375px)
-{
-	.gallery-button	{
-		width: 23%;
-	}
-}
-
-@media (min-height: 376px) and (max-height: 414px)
-{
-	.gallery-button	{
-		width: 19%;
-	}
-}
-
-@media (min-height: 415) and (max-height: 430px)
-{
-	.gallery-button	{
-		width: 19%;
-	}
-}
-
-@media (min-height: 431px) and (max-height: 915px)
-{
-	.gallery-button	{
-		width: 25%;
-	}
-}
-
-@media (min-height: 916px) and (max-height: 1768px)
-{
-	.gallery-button	{
-		width: 20%;
-	}
-}
-
-.gallery-button img {
-    /* transform: translate(-100%, -100%); */
-    position: absolute;
-    bottom: 2%;
-    right: 0;
-	width: calc(var(--img-scale) * var(--menu-width));
-
-    /* height: 100%; */
-    object-fit: contain;
-    z-index: 1001;
-}
-
 .menu-fade {
-	animation: menuFade 8s;
+	animation: menuFade 10s;
 }
 
 .connect-fade {
