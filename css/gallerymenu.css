@@ -36,9 +36,9 @@
 .lower-button {
 	box-sizing: inherit;
 	pointer-events: auto;
-	left: 5%;
+	left: 7%;
 	position: absolute;
-	bottom: 29%;
+	bottom: 19%;
 	width: 30%;
 	height: 30%;
 	z-index: 1003;
@@ -47,9 +47,9 @@
 .upper-button {
 	box-sizing: inherit;
 	pointer-events: auto;
-	left: 37%;
+	left: 45%;
 	position: absolute;
-	top: 5%;
+	top: 10%;
 	width: 30%;
 	height: 30%;
 	z-index: 1004;
