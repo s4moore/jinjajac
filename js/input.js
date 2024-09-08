@@ -125,14 +125,14 @@ export function handleEnd(e) {
 		}
 		return ;
 	}
-    if (target.closest('.header-2')) {
-        if (currentCollection !== 20) {
-            console.log('Current collection:', currentCollection);
-        toggleCollections();
-        collectionsHidden = !collectionsHidden;
-        }
-        return ;
-    }
+    // if (target.closest('.header-2')) {
+    //     if (currentCollection !== 20) {
+    //         console.log('Current collection:', currentCollection);
+    //     toggleCollections();
+    //     collectionsHidden = !collectionsHidden;
+    //     }
+    //     return ;
+    // }
 	if (target.closest('.Connect')) {
 		toggleConnect();
 		return ;
@@ -260,18 +260,18 @@ export function handleEnd(e) {
                 prevSlide();
                 return ;
             }
-        } else if (Math.abs(yMove) > 10) {
-            if (!document.querySelector('.overlay') && Math.abs(yMove) > 10) {
-                if (startY > endY + 10) {
-                    console.log('Swiped up');
-                    changeCollection(1);
-                    return ;
-                } else if (startY < endY - 10) {
-                    console.log('Swiped down');
-                    changeCollection(-1);
-                    return ;
-                }
-            }
+        // } else if (Math.abs(yMove) > 10) {
+        //     if (!document.querySelector('.overlay') && Math.abs(yMove) > 10) {
+        //         if (startY > endY + 10) {
+        //             console.log('Swiped up');
+        //             changeCollection(1);
+        //             return ;
+        //         } else if (startY < endY - 10) {
+        //             console.log('Swiped down');
+        //             changeCollection(-1);
+        //             return ;
+        //         }
+        //     }
         } 
     } else if (!document.querySelector('.overlay')) {
         document.querySelectorAll('.active').forEach(element => {

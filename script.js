@@ -30,7 +30,7 @@ async function fetchCollections() {
         const data = await response.json();
         collections = data; // Store the fetched data in the collections variable
         console.log('Collections data:', collections); // Optional: Log the data to verify
-        changeCollection(0);
+        changeCollection('Early 24');
         setBackgroundVideo();
     } catch (error) {
         console.error('Error fetching collections:', error); // Handle any errors
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const headers = document.querySelectorAll('.scroll-header');
     let startY = 0;
-    let currentIndex = 0; // Start with header-2
+    let currentIndex = 0;
     let isScrolling = false;
 
     headerContainer.addEventListener('touchstart', (e) => {
@@ -95,6 +95,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (diffY < -50) { // Swipe up
             currentIndex = (currentIndex + 1) % headers.length;
+            console.log('collections: ', collections);
+            console.log('Changing to collection:', collections[currentIndex].name);
+
             changeCollection(collections[currentIndex].name);
 
             updateImages();
@@ -103,7 +106,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             setTimeout(() => isScrolling = false, 300); // Debounce for 300ms
         } else if (diffY > 50) { // Swipe down
             currentIndex = (currentIndex - 1 + headers.length) % headers.length;
-            console.log('Current collection:', collections[currentIndex].name);
+            console.log('Changing to collection:', collections[currentIndex].name);
+            console.log('collections: ', collections);
+
             changeCollection(collections[currentIndex].name);
             updateImages();
             startY = moveY; // Reset startY to avoid multiple swipes in one move
@@ -112,29 +117,72 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
+    let fadeTimers = {};
     function updateImages() {
-        const angle = 360 / headers.length;
-        const radius = 50; // Adjust this value to control the size of the headers
+        const angle = 180 / headers.length;
+        const radius = window.innerWidth / 10; 
+
+        Object.values(fadeTimers).forEach(timer => clearTimeout(timer));
+        fadeTimers = {};
+
         headers.forEach((header, index) => {
+
             let offset = (index - currentIndex) * angle;
-            if (offset > 180) {
-                offset -= 360;
-            } else if (offset < -180) {
-                offset += 360;
+            header.style.visibility = 'visible';
+            header.style.opacity = 0.7;
+            if (offset > 90) {
+                offset -= 180;
+                // header.style.visibility = 'hidden';
+                header.style.opacity = '0.1';
+            } else if (offset < -90) {
+                offset += 180;
+                // header.style.visibility = 'hidden';
+                header.style.opacity = '0.1';
+
             }
             header.style.transform = `rotateX(${offset}deg) translateZ(${radius}px)`;
+            // header.style.visibility = 'visible';
+            
+
             let opacity;
             if (index === currentIndex) {
-                opacity = 1; // Fully visible
-            } else if (index === (currentIndex + 1) % headers.length || index === (currentIndex - 1 + headers.length) % headers.length) {
-                opacity = 0.5; // Partially visible
+                opacity = 1; 
+            } else if (index === (currentIndex + 1) % headers.length || index === (currentIndex - 1 + headers.length) % headers.length ||
+            index === (currentIndex + 2) % headers.length || index === (currentIndex - 2 + headers.length) % headers.length) {
+                opacity = 0.5; 
+                fadeOpacity(header, index);
             } else {
-                opacity = 0.1; // Almost invisible
+                opacity = 0; 
             }
             header.style.opacity = opacity;
         });
     }
 
+    function handleTransitionEnd(event) {
+        const header = event.target;
+        header.style.visibility = 'visible';
+        header.style.opacity = 0.7;
+    }
+
+    function fadeOpacity(header, index) {
+        let opacity = 0.7;
+        const fadeStep = 0.1; // Adjust the step size for fading
+        const fadeInterval = 300; // Adjust the interval for fading
+    
+        function step() {
+            opacity -= fadeStep;
+            if (opacity <= 0) {
+                opacity = 0;
+                clearTimeout(fadeTimers[index]);
+            }
+            header.style.opacity = opacity;
+            if (opacity > 0) {
+                fadeTimers[index] = setTimeout(step, fadeInterval);
+            }
+        }
+    
+        fadeTimers[index] = setTimeout(step, fadeInterval);
+    }
     // Initial update
     updateImages();
 

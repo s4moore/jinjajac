@@ -29,7 +29,7 @@ async function fetchCollections() {
         const data = await response.json();
         collections = data; // Store the fetched data in the collections variable
         console.log('Collections data:', collections); // Optional: Log the data to verify
-        changeCollection(0);
+        changeCollection('Early 24');
         setBackgroundVideo();
     } catch (error) {
         console.error('Error fetching collections:', error); // Handle any errors

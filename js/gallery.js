@@ -50,7 +50,7 @@ function handleTouchStart(event) {
     const target = event.target;
     if (target.closest('.Concrete')) {
         handleClose ();
-        changeCollection(20);
+        changeCollection('.Concrete');
         galleryPopup.classList.add('hidden');
         document.addEventListener('touchstart', handleStart, { passive: false });
         document.addEventListener('mousedown', handleStart, { passive: false });      
