@@ -1,210 +1,54 @@
-
-@media (orientation: landscape) {
-    :root {
-    --header-1-3-width: 16%;
-    --header-2-width: 20%;
-    }
-}
-
-@media (orientation: portrait) {
-    :root {
-    --header-1-3-width: 25%;
-    --header-2-width: 30%;
-    }
-}
-
 .collection-header {
-    padding: 0;
-    margin: 0;
-    position: absolute;
-    display: block;
-    top: 0;
+
     left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0;
+    position: relative;
+    width: 30vw;
+    height: 30vh; /* Adjust as needed */
+    perspective: 1000px; /* Adds 3D perspective */
+    /* overflow: hidden; */
+    z-index: 1010;
 }
 
-.header-2 {
-    display: block;
-    /* pointer-events: none; */
-    background: transparent;
-    object-fit: contain;
+.scroll-header {
+    object-fit: contain;    
     position: absolute;
-    /* bottom: 3%; */
-    left: 8%;
-    top: 59%;
-    /* transform: translateX(-50%); */
-    width: max(130px, var(--header-2-width));
-    z-index: 1005;
-}
-
-@media (orientation: landscape) {
-    .header-2 {
-        top: 10%;
-        /* left: 50%;
-        transform: translateX(-50%); */
-    }
-}
-
-@media (orientation: portrait) {
-    .header-2 {
-        top: 10%;
-        /* left: 50%;
-        transform: translateX(-50%); */
-    }
-}
-
-
-.header-2 img {
-    height: 100%;
+    top: 2%;
+    left: 20%;
+    /* transform: translate(-80%, -80%); */
+    transform-style: preserve-3d; /* Ensure 3D transformations are preserved */
+    transition: transform 1s ease; /* Adjusted for smoother transition */
     width: 100%;
-    opacity: 0.85;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.scroll-header img {
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     background: transparent;
     z-index: 1005;
-	/* filter: url(#header-border); */
+    opacity: 0.7;
 }
 
-.header-1 {
-    display: block;
-    background: transparent;
-    object-fit: contain;
+
+.collection-label {
+    pointer-events: none;
     position: absolute;
-    top: 1%;
-    left: 0%;
-    width: var(--header-1-3-width);
-    z-index: 1005;
+    top: 9%;
+    left: 11%;
+    width: 20%;
+    /* transform: translate(-50%, -50%); */
+    z-index: 1010; /* Ensure it stays on top */
 }
-
-.header-1 img {
-    height: 100%;
+.collection-label img {
     width: 100%;
-    object-fit: contain;
-    background: transparent;
-    z-index: 1005;
-	opacity: 0.7;
-}   
-
-.header-3 {
-    display: block;
-    background: transparent;
-    object-fit: contain;
-    position: absolute;
-    bottom: 3%;
-    left: 0%;
-    width: var(--header-1-3-width);
-    z-index: 1005;
-}   
-
-.header-3 img {
     height: 100%;
-    width: 100%;
     object-fit: contain;
     background: transparent;
-    z-index: 1005;
-	opacity: 0.7;
-}   
-
-.fadeCollections {
-    animation: collectionfade 8s forwards;
-}
-
-/* .header-1:hover,
-.header-2:hover, */
-.header-2:hover {
-    animation: highlight-fade 2s;
-}
-
-@keyframes collectionfade {
-    /* 0% {
-        opacity: 0;
-        
-    } */
-    10% {
-        opacity: 100;
-    }
-    85% {
-        opacity: 100;
-    }
-    100% {
-        opacity: 0;
-    }   
-}
-
-.fadeOut {
-
-    animation: fadeout 1s forwards;
-}
-
-.fadeIn {
-
-    animation: fadein 1s forwards;
-}
-
-@keyframes fadeout {
-    /* from {
-        opacity: 0.8;
-    } */
-    to {
-        opacity: 0;
-    }
-}
-
-@keyframes fadein {
-    /* from {
-        opacity: 0;
-    } */
-    to {
-        opacity: 1;
-    }
-}
-
-
-.fadeInHeader {
-
-    animation: fadeinheader 1s forwards;
-}
-
-@keyframes fadeout {
-    /* from {
-        opacity: 0.8;
-    } */
-    to {
-        opacity: 0;
-    }
-}
-
-@keyframes fadeinheader {
-    /* from {
-        opacity: 0;
-    } */
-    to {
-        opacity: 0.4;
-    }
-}
-
-.button-fade {
-    animation: buttonfade 5s forwards;
-}
-
-@keyframes buttonfade {
-    0% {
-        opacity: 0;
-        
-    }
-    15% {
-        opacity: 0.4;
-    }
-    30% {
-        opacity: 0.7;
-    }
-    30% {
-        opacity: 0.8;
-    }
-    85% {
-        opacity: 0.8;
-    }
-    100% {
-        opacity: 0;
-    }   
+    z-index: 1010;
+    opacity: 0.7;
 }

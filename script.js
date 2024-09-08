@@ -3,6 +3,7 @@ import {handleStart, handleEnd} from "./js/input.js";
 import { setBackgroundVideo } from "./js/background.js";
 import {changeCollection} from "./js/collection.js";
 import { handleClose } from "./js/overlay.js";
+import {currentCollection} from "./js/collection.js";
 
 export let overlay = null, collections = [];
 
@@ -54,10 +55,88 @@ document.addEventListener('DOMContentLoaded', async () => {
 	// 	document.getElementById('change-menu-btn').classList.add('highlight2');
     //     toggleMenu();
     // }, { passive: false });
-    headerUpButton.classList.add('hidden');
-    headerDownButton.classList.add('hidden');
+    // headerUpButton.classList.add('hidden');
+    // headerDownButton.classList.add('hidden');
 
 	await fetchCollections();
+
+    const headerContainer = document.querySelector('.collection-header');
+    headerContainer.innerHTML = ''; // Clear any existing content
+
+    // Create and insert image elements based on the collections data
+    collections.forEach((collection, index) => {
+        const headerDiv = document.createElement('div');
+        headerDiv.classList.add('scroll-header');
+        if (index === 1) {
+            headerDiv.classList.add('header-2');
+        }
+
+        const img = document.createElement('img');
+        img.src = `/headers/${collection.name}.png`;
+        headerDiv.appendChild(img);
+
+        headerContainer.appendChild(headerDiv);
+    });
+
+    const headers = document.querySelectorAll('.scroll-header');
+    let startY = 0;
+    let currentIndex = 0; // Start with header-2
+    let isScrolling = false;
+
+    headerContainer.addEventListener('touchstart', (e) => {
+        startY = e.touches[0].clientY;
+    });
+
+    headerContainer.addEventListener('touchmove', (e) => {
+        if (isScrolling) return;
+
+        const moveY = e.touches[0].clientY;
+        const diffY = startY - moveY;
+
+        if (diffY < -50) { // Swipe up
+            currentIndex = (currentIndex + 1) % headers.length;
+            changeCollection(collections[currentIndex].name);
+
+            updateImages();
+            startY = moveY; // Reset startY to avoid multiple swipes in one move
+            isScrolling = true;
+            setTimeout(() => isScrolling = false, 300); // Debounce for 300ms
+        } else if (diffY > 50) { // Swipe down
+            currentIndex = (currentIndex - 1 + headers.length) % headers.length;
+            console.log('Current collection:', collections[currentIndex].name);
+            changeCollection(collections[currentIndex].name);
+            updateImages();
+            startY = moveY; // Reset startY to avoid multiple swipes in one move
+            isScrolling = true;
+            setTimeout(() => isScrolling = false, 300); // Debounce for 300ms
+        }
+    });
+
+    function updateImages() {
+        const angle = 360 / headers.length;
+        const radius = 50; // Adjust this value to control the size of the headers
+        headers.forEach((header, index) => {
+            let offset = (index - currentIndex) * angle;
+            if (offset > 180) {
+                offset -= 360;
+            } else if (offset < -180) {
+                offset += 360;
+            }
+            header.style.transform = `rotateX(${offset}deg) translateZ(${radius}px)`;
+            let opacity;
+            if (index === currentIndex) {
+                opacity = 1; // Fully visible
+            } else if (index === (currentIndex + 1) % headers.length || index === (currentIndex - 1 + headers.length) % headers.length) {
+                opacity = 0.5; // Partially visible
+            } else {
+                opacity = 0.1; // Almost invisible
+            }
+            header.style.opacity = opacity;
+        });
+    }
+
+    // Initial update
+    updateImages();
 
     document.addEventListener('resize', setBackgroundVideo);
     document.addEventListener('wheel', stopZooming, { passive: false });

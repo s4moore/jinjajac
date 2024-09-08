@@ -23,7 +23,7 @@ export function changeCollection(change) {
 		}
 	} else {
 		console.log('Change:', change);
-		currentCollection = collections.findIndex(item => item.collection === change);
+		currentCollection = collections.findIndex(item => item.name === change);
 		console.log('Current collection:', currentCollection);
 	}
 	collection = collections[currentCollection].name;
@@ -36,18 +36,23 @@ export function changeCollection(change) {
 		header3Number = 0;
 	}
 
-	const header1 = document.querySelector('.header-1');
-	const header2 = document.querySelector('.header-2');
-	const header3 = document.querySelector('.header-3');
-	header1.innerHTML = `
-	<img src="headers/${collections[header1Number].name}.png" alt="1">
-	`;
-	header2.innerHTML = `
-	<img src="headers/${collection}.png" alt="${collection} header">
-	`;
-	header3.innerHTML = `
-	<img src="headers/${collections[header3Number].name}.png" alt="3">
-	`;
+	// const header1 = document.querySelector('.header-1');
+	// const header1Image = header1.querySelector('img');
+	// const header2 = document.querySelector('.header-2');
+	// const header2Image = header2.querySelector('img');
+	// const header3 = document.querySelector('.header-3');
+	// const header3Image = header3.querySelector('img');
+	// header1.innerHTML = `
+	// <img src="headers/${collections[header1Number].name}.png" alt="1">
+	// `;
+	// header1Image.src = `headers/${collections[header1Number].name}.png`;
+	// header2Image.src = `headers/${collection}.png`;
+	// header3Image.src = `headers/${collections[header3Number].name}.png`;
+	// <img src="headers/${collection}.png" alt="${collection} header">
+	// `;
+	// header3.innerHTML = `
+	// <img src="headers/${collections[header3Number].name}.png" alt="3">
+	// `;
 	// console.log(`Changing collection to: ${collection}`);
 	console.log('collection: ', `${collections[currentCollection].collection}`);
 	const galleryButton = document.querySelector(`${collections[currentCollection].collection}Button`);

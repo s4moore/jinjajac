@@ -199,9 +199,9 @@ export function fadeIn(item) {
 const header1 = document.querySelector('.header-1');
 const header3 = document.querySelector('.header-3');
 function onAnimationEnd() {
-    header1.classList.add('hidden');
+    // header1.classList.add('hidden');
     header1.classList.remove('fadeCollections');
-    header3.classList.add('hidden');
+    // header3.classList.add('hidden');
     header3.classList.remove('fadeCollections');
     collectionsHidden = true;
 	header1.removeEventListener('animationend', onAnimationEnd);
