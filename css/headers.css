@@ -1,11 +1,11 @@
 .collection-header {
 
-    left: 0;
-    top: 0;
+    left: 10%;
+    top: 5%;
     position: relative;
-    width: max(150px, 15%);
+    width: max(150px, 18%);
     height: 20%; /* Adjust as needed */
-    perspective: 1000px; /* Adds 3D perspective */
+    perspective: 5000px; /* Adds 3D perspective */
     /* overflow: hidden; */
     z-index: 1010;
 }
