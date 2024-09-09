@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     let fadeTimers = {};
     function updateImages() {
         const angle = 180 / headers.length;
-        const radius = window.innerWidth / 10; 
+        const radius = window.innerWidth / 15; 
 
         Object.values(fadeTimers).forEach(timer => clearTimeout(timer));
         fadeTimers = {};
