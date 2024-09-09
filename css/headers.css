@@ -3,7 +3,7 @@
     left: 0;
     top: 0;
     position: relative;
-    width: max(150px, 25vw);
+    width: max(150px, 20vw);
     height: 30vh; /* Adjust as needed */
     perspective: 1000px; /* Adds 3D perspective */
     /* overflow: hidden; */
