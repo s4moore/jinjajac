@@ -41,10 +41,9 @@ async function fetchCollections() {
 document.addEventListener('DOMContentLoaded', async () => {
     document.querySelector('.gallery-button').classList.remove('hidden');
     document.querySelector('.menu-toggle').classList.remove('hidden');
-    document.querySelector('.header-2').classList.remove('hidden');
 
-    const headerUpButton = document.querySelector('.header-1');
-    const headerDownButton = document.querySelector('.header-3');
+
+
     const menuButton = document.querySelector('.menu-toggle');
     if (!menuButton) {
         console.error('menuButton element not found');
@@ -62,7 +61,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const headerContainer = document.querySelector('.collection-header');
     headerContainer.innerHTML = ''; // Clear any existing content
-
+    const collectionLabel = document.createElement('div');
+    collectionLabel.classList.add('collection-label');
+    const collectionText = document.createElement('img');
+    collectionText.src = '/headers/Collection.png';
+    collectionLabel.appendChild(collectionText);
+    headerContainer.appendChild(collectionLabel);
     // Create and insert image elements based on the collections data
     collections.forEach((collection, index) => {
         const headerDiv = document.createElement('div');
