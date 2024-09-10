@@ -9,8 +9,8 @@ const root = document.documentElement;
 export function setMenuHidden() {
     menuHidden = true;
     menu.removeEventListener('animationend', menuFin);
-
 }
+
 export function setVar(variableName, value) {
     root.style.setProperty(variableName, value);
 }

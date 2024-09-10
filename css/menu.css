@@ -45,7 +45,7 @@
 
 #change-menu-btn {
 	pointer-events: auto;
-
+	z-index: 1025;
 }
 .menu {
     display: block;

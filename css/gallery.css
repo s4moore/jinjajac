@@ -1,9 +1,9 @@
 .gallery-popup {
-    position: fixed; /* Use fixed positioning to cover the entire viewport */
+    position: relative; /* Use fixed positioning to cover the entire viewport */
     top: 0;
     left: 0;
     width: 95%;
-    height: 95%;
+    height: 97%;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -45,7 +45,7 @@
     column-gap: 20px;
 	row-gap: 10px;
     width: 95%;
-    height: 95%;
+    max-height: 95%;
     overflow-y: auto; /* Make the gallery scrollable */
     /* flex-grow: 1; Allow the gallery to grow and take available space */
     z-index: 1011;
@@ -61,8 +61,12 @@
 }
 
 .gallery-icon {
-    display: block;
-    width: auto;
+    display: flex;
+	/* position: absolute;
+	top: 0; */
+	/* top: 10px; */
+	/* margin: 10px; */
+    /* width: auto; */
     object-fit: contain;
 }
 

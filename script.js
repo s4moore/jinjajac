@@ -4,12 +4,13 @@ import { setBackgroundVideo } from "./js/background.js";
 import {changeCollection} from "./js/collection.js";
 import { handleClose } from "./js/overlay.js";
 import {currentCollection} from "./js/collection.js";
-import {openGallery, galleryHidden} from "./js/gallery.js";
+import {openGallery, galleryHidden, closeGallery} from "./js/gallery.js";
+import { fetchSlides } from "./js/slides.js";
 
 export let overlay = null, collections = [];
 
 let fadeTimers = {};
-let headers = null;
+export let headers = null;
 let startY = 0;
 export let currentIndex = 0;
 let isScrolling = false;
@@ -47,52 +48,78 @@ async function fetchCollections() {
 
 const headerContainer = document.querySelector('.collection-header');
 
-headerContainer.addEventListener('touchmove', (e) => {
-	if (isScrolling) return;
-	updateImages(currentIndex);
-
-	const moveY = e.touches[0].clientY;
-	const diffY = startY - moveY;
-
-	if (diffY < -5) { // Swipe up
+export function swipeUp() {
 		currentIndex = (currentIndex + 1) % headers.length;
-		// console.log('collections: ', collections);
-		// console.log('Changing to collection:', collections[currentIndex].name);
+		console.log('collections: ', collections);
+		console.log('Changing to collection:', collections[currentIndex].name);
 
 		changeCollection(collections[currentIndex].name);
 
-		updateImages();
-		startY = moveY; // Reset startY to avoid multiple swipes in one move
-		isScrolling = true;
-		setTimeout(() => isScrolling = false, 300); // Debounce for 300ms
+		// updateImages(currentIndex);
+		// startY = moveY; // Reset startY to avoid multiple swipes in one move
+		// isScrolling = true;
+		// setTimeout(() => isScrolling = false, 300); // Debounce for 300ms
 
-		if (!galleryHidden) {
-			openGallery();
-			return;
-		}
-	} else if (diffY > 5) { // Swipe down
+}
+
+export function swipeDown() {
 		currentIndex = (currentIndex - 1 + headers.length) % headers.length;
-		// console.log('Changing to collection:', collections[currentIndex].name);
-		// console.log('collections: ', collections);
+		console.log('Changing to collection:', collections[currentIndex].name);
+		console.log('collections: ', collections);
 
 		changeCollection(collections[currentIndex].name);
-		updateImages();
-		startY = moveY; // Reset startY to avoid multiple swipes in one move
-		isScrolling = true;
-		setTimeout(() => isScrolling = false, 300); // Debounce for 300ms
+		// updateImages(currentIndex);
+		// startY = moveY; // Reset startY to avoid multiple swipes in one move
+		// isScrolling = true;
+		// setTimeout(() => isScrolling = false, 300); // Debounce for 300ms
 
-		if (!galleryHidden) {
-			openGallery();
-			return;
-		}
-	}
-});
+}
+// headerContainer.addEventListener('touchmove', (e) => {
+// 	if (isScrolling) return;
+// 	updateImages(currentIndex);
+
+// 	const moveY = e.touches[0].clientY;
+// 	const diffY = startY - moveY;
+
+// 	if (diffY < -5) { // Swipe up
+// 		currentIndex = (currentIndex + 1) % headers.length;
+// 		// console.log('collections: ', collections);
+// 		// console.log('Changing to collection:', collections[currentIndex].name);
+
+// 		changeCollection(collections[currentIndex].name);
+
+// 		updateImages();
+// 		startY = moveY; // Reset startY to avoid multiple swipes in one move
+// 		isScrolling = true;
+// 		setTimeout(() => isScrolling = false, 300); // Debounce for 300ms
+
+// 		if (!galleryHidden) {
+// 			openGallery();
+// 			return;
+// 		}
+// 	} else if (diffY > 5) { // Swipe down
+// 		currentIndex = (currentIndex - 1 + headers.length) % headers.length;
+// 		// console.log('Changing to collection:', collections[currentIndex].name);
+// 		// console.log('collections: ', collections);
+
+// 		changeCollection(collections[currentIndex].name);
+// 		updateImages();
+// 		startY = moveY; // Reset startY to avoid multiple swipes in one move
+// 		isScrolling = true;
+// 		setTimeout(() => isScrolling = false, 300); // Debounce for 300ms
+
+// 		if (!galleryHidden) {
+// 			openGallery();
+// 			return;
+// 		}
+// 	}
+// });
 
 
 
-headerContainer.addEventListener('touchstart', (e) => {
-	startY = e.touches[0].clientY;
-});
+// headerContainer.addEventListener('touchstart', (e) => {
+// 	startY = e.touches[0].clientY;
+// });
 
 
 
@@ -181,14 +208,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('menuButton element not found');
         return;
     }	
-	// menuButton.addEventListener('click', () => {
-    //     console.log('menuButton clicked');
-	// 	document.getElementById('change-menu-btn').classList.add('highlight2');
-    //     toggleMenu();
-    // }, { passive: false });
-    // headerUpButton.classList.add('hidden');
-    // headerDownButton.classList.add('hidden');
-
 	await fetchCollections();
 
     // const headerContainer = document.querySelector('.collection-header');
@@ -215,13 +234,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 	headers = document.querySelectorAll('.scroll-header');
 	changeCollection('Early 24');
-    // updateImages(currentIndex);
+    updateImages(currentIndex);
     document.addEventListener('resize', setBackgroundVideo);
     document.addEventListener('wheel', stopZooming, { passive: false });
-    // document.addEventListener('touchmove', function(event) {
-        // event.preventDefault();
-    // }, { passive: false });
-
 	document.addEventListener('touchstart', handleStart, { passive: false });
     document.addEventListener('mousedown', handleStart, { passive: false });      
     document.addEventListener('touchend', handleEnd, { passive: false });

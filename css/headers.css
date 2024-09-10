@@ -1,5 +1,5 @@
 .collection-header {
-	pointer-events: auto;
+	pointer-events: none;
     left: 7%;
     top: 7%;
     position: relative;
@@ -31,6 +31,7 @@
 }
 
 .scroll-header {
+	pointer-events: auto;
     object-fit: contain;    
     position: absolute;
     top: 0%;

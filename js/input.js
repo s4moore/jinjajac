@@ -5,7 +5,7 @@ import { toggleMenu, openGalleryMenu } from './utils.js';
 import { fadeInButtons, toggleConnect, toggleAbout } from './utils.js';
 import { fullScreen } from './fullscreen.js';
 import { openGallery, closeGallery, galleryHidden } from './gallery.js';
-import { collections, overlay, updateImages, currentIndex } from '../script.js';
+import { collections, overlay, updateImages, currentIndex, swipeDown, swipeUp } from '../script.js';
 import { moreAbout } from './about.js';
 
 
@@ -16,6 +16,9 @@ export function handleStart(e) {
 	// if (e.target.closest('.menu-toggle')) {
 	// 	return ;
 	// }
+	if (e.target.closest('.gallery-img')) {
+		return ;
+	}
 	if (e.target.closest('.Connect')) {
 		toggleConnect();
 		return;
@@ -54,43 +57,24 @@ const galleryOverlay = document.querySelector('.gallery');
 
 export function handleEnd(e) {
     const target = e.target;
-	// if (target.closest('.links')) {
-	// 	setTimeout(toggleMenu, 1000);
-	// 	return ;
-	// }
-	if (target.closest('.Connect')) {
+	if (target.closest('.Connect') || target.closest('.gallery-img')) {
 		return ;
 	}
 	e.preventDefault();
-
     console.log('End event target:', target);
-	const anchor = target.closest('a');
-    // if (anchor) {
-	// 		setTimeout(toggleMenu, 1000);
-    //     // return;
-    // }
     if (target.closest('.Gallery')) {
             const overlay = document.querySelector('.overlay');
         if (overlay){
             overlay.remove();
             openGallery();
-
         }   else {
-        document.querySelectorAll('.active').forEach(element => {
-            element.classList.add('hidden');
-            // showOverlay();
-            console.log('going to overlay mode');
-            slides.forEach (slide => slide.classList.add('paused'));
             openGallery();
-
-        });
         }
 		return ;
-
     }
-	if (target.closest('.scroll-header')) {
-		updateImages(currentIndex);
-	}
+	// if (target.closest('.scroll-header')) {
+	// 	updateImages(currentIndex);
+	// }
 	if (target.closest('.lower-button')) {
 		openGalleryMenu();
 		const current = collections[currentCollection].collection;
@@ -129,14 +113,7 @@ export function handleEnd(e) {
 		}
 		return ;
 	}
-    // if (target.closest('.header-2')) {
-    //     if (currentCollection !== 20) {
-    //         console.log('Current collection:', currentCollection);
-    //     toggleCollections();
-    //     collectionsHidden = !collectionsHidden;
-    //     }
-    //     return ;
-    // }
+
 	if (target.closest('.Connect')) {
 		toggleConnect();
 		return ;
@@ -151,6 +128,9 @@ export function handleEnd(e) {
 	}
 	if (target.closest('.More')) {
 		// toggleAbout();
+		if (!galleryHidden) {
+			closeGallery();
+		}
 		moreAbout();
 		return ;
 	}
@@ -177,63 +157,42 @@ export function handleEnd(e) {
 		return ;
 	}
     if (target.closest('.Concrete')) {
+		closeGallery();
 		toggleMenu();
-        handleClose ();
         changeCollection('.Concrete');
+		handleClose ();
+		// getNextSlide();
+
         return ;
     }
 	if (target.closest('.Lighting')) {
+		closeGallery();
+
 		toggleMenu();
-        handleClose ();
         changeCollection('.Lighting');
+		handleClose ();
+		// getNextSlide();
         return ;
     }
     if (target.closest('.Digital')) {
+		closeGallery();
+
 		toggleMenu();
         changeCollection('.Digital');
-        handleClose ();
-        return ;
-    }
-	if (!galleryHidden && !target.closest('#change-menu-btn')) {
-		closeGallery();
-		return ;
-	}
+		handleClose ();
 
-    if (target.closest('.header-1')) {
-        // if (!collectionsHidden) {
-        changeCollection(1);
+		// getNextSlide();
         return ;
-        // }
     }
-    if (target.closest('.header-3')) {
-        // if (!collectionsHidden) {
-        changeCollection(-1);
-        return ;
-        // }
-    }
-
 
 
     const screenWidth = window.innerWidth;
 
 
-    // if (target.closest('.menu')) {
-    //     return ;
-    // }
     const menu = document.querySelector('.menu');
-    // if (menu.style.display === 'block' && !target.closest('.link')) {
-    //     toggleMenu();
-    //     return ;
-    // }
+
 
     if (target.closest('#change-menu-btn')) {
-        // if (menuToggleTimer) {
-        //     clearTimeout(menuToggleTimer);
-        // }
-        // document.getElementById('change-menu-btn').classList.add('highlight');
-        // menuToggleTimer = setTimeout(() => {
-        //     document.getElementById('change-menu-btn').classList.remove('highlight');
-        // }, 1000);
         console.log('Menu button clicked');
         toggleMenu();
         return ;
@@ -246,24 +205,43 @@ export function handleEnd(e) {
 		// resolve();
 		return ;
     }
+	endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+    endY = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
+    const xMove = endX - startX;
+    const yMove = endY - startY;
+	if (target.closest('.scroll-header')) {
+		updateImages();
+		// updateImages(currentIndex);
+		if (Math.abs(yMove) > 10) {
+            if (Math.abs(yMove) > 10) {
+				
+                if (startY > endY + 10) {
+					swipeDown();
+                    return ;
+                } else if (startY < endY - 10) {
+                    console.log('Swiped down');
+					swipeUp();
+                    return ;
+                }
+            }
+		}
+	}
     if (target.closest('.fullscreen-button')) {
         fullScreen();
         return ;
     }
-    if (startX <= screenWidth * 0.2) {
+    if (galleryHidden && startX <= screenWidth * 0.2) {
         prevSlide();
         return;
-    } else if (startX >= screenWidth * 0.8 )  {
+    } else if (galleryHidden && startX >= screenWidth * 0.8 )  {
         getNextSlide();
         return;
     }
 
-    endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
-    endY = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
-    const xMove = endX - startX;
-    const yMove = endY - startY;
 
-    if (Math.abs(xMove) > 10 || Math.abs(yMove) > 10) {
+
+
+	if (Math.abs(xMove) > 10 || Math.abs(yMove) > 10) {
         if (Math.abs (xMove) > Math.abs(yMove)) {
             if (startX > endX + 10) {
                 getNextSlide();
@@ -272,19 +250,7 @@ export function handleEnd(e) {
                 prevSlide();
                 return ;
             }
-        // } else if (Math.abs(yMove) > 10) {
-        //     if (!document.querySelector('.overlay') && Math.abs(yMove) > 10) {
-        //         if (startY > endY + 10) {
-        //             console.log('Swiped up');
-        //             changeCollection(1);
-        //             return ;
-        //         } else if (startY < endY - 10) {
-        //             console.log('Swiped down');
-        //             changeCollection(-1);
-        //             return ;
-        //         }
-        //     }
-        } 
+	}
     } else if (!document.querySelector('.overlay')) {
         document.querySelectorAll('.active').forEach(element => {
             element.classList.add('hidden');
