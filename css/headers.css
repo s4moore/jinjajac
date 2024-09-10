@@ -19,9 +19,15 @@
 
 @media (orientation: landscape) {
 	.collection-header {
-		width: max(170px, 25%);
-
+		width: max(200px, 25%);
 	}	
+}
+
+@media (max-height: 450px)
+{
+	.collection-header {
+		height: 65%;
+	}
 }
 
 .scroll-header {
