@@ -244,6 +244,15 @@
 	animation: menuFade 4s;
 }
 
+.setOpacity {
+	opacity: 0.8;
+}	
+
+.fadeOut {
+    transition: opacity 2s;
+    opacity: 0;
+}
+
 @keyframes menuFade {
 	0% {
 		opacity: 0;

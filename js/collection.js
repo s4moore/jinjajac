@@ -1,5 +1,6 @@
 import {fetchSlides} from "./slides.js";
-import { collections } from "../script.js";
+import { collections, updateImages } from "../script.js";
+import { galleryHidden, openGallery } from "./gallery.js";
 export let collection;
 export let currentCollection = 0;
 
@@ -29,14 +30,15 @@ export function changeCollection(change) {
 		currentCollection = collections.findIndex(item => item.collection === change);
 	}
 	collection = collections[currentCollection].name;
-	let header1Number = currentCollection - 1;
-	let header3Number = currentCollection + 1;
-	if (header1Number < 0) {
-		header1Number = collections.length - 1;
-	}
-	if (header3Number >= collections.length) {
-		header3Number = 0;
-	}
+	// let header1Number = currentCollection - 1;
+	// let header3Number = currentCollection + 1;
+	// if (header1Number < 0) {
+	// 	header1Number = collections.length - 1;
+	// }
+	// if (header3Number >= collections.length) {
+	// 	header3Number = 0;
+	// }
+	updateImages(currentCollection);
 
 	// const header1 = document.querySelector('.header-1');
 	// const header1Image = header1.querySelector('img');
@@ -64,6 +66,10 @@ export function changeCollection(change) {
 	const oldButton = document.querySelector(`${collections[oldCollection].collection}Button`);
 	// galleryButton.innerHTML = `<img class="gallery-button" src="/headers/${collections[currentCollection].collection}.png">`;
 	oldButton.classList.add('hidden');
+	}
+	if (!galleryHidden) {
+		openGallery();
+		return ;
 	}
 	galleryButton.classList.remove('hidden');
 	fetchSlides(collection);

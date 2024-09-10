@@ -81,6 +81,9 @@
     cursor: pointer;
 }
 
+.LightingButton, .DigitalButton, .ConcreteButton {
+	pointer-events: none;
+}
 .gallery::-webkit-scrollbar {
     display: none;
 }

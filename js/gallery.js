@@ -5,41 +5,49 @@ import { fadeInButtons, toggleMenu } from './utils.js';
 import { showOverlay } from './overlay.js';
 import { changeCollection } from './collection.js';
 import { handleClose } from './overlay.js';
+export let galleryHidden = true;
 
 const menu = document.querySelector('.menu');
 const galleryPopup = document.getElementById('gallery-popup');
 
+export function closeGallery (index) {
+	console.log('Clicked on image:', index);
+	galleryPopup.querySelector('.gallery').classList.add('hidden');
+	document.addEventListener('touchstart', handleStart, { passive: false });
+	document.addEventListener('mousedown', handleStart, { passive: false });      
+	document.addEventListener('touchend', handleEnd, { passive: false });
+	document.addEventListener('mouseup', handleEnd, { passive: false });
+	// galleryPopup.removeEventListener('touchstart', handleTouchStart, { passive: true });
+	// galleryPopup.removeEventListener('touchmove', handleTouchMove, { passive: true });
+	// galleryPopup.removeEventListener('touchend', handleTouchEnd, { passive: true });
+	setCurrentSlide(index);
+	showOverlay();
+	galleryHidden = true;
+	document.querySelector('.gallery-button').classList.remove('hidden');
+	return ;
+}
 
 export function openGallery () {
         document.removeEventListener('touchstart', handleStart, { passive: false });
         document.removeEventListener('mousedown', handleStart, { passive: false });
         document.removeEventListener('touchend', handleEnd, { passive: false });
         document.removeEventListener('mouseup', handleEnd, { passive: false });
+		galleryHidden = false;
         const galleryGrid = galleryPopup.querySelector('.gallery');
+		document.querySelector('.gallery-button').classList.add('hidden');
         galleryGrid.innerHTML = ''; // Clear previous content
     
         slides.forEach(slide => {
             const img = slide.querySelector('img').cloneNode();
             let index = Array.from(slides).indexOf(slide);
-            img.addEventListener('click', () => {
-                console.log('Clicked on image:', index);
-                galleryPopup.classList.add('hidden');
-                document.addEventListener('touchstart', handleStart, { passive: false });
-                document.addEventListener('mousedown', handleStart, { passive: false });      
-                document.addEventListener('touchend', handleEnd, { passive: false });
-                document.addEventListener('mouseup', handleEnd, { passive: false });
-                galleryPopup.removeEventListener('touchstart', handleTouchStart, { passive: true });
-                galleryPopup.removeEventListener('touchmove', handleTouchMove, { passive: true });
-                galleryPopup.removeEventListener('touchend', handleTouchEnd, { passive: true });
-                setCurrentSlide(index);
-                showOverlay();
-                return ;
-            });
+            img.addEventListener('click', function () {
+				closeGallery(index);
+			});
             galleryGrid.appendChild(img);
         });
-        galleryPopup.addEventListener('touchstart', handleTouchStart, { passive: true });
-        galleryPopup.addEventListener('touchmove', handleTouchMove, { passive: true });
-        galleryPopup.addEventListener('touchend', handleTouchEnd, { passive: true });
+        // galleryPopup.addEventListener('touchstart', handleTouchStart, { passive: true });
+        // galleryPopup.addEventListener('touchmove', handleTouchMove, { passive: true });
+        // galleryPopup.addEventListener('touchend', handleTouchEnd, { passive: true });
         galleryPopup.classList.remove('hidden');
 }
 
@@ -74,7 +82,7 @@ function handleTouchStart(event) {
         galleryPopup.removeEventListener('touchend', handleTouchEnd, { passive: true });
         return ;
     }
-    const touch = event.touches[0];
+    const touch = event;
     startX = touch.clientX;
     startY = touch.clientY;
     currentY = startY;

@@ -1,11 +1,11 @@
 import { showOverlay, handleClose} from './overlay.js';
 import { changeCollection, currentCollection } from './collection.js';
 import { prevSlide, nextSlide, getNextSlide, slides, currentSlide } from './slides.js';
-import { toggleMenu, toggleCollections, openGalleryMenu } from './utils.js';
+import { toggleMenu, openGalleryMenu } from './utils.js';
 import { fadeInButtons, toggleConnect, toggleAbout } from './utils.js';
 import { fullScreen } from './fullscreen.js';
-import { openGallery } from './gallery.js';
-import { collections, overlay } from '../script.js';
+import { openGallery, closeGallery, galleryHidden } from './gallery.js';
+import { collections, overlay, updateImages, currentIndex } from '../script.js';
 import { moreAbout } from './about.js';
 
 
@@ -26,7 +26,7 @@ export function handleStart(e) {
     }
     console.log('Start event target:', e.target);
     if (!e.target.closest('.overlay') && !e.target.closest('.overlay-img')
-        && !e.target.closest('.carousel-slide')) {
+        && !e.target.closest('.carousel-slide') && !e.target.closest('.scroll-header')) {
 	if (e.target === '.gallery-button'){
 		e.target = document.querySelector('.gallery-menu');
 	}
@@ -50,6 +50,7 @@ export function handleStart(e) {
 }
 let collectionsHidden = true;
 
+const galleryOverlay = document.querySelector('.gallery');
 
 export function handleEnd(e) {
     const target = e.target;
@@ -87,6 +88,9 @@ export function handleEnd(e) {
 		return ;
 
     }
+	if (target.closest('.scroll-header')) {
+		updateImages(currentIndex);
+	}
 	if (target.closest('.lower-button')) {
 		openGalleryMenu();
 		const current = collections[currentCollection].collection;
@@ -96,7 +100,7 @@ export function handleEnd(e) {
 				changeCollection('.Lighting');
 				break;
 			case '.Lighting':
-				changeCollection('.Digital');
+				changeCollection('.Concrete');
 				break;
 			case '.Digital':
 				changeCollection('.Concrete');
@@ -115,7 +119,7 @@ export function handleEnd(e) {
 				changeCollection('.Digital');
 				break;
 			case '.Lighting':
-				changeCollection('.Concrete');
+				changeCollection('.Digital');
 				break;
 			case '.Digital':
 				changeCollection('.Lighting');
@@ -167,7 +171,7 @@ export function handleEnd(e) {
 		whatsappLink.click();
 		return;
 	}
-	if (target.closest('.gallery-button')) {
+	if (target.closest('.gallery-change')) {
 		console.log('Gallery button clicked');
 		openGalleryMenu();
 		return ;
@@ -187,6 +191,11 @@ export function handleEnd(e) {
         handleClose ();
         return ;
     }
+	if (!galleryHidden && !target.closest('#change-menu-btn')) {
+		closeGallery();
+		return ;
+	}
+
     if (target.closest('.header-1')) {
         // if (!collectionsHidden) {
         changeCollection(1);
