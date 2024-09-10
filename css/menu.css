@@ -18,6 +18,7 @@
     object-fit: contain;
     height: calc(var(--menu-height) * var(--menu-scale));
     width: calc(var(--menu-width) * var(--menu-scale));
+    z-index: 1023;
 }
 
 
@@ -35,7 +36,7 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-    z-index: 1015;
+    z-index: 1023;
 }
 
 .menu-toggle img:hover {
@@ -56,6 +57,7 @@
     width: 100%;
     object-fit: contain;
     height: 100%;
+    z-index: 1023;
 }
 
 .menu img {
@@ -80,7 +82,7 @@
     width: 119%;
     height: 110%;
     object-fit: contain;
-    z-index: 1002;
+    z-index: 1023;
 }
 
 .links {
@@ -89,14 +91,14 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    z-index: 1003;
+    z-index: 1023;
 }
 
 .links img {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    z-index: 1003;
+    z-index: 1023;
 }
 
 .More {
@@ -107,7 +109,7 @@
     left: 27.5%;
     top: 9%;
     object-fit: contain;
-	z-index: 1003;
+	z-index: 1023;
 }
 
 .Digital {
@@ -118,7 +120,7 @@
     left: 32%;
     top: 38%;
     object-fit: contain;
-	z-index: 1003;
+	z-index: 1023;
 }
 
 .Connect{
@@ -129,7 +131,7 @@
     left: 27%;
     top: 57.5%;
     object-fit: contain;
-	z-index: 1003;
+	z-index: 1023;
 }
 
 
@@ -141,7 +143,7 @@
     left: 63%;
     top: 56%;
     object-fit: contain;
-	z-index: 1003;
+	z-index: 1023;
 }
 
 
@@ -153,7 +155,7 @@
     left: -7%;
     top: 58%;
     object-fit: contain;
-	z-index: 1003;
+	z-index: 1023;
 }
 
 .Concrete {
@@ -164,7 +166,7 @@
     left: 17%;
     top: 71%;
     object-fit: contain;
-	z-index: 1003;
+	z-index: 1023;
 }
 
 .Light {
@@ -175,7 +177,7 @@
     left: 46%;
     top: 71%;
     object-fit: contain;
-	z-index: 1003;
+	z-index: 1023;
 }
 
 .Contact-area {
@@ -200,7 +202,7 @@
     left: 47%;
     bottom: -23%;
     object-fit: contain;
-	z-index: 1003;
+	z-index: 1023;
 }
 
 
@@ -212,7 +214,7 @@
     left: 29%;
     bottom: -19%;
     object-fit: contain;
-	z-index: 1003;
+	z-index: 1023;
 }
 
 .Whatsapp {
@@ -223,14 +225,14 @@
     left: 11%;
     bottom: -23%;
     object-fit: contain;
-	z-index: 1003;
+	z-index: 1023;
 }
 
 .Contact-area img {
 	width: 80%;
 	height: 80%;
 	object-fit: contain;
-	z-index: 1003;
+	z-index: 1023;
 }
 .hidden {
     display: none !important;

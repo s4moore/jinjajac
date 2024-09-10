@@ -13,17 +13,19 @@ const galleryPopup = document.getElementById('gallery-popup');
 export function closeGallery (index) {
 	console.log('Clicked on image:', index);
 	galleryPopup.querySelector('.gallery').classList.add('hidden');
+    galleryPopup.classList.add('hidden');
 	document.addEventListener('touchstart', handleStart, { passive: false });
 	document.addEventListener('mousedown', handleStart, { passive: false });      
 	document.addEventListener('touchend', handleEnd, { passive: false });
 	document.addEventListener('mouseup', handleEnd, { passive: false });
-	// galleryPopup.removeEventListener('touchstart', handleTouchStart, { passive: true });
-	// galleryPopup.removeEventListener('touchmove', handleTouchMove, { passive: true });
-	// galleryPopup.removeEventListener('touchend', handleTouchEnd, { passive: true });
-	setCurrentSlide(index);
-	showOverlay();
+	galleryPopup.removeEventListener('touchstart', handleTouchStart, { passive: true });
+	galleryPopup.removeEventListener('touchmove', handleTouchMove, { passive: true });
+	galleryPopup.removeEventListener('touchend', handleTouchEnd, { passive: true });
+
 	galleryHidden = true;
 	document.querySelector('.gallery-button').classList.remove('hidden');
+    setCurrentSlide(index);
+	showOverlay();
 	return ;
 }
 
@@ -45,9 +47,11 @@ export function openGallery () {
 			});
             galleryGrid.appendChild(img);
         });
-        // galleryPopup.addEventListener('touchstart', handleTouchStart, { passive: true });
-        // galleryPopup.addEventListener('touchmove', handleTouchMove, { passive: true });
-        // galleryPopup.addEventListener('touchend', handleTouchEnd, { passive: true });
+        galleryPopup.querySelector('.gallery').classList.remove('hidden');
+        galleryPopup.classList.remove('hidden');
+        galleryPopup.addEventListener('touchstart', handleTouchStart, { passive: true });
+        galleryPopup.addEventListener('touchmove', handleTouchMove, { passive: true });
+        galleryPopup.addEventListener('touchend', handleTouchEnd, { passive: true });
         galleryPopup.classList.remove('hidden');
 }
 

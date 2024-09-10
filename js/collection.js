@@ -67,12 +67,13 @@ export function changeCollection(change) {
 	// galleryButton.innerHTML = `<img class="gallery-button" src="/headers/${collections[currentCollection].collection}.png">`;
 	oldButton.classList.add('hidden');
 	}
+	fetchSlides(collection);
+
 	if (!galleryHidden) {
 		openGallery();
 		return ;
 	}
 	galleryButton.classList.remove('hidden');
-	fetchSlides(collection);
 	console.log(`THIS Changing collection to: ${collections[currentCollection].name}`);
     // updateImages();
 }

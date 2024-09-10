@@ -12,7 +12,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 1001;
+    z-index: 1011;
 }
 
 .gallery-popup-content {
@@ -37,6 +37,7 @@
     height: 100%;
     overflow-y: auto; /* Make the gallery scrollable */
     flex-grow: 1; /* Allow the gallery to grow and take available space */
+    z-index: 1011;
 }
 
 .gallery img {
