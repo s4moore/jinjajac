@@ -128,7 +128,7 @@ function fadeOpacity(header, index) {
 
 export function updateImages(targetIndex) {
 	const angle = 180 / headers.length;
-	const radius = Math.max(window.innerHeight / 20, 25); 
+	const radius = window.innerHeight / 20; 
 
 	Object.values(fadeTimers).forEach(timer => clearTimeout(timer));
 	fadeTimers = {};
