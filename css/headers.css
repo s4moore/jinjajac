@@ -1,6 +1,6 @@
 .collection-header {
 	pointer-events: auto;
-    left: 5%;
+    left: 8%;
     top: 10px;
     position: relative;
     width: max(150px, 15%);
@@ -12,14 +12,14 @@
 
 @media (orientation: portrait) {
 	.collection-header {
-		top: 8%;
+		top: 5%;
 
 	}	
 }
 
 @media (orientation: landscape) {
 	.collection-header {
-		top: 2%;
+		top: 3%;
 
 	}	
 }
@@ -32,7 +32,7 @@
     /* transform: translate(-80%, -80%); */
     transform-style: preserve-3d; 
     transition: transform 0.5s ease; 
-    width: max(10%, 100px);
+    width: max(10%, 130px);
     /* height: max(100px, 5%); */
     display: flex;
     justify-content: center;
@@ -57,7 +57,7 @@
     top: 9%;
     left: 11%; */
     /* width: 10%; */
-    width: max(100px, 10%);
+    width: max(120px, 10%);
     /* height: max(100px, 5%); */
     top: 50%;
     left: 0%;
