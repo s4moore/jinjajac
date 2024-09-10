@@ -105,10 +105,11 @@ function handleTransitionEnd(event) {
 
 function fadeOpacity(header, index) {
 	let opacity = 0.7;
-	const fadeStep = 0.1; // Adjust the step size for fading
+	let fadeStep = 0.1; // Adjust the step size for fading
 	let fadeInterval = 300; // Adjust the interval for fading
 	if (!firstCollectionPrinted) {
-		fadeInterval = 1000;
+		fadeInterval = 2000;
+        fadeStep = 0.3;
 	}
 	function step() {
 		opacity -= fadeStep;

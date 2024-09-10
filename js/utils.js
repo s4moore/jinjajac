@@ -148,7 +148,7 @@ export function toggleAbout() {
 
 function galleryTransitionEnd() {
 	console.log('asdfsdafasdfasdfsdasfdGallery menu transition end', galleryMenu);
-	galleryMenu.classList.remove('menu-fade');
+	galleryMenu.classList.remove('gallery-fade');
 	galleryMenu.classList.remove('fadeOut');
 	galleryMenu.classList.add('hidden');
 	lowerButton.classList.add('hidden');
@@ -182,7 +182,7 @@ export function openGalleryMenu() {
 		console.log('........Collection menu:', `${collections[currentCollection].collection}`);
 		// collectionMenu.classList.add('hidden');
 		galleryMenu.classList.remove('hidden');
-		galleryMenu.classList.add('menu-fade');
+		galleryMenu.classList.add('gallery-fade');
 		galleryMenu.addEventListener('animationend', galleryTransitionEnd);
 	} else {
         console.log('Gallery menu:', `${currName}Menu`);
@@ -191,7 +191,7 @@ export function openGalleryMenu() {
         oldGalleryMenu.removeEventListener('transitionend', galleryTransitionEnd);
 		document.querySelector('.gallery-change').style.pointerEvents = 'none';
         console.log('Gallery menu:', `${collections[currentCollection].collection}Menu`);
-        oldGalleryMenu.classList.remove('menu-fade');
+        oldGalleryMenu.classList.remove('gallery-fade');
 		void oldGalleryMenu.offsetWidth;
         oldGalleryMenu.classList.add('fadeOut');
         oldGalleryMenu.addEventListener('transitionend', galleryTransitionEnd); 
