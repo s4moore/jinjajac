@@ -1,10 +1,10 @@
 .collection-header {
 	pointer-events: auto;
-    left: 5%;
-    top: min(10px, 5%);
+    left: 10%;
+    top: min(10px, 10%);
     position: relative;
-    width: max(150px, 10%);
-    height: 20%; /* Adjust as needed */
+    width: max(150px, 40%);
+    height: 40%; /* Adjust as needed */
     perspective: 10000px; /* Adds 3D perspective */
     /* overflow: hidden; */
     z-index: 1010;
@@ -19,7 +19,7 @@
     transform-style: preserve-3d; 
     transition: transform 0.5s ease; 
     width: max(50%, 150px);
-    height: max(100px, 30%);
+    height: max(100px, 50%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,7 +44,7 @@
     left: 11%; */
     /* width: 20%; */
     width: max(150px, 50%);
-    height: max(100px, 30%);
+    height: max(100px, 50%);
     top: 50%;
     left: 0%;
     transform: translate(-10%, 0%);
