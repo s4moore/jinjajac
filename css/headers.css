@@ -3,26 +3,26 @@
     left: 7%;
     top: 7%;
     position: relative;
-    width: max(150px, 25%);
-    height: 50%; /* Adjust as needed */
+    width: max(170px, 25%);
+    height: 55%; /* Adjust as needed */
     perspective: 10000px; /* Adds 3D perspective */
     /* overflow: hidden; */
     z-index: 1015;
 }
 
-/* @media (orientation: portrait) {
+@media (orientation: portrait) {
 	.collection-header {
-		top: 5%;
+		width: max(150px, 25%);
 
 	}	
 }
 
 @media (orientation: landscape) {
 	.collection-header {
-		top: 3%;
+		width: max(170px, 25%);
 
 	}	
-} */
+}
 
 .scroll-header {
     object-fit: contain;    
