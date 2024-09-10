@@ -1,7 +1,7 @@
 import {slides, nextSlide, currentSlide} from './slides.js';
 import {handleStart, handleEnd} from './input.js';
 import {updateViewport, stopZooming} from '../script.js';
-import { setMenuHidden } from './utils.js';
+import { setMenuHidden, toggleMenu } from './utils.js';
 
 function aboutZoom(event) {
 	if (event.ctrlKey) {
@@ -27,12 +27,19 @@ function aboutZoom(event) {
 export function moreAbout () {
 		// updateViewport('yes');
 		console.log('More clicked');
-		document.querySelector('.menu-toggle').classList.add('hidden');
+		toggleMenu();
 		document.querySelector('.gallery-button').classList.add('hidden');
-        document.querySelector('.menu').classList.remove('menu-fade');
-        void document.querySelector('.menu').offsetWidth;
+        // document.querySelector('.menu').classList.remove('menu-fade');
+		// document.querySelector('.menu').classList.add('fadeOut');
+		void document.querySelector('.menu').offsetWidth;
+		// document.querySelector('.menu').addEventListener('transitionend', () => {
+			
+			// document.querySelector('.menu').classList.remove('fadeOut');
+			// document.querySelector('.menu').classList.add('hidden');
+			document.querySelector('.menu-toggle').classList.add('hidden');
 
-		document.querySelector('.menu').classList.add('hidden');
+		// });
+
 		document.querySelector('.header-2').classList.add('hidden');
         setMenuHidden();
 

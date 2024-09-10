@@ -177,16 +177,19 @@ export function handleEnd(e) {
 		return ;
 	}
     if (target.closest('.Concrete')) {
+		toggleMenu();
         handleClose ();
         changeCollection('.Concrete');
         return ;
     }
 	if (target.closest('.Lighting')) {
+		toggleMenu();
         handleClose ();
         changeCollection('.Lighting');
         return ;
     }
     if (target.closest('.Digital')) {
+		toggleMenu();
         changeCollection('.Digital');
         handleClose ();
         return ;

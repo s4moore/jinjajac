@@ -1,13 +1,27 @@
 .collection-header {
 	pointer-events: auto;
-    left: 10%;
-    top: min(10px, 10%);
+    left: 5%;
+    top: 10px;
     position: relative;
-    width: max(150px, 40%);
-    height: 40%; /* Adjust as needed */
+    width: max(150px, 15%);
+    height: 10%; /* Adjust as needed */
     perspective: 10000px; /* Adds 3D perspective */
     /* overflow: hidden; */
     z-index: 1015;
+}
+
+@media (orientation: portrait) {
+	.collection-header {
+		top: 8%;
+
+	}	
+}
+
+@media (orientation: landscape) {
+	.collection-header {
+		top: 2%;
+
+	}	
 }
 
 .scroll-header {
@@ -18,8 +32,8 @@
     /* transform: translate(-80%, -80%); */
     transform-style: preserve-3d; 
     transition: transform 0.5s ease; 
-    width: max(50%, 150px);
-    height: max(100px, 50%);
+    width: max(10%, 100px);
+    /* height: max(100px, 5%); */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,9 +56,9 @@
     /* position: absolute;
     top: 9%;
     left: 11%; */
-    /* width: 20%; */
-    width: max(150px, 50%);
-    height: max(100px, 50%);
+    /* width: 10%; */
+    width: max(100px, 10%);
+    /* height: max(100px, 5%); */
     top: 50%;
     left: 0%;
     transform: translate(-10%, 0%);
@@ -52,6 +66,7 @@
     /* transform: translate(-50%, -50%); */
     z-index: 1010; /* Ensure it stays on top */
 }
+
 .collection-label img {
     width: 100%;
     height: 100%;

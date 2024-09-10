@@ -26,7 +26,7 @@
     pointer-events: none;
     position: fixed;
     right: 3%;
-    top: 2%; 
+    top: 4%; 
     width: calc(var(--img-scale) * var(--menu-width));
     object-fit: contain;
     z-index: 1015;

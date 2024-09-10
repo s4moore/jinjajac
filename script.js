@@ -173,7 +173,8 @@ export function updateImages(targetIndex) {
 document.addEventListener('DOMContentLoaded', async () => {
     document.querySelector('.gallery-button').classList.remove('hidden');
     document.querySelector('.menu-toggle').classList.remove('hidden');
-
+	document.querySelector('.collection-header').classList.remove('hidden');
+	document.getElementById('change-menu-btn').classList.remove('hidden');
 
     const menuButton = document.querySelector('.menu-toggle');
     if (!menuButton) {
