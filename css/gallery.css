@@ -16,6 +16,12 @@
     z-index: 1011;
 }
 
+.top-left {
+	position: absolute;
+	top: 5%;
+	left: 5%;
+}
+
 .gallery-popup-content {
     background: black;
     padding: 20px;

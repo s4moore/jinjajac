@@ -23,6 +23,7 @@ export function closeGallery (index) {
 	galleryPopup.removeEventListener('touchend', handleTouchEnd, { passive: true });
 
 	galleryHidden = true;
+	document.querySelector('.collection-header').classList.remove('top-left');
 	document.querySelector('.gallery-button').classList.remove('hidden');
     setCurrentSlide(index);
 	showOverlay();
@@ -38,7 +39,7 @@ export function openGallery () {
         const galleryGrid = galleryPopup.querySelector('.gallery');
 		document.querySelector('.gallery-button').classList.add('hidden');
         galleryGrid.innerHTML = ''; // Clear previous content
-    
+		document.querySelector('.collection-header').classList.add('top-left');
         slides.forEach(slide => {
             const img = slide.querySelector('img').cloneNode();
             let index = Array.from(slides).indexOf(slide);
