@@ -17,6 +17,7 @@
     width: 2rem;
     height: 2rem;
     background: none;
+	z-index: 1050;
 }
 
 .close-button-fullscreen img {
