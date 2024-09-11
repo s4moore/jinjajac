@@ -246,6 +246,10 @@
     animation: menuFade 5s;
 }
 
+.button-fade {
+	animation: menuFade 5s;
+}
+
 .connect-fade {
 	animation: menuFade 5s;
 }
@@ -258,6 +262,7 @@
     transition: opacity 1s;
     opacity: 0;
 }
+
 
 @keyframes menuFade {
 	0% {

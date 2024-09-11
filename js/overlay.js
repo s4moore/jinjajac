@@ -126,7 +126,7 @@ export function showOverlay() {
                 overlayContent.style.width = `${containerWidth}px`;
                 caption.innerText = current.getAttribute('data-caption');
                 caption.style.width = 'auto';
-                caption.classList.add('fadeIn');
+                caption.classList.add('caption-visible');
             }
     
             window.addEventListener('resize', adjustImageSize);
