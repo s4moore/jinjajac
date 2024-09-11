@@ -145,6 +145,7 @@ export function handleEnd(e) {
 		const body = '';
 	
 		emailLink.href = `mailto:${emailAddress}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+		emailLink.click();
 	}
 	if (target.closest('.More')) {
 		// toggleAbout();
