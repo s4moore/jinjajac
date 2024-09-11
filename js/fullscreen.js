@@ -138,7 +138,7 @@ export function fullScreen () {
         event.preventDefault();
     }, { passive: false });
     
-    document.addEventListener('mousemove', (event) => {
+    image.addEventListener('mousemove', (event) => {
         if (isDragging) {
             const dx = event.clientX - startX;
             const dy = event.clientY - startY;
@@ -149,7 +149,7 @@ export function fullScreen () {
         }
     }, { passive: false });
     
-    document.addEventListener('mouseup', () => {
+    image.addEventListener('mouseup', () => {
         isDragging = false;
     }, { passive: false });
 
