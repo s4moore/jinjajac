@@ -1,16 +1,30 @@
 import { overlay } from '../script.js';
 import { collection } from './collection.js';
 import {updateOverlayImage} from './overlay.js';
-export let slides =[], images = [];
+import { galleryHidden } from './gallery.js';
+export let slides =[];
 export var currentSlide = 0;
 
 export function setCurrentSlide(index) {
     currentSlide = index;
 }
 
+export function pauseSlides() {
+	slides.forEach(slide => {
+		slide.classList.add('paused');
+		slide.classList.add('hidden');
+	});
+}
+
+export function unPauseSlides() {
+	slides.forEach( (slide) => {
+		slide.classList.remove('paused');
+	});
+}
+
 const loadingOverlay = document.getElementById('loading-overlay');
 
-export function createSlides(data) {
+export async function createSlides(data) {
     const carousel = document.querySelector('.carousel');
         if (carousel.firstChild){
         while (carousel.firstChild) {
@@ -22,32 +36,27 @@ export function createSlides(data) {
             slide.classList.add('carousel-slide');
             slide.classList.add('hidden');
             slide.innerHTML = `
-            <img src="../collections/${collection}/${image.src}" alt="Image ${index + 1} class="blurred-edges">
+            <img src="../collections/${collection}/${image.src}" alt="Image ${index + 1}">
             `;
             slide.setAttribute('data-caption', image.caption || '');
             slide.setAttribute('data-blurb', image.blurb || '');
             slide.setAttribute('landscape', `../collections/${collection}/landscape/${image.src}`);
-            // console.log(`Slide created for image: ${slide.getAttribute('landscape')}`);
             carousel.appendChild(slide);
             slides.push(slide);
-            // console.log(`Slide created for image: ${image.src}`);
         });
     slides = document.querySelectorAll('.carousel-slide');
 }
 
-export function fetchSlides(collection) {
-    images = [];
-    fetch(`../collections/${collection}.json`)
-    .then(response => response.json())
-    .then(data => {
-        images = data;
-        loadingOverlay.style.display = 'none';
-        createSlides(images);
-        nextSlide();
-    })
-    .catch(error => {
-        console.error('Error loading images:', error);
-    });
+export async function fetchSlides(collection) {
+	console.log('Fetching slides for collection:', collection);
+	try {
+	const response = await fetch(`../collections/${collection}.json`)
+	const data = await response.json();
+    await createSlides(data);
+	loadingOverlay.classList.add('hidden');
+	} catch (error) {
+		console.error('Error fetching slides:', error);
+	}
 }
 
 export function showSlide(index) {
@@ -55,7 +64,7 @@ export function showSlide(index) {
     slides.forEach((slide, i) => {
         if (index === i) {
             slide.classList.add('active');
-            slide.classList.remove('hidden', 'disolve');
+            slide.classList.remove('hidden', 'disolve', 'paused');
             slide.addEventListener('animationend', expandDone);
             // captionElement.textContent = `${edition} ${images[index].caption}`;
         }
@@ -64,7 +73,6 @@ export function showSlide(index) {
 
 function expandDone(event) {
     const slide = event.target;
-    // console.log('Expand done:', slide);
     slide.removeEventListener('animationend', expandDone);
     slide.classList.remove('active');
     slide.classList.add('disolve');
@@ -73,7 +81,6 @@ function expandDone(event) {
 }
 
 function disolveDone(event) {
-    // console.log('Disolve done:', event.target);
     const slide = event.target;
     slide.removeEventListener('animationend', disolveDone);
     slide.classList.add('hidden');
@@ -100,7 +107,8 @@ export function nextSlide() {
         }
     });
     currentSlide = (currentSlide + 1) % slides.length;
-	// adjustCarouselSize();
+	adjustCarouselSize();
+	slides[currentSlide].classList.remove('hidden');
     if (document.querySelector('.overlay')) {
         updateOverlayImage();
     } else {

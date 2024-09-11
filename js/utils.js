@@ -9,8 +9,8 @@ const root = document.documentElement;
 export function setMenuHidden() {
     menuHidden = true;
     menu.removeEventListener('animationend', menuFin);
-
 }
+
 export function setVar(variableName, value) {
     root.style.setProperty(variableName, value);
 }
@@ -63,20 +63,21 @@ export function toggleMenu() {
 
 export function toggleConnect() {
 	if (connectHidden) {
+		
 		connectHidden = false;
 		const connect = document.querySelector('.Contact-area');
 		connect.classList.remove('hidden');
 		connect.classList.add('connect-fade');
-		menu.classList.add('paused');
+		// menu.classList.add('paused');
 		function connectFin() {
 			connect.classList.remove('connect-fade');
 			connect.classList.add('hidden');
 			connectHidden = true;
 			connect.removeEventListener('animationend', connectFin);
-			menu.classList.remove('paused');
-			menu.classList.remove('menu-fade');
+			// menu.classList.remove('paused');
+			// menu.classList.remove('menu-fade');
 			menu.style.opacity = '1';
-			fadeOut(menu);
+			// fadeOut(menu);
 		}
 		
 		connect.addEventListener('animationend', connectFin);

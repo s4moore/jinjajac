@@ -26,7 +26,7 @@
     pointer-events: none;
     position: fixed;
     right: 3%;
-    top: 2%; 
+    top: 4%; 
     width: calc(var(--img-scale) * var(--menu-width));
     object-fit: contain;
     z-index: 1015;
@@ -45,7 +45,7 @@
 
 #change-menu-btn {
 	pointer-events: auto;
-
+	z-index: 1025;
 }
 .menu {
     display: block;
@@ -107,7 +107,7 @@
     width: 22%;
     height: 27%;
     left: 27.5%;
-    top: 9%;
+    top: 8%;
     object-fit: contain;
 	z-index: 1023;
 }
@@ -115,10 +115,10 @@
 .Digital {
 	pointer-events: auto;
     position: absolute;
-    width: 22.4%;
+    width: 19.5%;
     height: 25%;
-    left: 32%;
-    top: 38%;
+    left: 33.5%;
+    top: 33.3%;
     object-fit: contain;
 	z-index: 1023;
 }
@@ -126,10 +126,10 @@
 .Connect{
 	pointer-events: auto;
     position: absolute;
-    width: 23%;
-    height: 27%;
-    left: 27%;
-    top: 57.5%;
+    width: 29%;
+    height: 32%;
+    left: 23.5%;
+    top: 53%;
     object-fit: contain;
 	z-index: 1023;
 }
@@ -164,7 +164,7 @@
     width: 22%;
     height: 28%;
     left: 17%;
-    top: 71%;
+    top: 72%;
     object-fit: contain;
 	z-index: 1023;
 }
@@ -175,7 +175,7 @@
     width: 23%;
     height: 28%;
     left: 46%;
-    top: 71%;
+    top: 72%;
     object-fit: contain;
 	z-index: 1023;
 }

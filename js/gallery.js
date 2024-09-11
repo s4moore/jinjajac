@@ -1,9 +1,9 @@
-import {slides, currentSlide, setCurrentSlide} from './slides.js';
+import {slides, fetchSlides, setCurrentSlide, pauseSlides} from './slides.js';
 import {handleStart, handleEnd} from './input.js';
 import {stopZooming} from '../script.js';
 import { fadeInButtons, toggleMenu } from './utils.js';
 import { showOverlay } from './overlay.js';
-import { changeCollection } from './collection.js';
+import { changeCollection, currentCollection } from './collection.js';
 import { handleClose } from './overlay.js';
 export let galleryHidden = true;
 
@@ -14,39 +14,96 @@ export function closeGallery (index) {
 	console.log('Clicked on image:', index);
 	galleryPopup.querySelector('.gallery').classList.add('hidden');
     galleryPopup.classList.add('hidden');
-	document.addEventListener('touchstart', handleStart, { passive: false });
-	document.addEventListener('mousedown', handleStart, { passive: false });      
-	document.addEventListener('touchend', handleEnd, { passive: false });
-	document.addEventListener('mouseup', handleEnd, { passive: false });
+	// document.addEventListener('touchstart', handleStart, { passive: false });
+	// document.addEventListener('mousedown', handleStart, { passive: false });      
+	// document.addEventListener('touchend', handleEnd, { passive: false });
+	// document.addEventListener('mouseup', handleEnd, { passive: false });
 	galleryPopup.removeEventListener('touchstart', handleTouchStart, { passive: true });
 	galleryPopup.removeEventListener('touchmove', handleTouchMove, { passive: true });
 	galleryPopup.removeEventListener('touchend', handleTouchEnd, { passive: true });
 
 	galleryHidden = true;
+	document.querySelector('.collection-header').classList.remove('top-left');
 	document.querySelector('.gallery-button').classList.remove('hidden');
-    setCurrentSlide(index);
-	showOverlay();
+	console.log('Index:', index);
+	if (index !== undefined)
+	{
+		setCurrentSlide(index);
+		showOverlay();
+	}
 	return ;
 }
 
+export async function updateGallery () {
+	console.log('Updating gallery');
+	const galleryGrid = galleryPopup.querySelector('.gallery');
+	galleryGrid.addEventListener('click', (event) => {
+		if (event.target.matches('.gallery-img')) {
+			const img = event.target;
+			const index = Array.from(document.querySelectorAll('.gallery-img')).indexOf(img);
+			console.log('Clicked on image:', index);
+			closeGallery(index);
+		}
+	}, { passive: false });
+	galleryGrid.innerHTML = ''; // Clear previous content
+	// await fetchSlides(currentCollection);
+	console.log('Updating gallery 2');
+	slides.forEach(slide => {
+		const img = slide.querySelector('img').cloneNode();
+		let index = Array.from(slides).indexOf(slide);
+		img.addEventListener('click', (event) => {
+			console.log('Clicked on image:', index);
+			console.log('Clicked on image:', index);
+			closeGallery(index);
+		}, { passive: false });
+		img.classList.add('gallery-img');
+		galleryGrid.appendChild(img);
+	});
+}
+
 export function openGallery () {
-        document.removeEventListener('touchstart', handleStart, { passive: false });
-        document.removeEventListener('mousedown', handleStart, { passive: false });
-        document.removeEventListener('touchend', handleEnd, { passive: false });
-        document.removeEventListener('mouseup', handleEnd, { passive: false });
+        // document.removeEventListener('touchstart', handleStart, { passive: false });
+        // document.removeEventListener('mousedown', handleStart, { passive: false });
+        // document.removeEventListener('touchend', handleEnd, { passive: false });
+        // document.removeEventListener('mouseup', handleEnd, { passive: false });
+		// document.querySelectorAll('.active').forEach(element => {
+        //     element.classList.add('hidden');
+        //     console.log('going to overlay mode');
+        //     slides.forEach (slide => slide.classList.add('paused'));
+		// });
+		console.log('Opening gallery');
+		pauseSlides();
 		galleryHidden = false;
         const galleryGrid = galleryPopup.querySelector('.gallery');
+		galleryGrid.addEventListener('click', (event) => {
+			if (event.target.matches('.gallery-img')) {
+				const img = event.target;
+				const index = Array.from(document.querySelectorAll('.gallery-img')).indexOf(img);
+				console.log('Clicked on image:', index);
+				closeGallery(index);
+			}
+		}, { passive: false });
 		document.querySelector('.gallery-button').classList.add('hidden');
         galleryGrid.innerHTML = ''; // Clear previous content
-    
+		document.querySelector('.collection-header').classList.add('top-left');
         slides.forEach(slide => {
             const img = slide.querySelector('img').cloneNode();
             let index = Array.from(slides).indexOf(slide);
-            img.addEventListener('click', function () {
+			img.addEventListener('click', (event) => {
+				console.log('Clicked on image:', index);
 				closeGallery(index);
-			});
+			}, { passive: false });
+			img.classList.add('gallery-img');
             galleryGrid.appendChild(img);
         });
+		document.querySelector('.gallery-popup-content').addEventListener('click', (event) => {
+			const img = event.target.closest('img');
+			if (img && img.parentElement.classList.contains('slide')) {
+				const index = Array.from(slides).indexOf(img.parentElement);
+				console.log('Clicked on image:', index);
+				closeGallery(index);
+			}
+		});
         galleryPopup.querySelector('.gallery').classList.remove('hidden');
         galleryPopup.classList.remove('hidden');
         galleryPopup.addEventListener('touchstart', handleTouchStart, { passive: true });

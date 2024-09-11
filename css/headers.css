@@ -1,16 +1,37 @@
 .collection-header {
-	pointer-events: auto;
-    left: 10%;
-    top: min(10px, 10%);
+	pointer-events: none;
+    left: 7%;
+    top: 7%;
     position: relative;
-    width: max(150px, 40%);
-    height: 40%; /* Adjust as needed */
+    width: max(170px, 25%);
+    height: 55%; /* Adjust as needed */
     perspective: 10000px; /* Adds 3D perspective */
     /* overflow: hidden; */
     z-index: 1015;
 }
 
+@media (orientation: portrait) {
+	.collection-header {
+		width: max(150px, 25%);
+
+	}	
+}
+
+@media (orientation: landscape) {
+	.collection-header {
+		width: max(200px, 25%);
+	}	
+}
+
+@media (max-height: 450px)
+{
+	.collection-header {
+		height: 65%;
+	}
+}
+
 .scroll-header {
+	pointer-events: auto;
     object-fit: contain;    
     position: absolute;
     top: 0%;
@@ -18,8 +39,10 @@
     /* transform: translate(-80%, -80%); */
     transform-style: preserve-3d; 
     transition: transform 0.5s ease; 
-    width: max(50%, 150px);
-    height: max(100px, 50%);
+    /* width: max(25%, 130px); */
+    /* height: max(100px, 5%); */
+	width: 100%;
+	height: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,16 +65,19 @@
     /* position: absolute;
     top: 9%;
     left: 11%; */
-    /* width: 20%; */
-    width: max(150px, 50%);
-    height: max(100px, 50%);
-    top: 50%;
+    /* width: 10%; */
+    /* width: max(120px, 25%); */
+    /* height: max(100px, 5%); */
+	height: 20%;
+	width: 100%;
+    top: 0%;
     left: 0%;
     transform: translate(-10%, 0%);
     /* right: -20%; */
     /* transform: translate(-50%, -50%); */
     z-index: 1010; /* Ensure it stays on top */
 }
+
 .collection-label img {
     width: 100%;
     height: 100%;

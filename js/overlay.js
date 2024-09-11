@@ -1,4 +1,4 @@
-import {slides, nextSlide, currentSlide} from './slides.js';
+import {slides, setCurrentSlide, currentSlide} from './slides.js';
 import {handleStart, handleEnd} from './input.js';
 import {updateViewport} from '../script.js';
 import { fadeInButtons } from './utils.js';
@@ -21,7 +21,7 @@ export function handleClose() {
     });
 	document.querySelector('.gallery-button').classList.remove('hidden');
 
-    nextSlide();
+    // nextSlide();
     return ;
 }
 
@@ -142,6 +142,7 @@ export function showOverlay() {
 export function updateOverlayImage() {
     overlay = document.querySelector('.overlay'); 
     // if (overlay) {
+	setCurrentSlide(0);
         const current = slides[currentSlide];
         const imageUrl = current.querySelector('img').src;
         const overlayImage = current.querySelector('img');
