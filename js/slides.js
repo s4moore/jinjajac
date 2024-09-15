@@ -36,11 +36,12 @@ export async function createSlides(data) {
             slide.classList.add('carousel-slide');
             slide.classList.add('hidden');
             slide.innerHTML = `
-            <img src="../collections/${collection}/${image.src}" alt="Image ${index + 1}">
+            <img src="../collections/${collection}/Swish/${image.src}" alt="Image ${index + 1}">
             `;
             slide.setAttribute('data-caption', image.caption || '');
             slide.setAttribute('data-blurb', image.blurb || '');
-            slide.setAttribute('landscape', `../collections/${collection}/landscape/${image.src}`);
+            slide.setAttribute('Popup', `../collections/${collection}/Pop up/${image.src}`);
+            slide.setAttribute('Fullscreen', `../collections/${collection}/Fullscreen/${image.src}`);
             carousel.appendChild(slide);
             slides.push(slide);
         });

@@ -154,7 +154,7 @@ function fadeOpacity(header, index) {
 }
 
 export function updateImages(targetIndex) {
-	const angle = 180 / headers.length;
+	const angle = 360 / headers.length;
 	const radius = window.innerHeight / 20; 
 
 	Object.values(fadeTimers).forEach(timer => clearTimeout(timer));
@@ -168,12 +168,12 @@ export function updateImages(targetIndex) {
 		let offset = (index - currentIndex) * angle;
 		header.style.visibility = 'visible';
 		header.style.opacity = 0.8;
-		if (offset > 90) {
-			offset -= 180;
+		if (offset > 180) {
+			offset -= 360;
 			// header.style.visibility = 'hidden';
 			header.style.opacity = '0.1';
-		} else if (offset < -90) {
-			offset += 180;
+		} else if (offset < -180) {
+			offset += 360;
 			// header.style.visibility = 'hidden';
 			header.style.opacity = '0.1';
 

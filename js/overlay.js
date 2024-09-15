@@ -33,11 +33,11 @@ export function showOverlay() {
         const current = slides[currentSlide];
         console.log('Current slide:', current);
         let imageUrl;
-        if (screen.width > screen.height) {
-            imageUrl = current.getAttribute('landscape');
-        } else {
-            imageUrl = current.querySelector('img').src;
-        }
+        // if (screen.width > screen.height) {
+            imageUrl = current.getAttribute('Popup');
+        // } else {
+        //     imageUrl = current.querySelector('img').src;
+        // }
         current.classList.add('hidden');
         // current.classList.add('overlay');
         slides[currentSlide].classList.remove('active');

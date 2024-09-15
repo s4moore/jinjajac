@@ -14,7 +14,7 @@ export function fullScreen () {
         document.removeEventListener('touchend', handleEnd, { passive: false });
         document.removeEventListener('mouseup', handleEnd, { passive: false });
         const current = slides[currentSlide];
-        const imageUrl = current.getAttribute('landscape');               
+        const imageUrl = current.getAttribute('Fullscreen');               
 
         const fullScreenOverlay = document.createElement('div');
         fullScreenOverlay.classList.add('fullscreen');
