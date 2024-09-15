@@ -17,6 +17,7 @@
     width: 2rem;
     height: 2rem;
     background: none;
+	z-index: 1050;
 }
 
 .close-button-fullscreen img {
@@ -144,9 +145,14 @@
     color: rgb(221, 217, 217);
     padding: 5px;
     text-wrap: nowrap;
-    animation: fadein 10s forwards;
+    /* animation: fadein 10s forwards; */
     height: 2rem;
 	z-index: 1050;
+	transition: opacity 3s;
+}
+
+.caption-visible {
+	opacity: 1;
 }
 
 .overlay {

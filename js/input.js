@@ -2,7 +2,7 @@ import { showOverlay, handleClose} from './overlay.js';
 import { changeCollection, currentCollection } from './collection.js';
 import { prevSlide, nextSlide, getNextSlide, slides, currentSlide } from './slides.js';
 import { toggleMenu, openGalleryMenu } from './utils.js';
-import { fadeInButtons, toggleConnect, toggleAbout } from './utils.js';
+import { fadeInButtons, toggleConnect, galleryTransitionEnd } from './utils.js';
 import { fullScreen } from './fullscreen.js';
 import { openGallery, closeGallery, galleryHidden } from './gallery.js';
 import { collections, overlay, updateImages, currentIndex, swipeDown, swipeUp } from '../script.js';
@@ -76,7 +76,17 @@ export function handleEnd(e) {
 	// 	updateImages(currentIndex);
 	// }
 	if (target.closest('.lower-button')) {
-		openGalleryMenu();
+		// openGalleryMenu();
+		const openMenu = document.querySelector('.galleriesMenu:not(.hidden)');
+		openMenu.removeEventListener('transitionend', galleryTransitionEnd);
+		openMenu.removeEventListener('animationend', galleryTransitionEnd);
+		openMenu.classList.add('highlight2');
+		openMenu.classList.remove('gallery-fade');
+		openMenu.addEventListener('animationend', () => {
+			openMenu.classList.remove('highlight2');
+			openMenu.classList.add('fadeOut');
+			openMenu.addEventListener('transitionend', galleryTransitionEnd); 
+		});
 		const current = collections[currentCollection].collection;
 		console.log('Current collection:', current);
 		switch (current) {
@@ -95,9 +105,19 @@ export function handleEnd(e) {
 		return ;
 	}
 	if (target.closest('.upper-button')) {
-		openGalleryMenu();
+		// openGalleryMenu();
 		const current = collections[currentCollection].collection;
 		console.log('Current collection:', current);
+		const openMenu = document.querySelector('.galleriesMenu:not(.hidden)');
+		openMenu.removeEventListener('transitionend', galleryTransitionEnd);
+		openMenu.removeEventListener('animationend', galleryTransitionEnd);
+		openMenu.classList.add('highlight2');
+		openMenu.classList.remove('gallery-fade');
+		openMenu.addEventListener('animationend', () => {
+			openMenu.classList.remove('highlight2');
+			openMenu.classList.add('fadeOut');
+			openMenu.addEventListener('transitionend', galleryTransitionEnd); 
+		});
 		switch (current) {
 			case '.Concrete':
 				changeCollection('.Digital');
@@ -125,11 +145,15 @@ export function handleEnd(e) {
 		const body = '';
 	
 		emailLink.href = `mailto:${emailAddress}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+		emailLink.click();
 	}
 	if (target.closest('.More')) {
 		// toggleAbout();
 		if (!galleryHidden) {
 			closeGallery();
+		}
+		if (document.querySelector('.overlay')) {
+			handleClose();
 		}
 		moreAbout();
 		return ;
@@ -153,6 +177,10 @@ export function handleEnd(e) {
 	}
 	if (target.closest('.gallery-change')) {
 		console.log('Gallery button clicked');
+		document.querySelector('.galleriesButton:not(.hidden)').classList.add('highlight2');
+		document.querySelector('.galleriesButton:not(.hidden)').addEventListener('animationend', () => {
+			document.querySelector('.galleriesButton:not(.hidden)').classList.remove('highlight2');
+		});
 		openGalleryMenu();
 		return ;
 	}

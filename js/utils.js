@@ -147,10 +147,11 @@ export function toggleAbout() {
 	about.classList.remove('hidden');
 }
 
-function galleryTransitionEnd() {
+export function galleryTransitionEnd() {
 	console.log('asdfsdafasdfasdfsdasfdGallery menu transition end', galleryMenu);
 	galleryMenu.classList.remove('gallery-fade');
 	galleryMenu.classList.remove('fadeOut');
+	galleryMenu.classList.remove('highlight2');
 	galleryMenu.classList.add('hidden');
 	lowerButton.classList.add('hidden');
 	upperButton.classList.add('hidden');

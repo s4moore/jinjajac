@@ -4,7 +4,6 @@ import {updateViewport, stopZooming} from '../script.js';
 import { fadeInButtons } from './utils.js';
 
 export function fullScreen () {
-    return new Promise((resolve) => {
         
     let scale = 1;
     let translateX = 0;
@@ -20,7 +19,7 @@ export function fullScreen () {
         const fullScreenOverlay = document.createElement('div');
         fullScreenOverlay.classList.add('fullscreen');
         fullScreenOverlay.innerHTML = `
-        <div class="close-button-fullscreen"><img src="icons/Less creative close icon .png"></div>
+        <div class="close-button-fullscreen"><img class="close-button-fullscreen" src="icons/Less creative close icon .png"></div>
         <div class="fullscreen">
             <img class="fullscreen-img" src="${imageUrl}">
             </div>
@@ -42,18 +41,18 @@ export function fullScreen () {
         fullScreenOverlay.msRequestFullscreen();
     }
 
-    closeButton.addEventListener('touch', () => {
-        console.log('Fullscreen button clicked');
-        fullScreenOverlay.remove();
-        updateViewport('no');
-        document.addEventListener('touchstart', handleStart, { passive: false });
-        document.addEventListener('mousedown', handleStart, { passive: false });      
-        document.addEventListener('touchend', handleEnd, { passive: false });
-        document.addEventListener('mouseup', handleEnd, { passive: false });
-        document.addEventListener('wheel', stopZooming, { passive: false });
-        fadeInButtons();
-        resolve();
-    }, {passive: false});
+    // closeButton.addEventListener('touch', () => {
+    //     console.log('Fullscreen button clicked');
+    //     fullScreenOverlay.remove();
+    //     updateViewport('no');
+    //     document.addEventListener('touchstart', handleStart, { passive: false });
+    //     document.addEventListener('mousedown', handleStart, { passive: false });      
+    //     document.addEventListener('touchend', handleEnd, { passive: false });
+    //     document.addEventListener('mouseup', handleEnd, { passive: false });
+    //     document.addEventListener('wheel', stopZooming, { passive: false });
+    //     fadeInButtons();
+    //     resolve();
+    // }, {passive: false});
 
     document.addEventListener('wheel', function(event) {
         if (event.ctrlKey) {
@@ -91,7 +90,39 @@ export function fullScreen () {
     let isDragging = false;
     let initialX, initialY, startX, startY;
 
+	window.addEventListener('touchstart', (event) => {
+		if (event.target.closest('.close-button-fullscreen')) {
+        console.log('Fullscreen button clicked');
+        fullScreenOverlay.remove();
+        updateViewport('no');
+        document.addEventListener('touchstart', handleStart, { passive: false });
+        document.addEventListener('mousedown', handleStart, { passive: false });      
+        document.addEventListener('touchend', handleEnd, { passive: false });
+        document.addEventListener('mouseup', handleEnd, { passive: false });
+        document.addEventListener('wheel', stopZooming, { passive: false });
+        fadeInButtons();
+		return;
+		}
+	});
+
+	window.addEventListener('mousedown', (event) => {
+		if (event.target.closest('.close-button-fullscreen')) {
+        console.log('Fullscreen button clicked');
+        fullScreenOverlay.remove();
+        updateViewport('no');
+        document.addEventListener('touchstart', handleStart, { passive: false });
+        document.addEventListener('mousedown', handleStart, { passive: false });      
+        document.addEventListener('touchend', handleEnd, { passive: false });
+        document.addEventListener('mouseup', handleEnd, { passive: false });
+        document.addEventListener('wheel', stopZooming, { passive: false });
+        fadeInButtons();
+		return;
+		}
+	});
+
+
     image.addEventListener('mousedown', (event) => {
+
         isDragging = true;
         startX = event.clientX;
         startY = event.clientY;
@@ -107,7 +138,7 @@ export function fullScreen () {
         event.preventDefault();
     }, { passive: false });
     
-    document.addEventListener('mousemove', (event) => {
+    image.addEventListener('mousemove', (event) => {
         if (isDragging) {
             const dx = event.clientX - startX;
             const dy = event.clientY - startY;
@@ -118,7 +149,7 @@ export function fullScreen () {
         }
     }, { passive: false });
     
-    document.addEventListener('mouseup', () => {
+    image.addEventListener('mouseup', () => {
         isDragging = false;
     }, { passive: false });
 
@@ -151,6 +182,11 @@ function getMidpoint(touches) {
 }
 
 window.addEventListener('touchmove', function(event) {
+	console.log('mousemove event target:', event.target);
+
+	if (event.target.closest('.close-button-fullscreen')) {
+		return ;
+	}
     if (event.touches.length === 2) {
         event.preventDefault(); 
         const currentDistance = getDistance(event.touches);
@@ -176,11 +212,13 @@ window.addEventListener('touchmove', function(event) {
 }, { passive: false });
 
 window.addEventListener('touchend', function(event) {
+	if (event.target.closest('.close-button-fullscreen')) {
+		return ;
+	}
     if (event.touches.length < 2) {
         initialDistance = null;
         initialTouches = null;
     }
 });
 
-    });
 }

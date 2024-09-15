@@ -126,7 +126,7 @@ export function showOverlay() {
                 overlayContent.style.width = `${containerWidth}px`;
                 caption.innerText = current.getAttribute('data-caption');
                 caption.style.width = 'auto';
-                caption.classList.add('fadeIn');
+                caption.classList.add('caption-visible');
             }
     
             window.addEventListener('resize', adjustImageSize);
@@ -142,7 +142,10 @@ export function showOverlay() {
 export function updateOverlayImage() {
     overlay = document.querySelector('.overlay'); 
     // if (overlay) {
-	setCurrentSlide(0);
+	if (slides.length < currentSlide  - 1)
+	{
+		setCurrentSlide(slides.length - 1);
+	}
         const current = slides[currentSlide];
         const imageUrl = current.querySelector('img').src;
         const overlayImage = current.querySelector('img');
