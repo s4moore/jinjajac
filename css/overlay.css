@@ -37,11 +37,11 @@
 	opacity: 1;
 	width: 8%;
 	height: 17%;
-	background: none;
+    padding: 0;
 	align-items: space-evenly; 
     justify-content: space-evenly;
 	background-color: rgba(0, 0, 0, 1);
-	border-radius: 10px;
+	border-radius: 50%;
 	z-index: 2000;
 }
 
@@ -70,12 +70,13 @@
 }
 @media (max-height: 450px) {
     .overlay-buttons {
-        width: 10%;
-        height: 24%;
+        width: 12%;
+        height: 20%;
     }
     
 }
 .close-button {
+    padding: 0;
 	justify-self: center;
 	align-self: center;
     opacity: 1;
@@ -86,12 +87,13 @@
     /* animation: fadein 5s forwards; */
     /* transform: scale(1.4); */
 	/* padding: 5%; */
-	border-radius: 50%;
+	/* border-radius: 50%; */
 	background: black;
 	border: 0px;
 }
 
 .fullscreen-button {
+    padding: 0;
 	justify-self: center;
 	align-self: center;
     opacity: 1;
@@ -102,7 +104,7 @@
     /* transform: scale(1.4); */
     /* animation: fadein 5s forwards; */
 	/* padding: 5%; */
-	border-radius: 50%;
+	/* border-radius: 50%; */
 	background: black;
 	border: 0px;
 }
