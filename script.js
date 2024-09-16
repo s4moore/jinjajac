@@ -1,19 +1,12 @@
-import {toggleMenu} from "./js/utils.js";
 import {handleStart, handleEnd} from "./js/input.js";
 import { setBackgroundVideo } from "./js/background.js";
 import {changeCollection} from "./js/collection.js";
-import { handleClose } from "./js/overlay.js";
-import {currentCollection} from "./js/collection.js";
-import {openGallery, galleryHidden, closeGallery} from "./js/gallery.js";
-import { fetchSlides } from "./js/slides.js";
 
 export let overlay = null, collections = [];
 
 let fadeTimers = {};
 export let headers = null;
-let startY = 0;
 export let currentIndex = 0;
-let isScrolling = false;
 let firstCollectionPrinted = false;
 
 export function stopZooming(event) {
@@ -37,12 +30,10 @@ async function fetchCollections() {
     try {
         const response = await fetch('collections.json');
         const data = await response.json();
-        collections = data; // Store the fetched data in the collections variable
-        console.log('Collections data:', collections); // Optional: Log the data to verify
-        // changeCollection('Early 24');
+        collections = data;
         setBackgroundVideo();
     } catch (error) {
-        console.error('Error fetching collections:', error); // Handle any errors
+        console.error('Error fetching collections:', error);
     }
 }
 

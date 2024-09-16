@@ -165,16 +165,31 @@ function checkMenuButtons(target)
     return (false);
 }
 
+let isHandlingStart = false;
+
+function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+}
+
 export function handleStart(e) {
+	if (isHandlingStart) return;
+    isHandlingStart = true;
+    setTimeout(() => isHandlingStart = false, 100);
+
     if (e.target.closest('.gallery-img')) {
 		return ;
 	}
+	if (checkMenuButtons(e.target)) {
+        return ;
+    }
     if (checkGalleryButtons(e.target)) {
         return ;
     }
-    if (checkMenuButtons(e.target)) {
-        return ;
-    }
+
 
 	if (e.target.closest('.Connect')) {
 		toggleConnect();
