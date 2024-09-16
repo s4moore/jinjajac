@@ -8,28 +8,21 @@ export function fullScreen () {
     let scale = 1;
     let translateX = 0;
     let translateY = 0;
-        document.removeEventListener('wheel', stopZooming, { passive: false });
-        document.removeEventListener('touchstart', handleStart, { passive: false });
-        document.removeEventListener('mousedown', handleStart, { passive: false });
-        document.removeEventListener('touchend', handleEnd, { passive: false });
-        document.removeEventListener('mouseup', handleEnd, { passive: false });
-        const current = slides[currentSlide];
-        const imageUrl = current.getAttribute('Fullscreen');               
+    const current = slides[currentSlide];
+    const imageUrl = current.getAttribute('Fullscreen');               
 
-        const fullScreenOverlay = document.createElement('div');
-        fullScreenOverlay.classList.add('fullscreen');
-        fullScreenOverlay.innerHTML = `
-        <div class="close-button-fullscreen"><img class="close-button-fullscreen" src="icons/Less creative close icon .png"></div>
-        <div class="fullscreen">
-            <img class="fullscreen-img" src="${imageUrl}">
-            </div>
+    const fullScreenOverlay = document.createElement('div');
+    fullScreenOverlay.classList.add('fullscreen');
+    fullScreenOverlay.innerHTML = `
+    <div class="close-button-fullscreen"><img class="close-button-fullscreen" src="icons/Less creative close icon .png"></div>
+    <div class="fullscreen">
+        <img class="fullscreen-img" src="${imageUrl}">
         </div>
+    </div>
     `;
     document.body.appendChild(fullScreenOverlay);
     const image = document.querySelector('.fullscreen-img');
     image.style.transform = 'scale(1)';
-    const screen = document.querySelector('.fullscreen');
-    const closeButton = document.querySelector('.close-button-fullscreen img');
 
     if (fullScreenOverlay.requestFullscreen) {
         fullScreenOverlay.requestFullscreen();
@@ -41,19 +34,6 @@ export function fullScreen () {
         fullScreenOverlay.msRequestFullscreen();
     }
 
-    // closeButton.addEventListener('touch', () => {
-    //     console.log('Fullscreen button clicked');
-    //     fullScreenOverlay.remove();
-    //     updateViewport('no');
-    //     document.addEventListener('touchstart', handleStart, { passive: false });
-    //     document.addEventListener('mousedown', handleStart, { passive: false });      
-    //     document.addEventListener('touchend', handleEnd, { passive: false });
-    //     document.addEventListener('mouseup', handleEnd, { passive: false });
-    //     document.addEventListener('wheel', stopZooming, { passive: false });
-    //     fadeInButtons();
-    //     resolve();
-    // }, {passive: false});
-
     document.addEventListener('wheel', function(event) {
         if (event.ctrlKey) {
             event.preventDefault(); 
@@ -64,7 +44,6 @@ export function fullScreen () {
             const transform = image.style.transform;
             const scaleMatch = transform.match(/scale\(([^)]+)\)/);
             const translateMatch = transform.match(/translate\(([^)]+)px, ([^)]+)px\)/);
-    
             if (scaleMatch) {
                 currentScale = parseFloat(scaleMatch[1]);
             }
@@ -72,16 +51,13 @@ export function fullScreen () {
                 translateX = parseFloat(translateMatch[1]);
                 translateY = parseFloat(translateMatch[2]);
             }
-    
             if (event.deltaY < 0) {
                 currentScale += 0.1;
             } else {
                 currentScale -= 0.1;
             }
-    
             currentScale = Math.max(currentScale, 0.1);
             scale = currentScale;
-    
             image.style.transform = `scale(${currentScale}) translate(${translateX}px, ${translateY}px)`;
         }
     }, { passive: false });
@@ -95,11 +71,6 @@ export function fullScreen () {
         console.log('Fullscreen button clicked');
         fullScreenOverlay.remove();
         updateViewport('no');
-        document.addEventListener('touchstart', handleStart, { passive: false });
-        document.addEventListener('mousedown', handleStart, { passive: false });      
-        document.addEventListener('touchend', handleEnd, { passive: false });
-        document.addEventListener('mouseup', handleEnd, { passive: false });
-        document.addEventListener('wheel', stopZooming, { passive: false });
         fadeInButtons();
 		return;
 		}
@@ -110,11 +81,6 @@ export function fullScreen () {
         console.log('Fullscreen button clicked');
         fullScreenOverlay.remove();
         updateViewport('no');
-        document.addEventListener('touchstart', handleStart, { passive: false });
-        document.addEventListener('mousedown', handleStart, { passive: false });      
-        document.addEventListener('touchend', handleEnd, { passive: false });
-        document.addEventListener('mouseup', handleEnd, { passive: false });
-        document.addEventListener('wheel', stopZooming, { passive: false });
         fadeInButtons();
 		return;
 		}
@@ -163,6 +129,7 @@ function getDistance(touches) {
 let initialDistance = null;
 let initialScale = 1;
 let initialTouches = null;
+let initialTouch = null;
 let initialTranslateX = 0;
 let initialTranslateY = 0;
 
@@ -182,7 +149,7 @@ function getMidpoint(touches) {
 }
 
 window.addEventListener('touchmove', function(event) {
-	console.log('mousemove event target:', event.target);
+	// console.log('mousemove event target:', event.target);
 
 	if (event.target.closest('.close-button-fullscreen')) {
 		return ;
@@ -208,8 +175,30 @@ window.addEventListener('touchmove', function(event) {
             translateY = initialTranslateY + (midpoint.y - initialTouches.y);
             image.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
         }
+    } else if (event.touches.length === 1) {
+        const touch = event.touches[0];
+        if (initialTouch === null) {
+            initialTouch = { x: touch.clientX, y: touch.clientY };
+            const transform = image.style.transform.match(/translate\(([^)]+)\)/);
+            if (transform) {
+                const [x, y] = transform[1].split(',').map(parseFloat);
+                initialTranslateX = x;
+                initialTranslateY = y;
+            }
+        } else {
+            translateX = initialTranslateX + (touch.clientX - initialTouch.x);
+            translateY = initialTranslateY + (touch.clientY - initialTouch.y);
+            image.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+        }
     }
 }, { passive: false });
+
+window.addEventListener('touchend', function(event) {
+    if (event.touches.length < 2) {
+        initialDistance = null;
+        initialTouch = null;
+    }
+});
 
 window.addEventListener('touchend', function(event) {
 	if (event.target.closest('.close-button-fullscreen')) {

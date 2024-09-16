@@ -16,7 +16,7 @@ export function setBackgroundVideo() {
     setVar('--img-scale', newScale); 
 
     const isLandscape = window.matchMedia("(orientation: landscape)").matches;
-    const videoElement = document.createElement('video'); // Create a new video element
+    const videoElement = document.createElement('video');
     videoElement.preload = 'auto';
     videoElement.playbackRate = 0.5;
     videoElement.loop = true;

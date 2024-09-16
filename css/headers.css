@@ -1,8 +1,8 @@
 .collection-header {
 	pointer-events: none;
     left: 7%;
-    top: 7%;
-    position: relative;
+    top: 8%;
+    position: absolute;
     width: max(170px, 25%);
     height: 55%; /* Adjust as needed */
     perspective: 10000px; /* Adds 3D perspective */
@@ -13,7 +13,6 @@
 @media (orientation: portrait) {
 	.collection-header {
 		width: max(150px, 25%);
-
 	}	
 }
 
@@ -60,22 +59,13 @@
 
 
 .collection-label {
-    /* box-sizing: inherit; */
     pointer-events: none;
-    /* position: absolute;
-    top: 9%;
-    left: 11%; */
-    /* width: 10%; */
-    /* width: max(120px, 25%); */
-    /* height: max(100px, 5%); */
 	height: 20%;
 	width: 100%;
     top: 0%;
     left: 0%;
     transform: translate(-10%, 0%);
-    /* right: -20%; */
-    /* transform: translate(-50%, -50%); */
-    z-index: 1010; /* Ensure it stays on top */
+    z-index: 1010;
 }
 
 .collection-label img {

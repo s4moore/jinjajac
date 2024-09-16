@@ -39,9 +39,9 @@
     z-index: 1023;
 }
 
-.menu-toggle img:hover {
+/* .menu-toggle img:hover {
     animation: highlight-fade 2s;
-}
+} */
 
 #change-menu-btn {
 	pointer-events: auto;

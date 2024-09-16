@@ -1,10 +1,8 @@
 import {slides, fetchSlides, setCurrentSlide, pauseSlides} from './slides.js';
-import {handleStart, handleEnd} from './input.js';
-import {stopZooming} from '../script.js';
-import { fadeInButtons, toggleMenu } from './utils.js';
 import { showOverlay } from './overlay.js';
 import { changeCollection, currentCollection } from './collection.js';
 import { handleClose } from './overlay.js';
+
 export let galleryHidden = true;
 
 const menu = document.querySelector('.menu');
@@ -46,7 +44,7 @@ export async function updateGallery () {
 		}
 	}, { passive: false });
 	galleryGrid.innerHTML = ''; // Clear previous content
-	// await fetchSlides(currentCollection);
+	await fetchSlides(currentCollection);
 	console.log('Updating gallery 2');
 	slides.forEach(slide => {
 		const img = slide.querySelector('img').cloneNode();

@@ -1,6 +1,6 @@
 import {fetchSlides, nextSlide} from "./slides.js";
 import { collections, updateImages } from "../script.js";
-import { closeGallery, galleryHidden, openGallery, updateGallery } from "./gallery.js";
+import { galleryHidden, updateGallery } from "./gallery.js";
 import { updateOverlayImage } from "./overlay.js";
 export let collection;
 export let currentCollection = 0;

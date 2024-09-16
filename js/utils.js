@@ -30,6 +30,9 @@ function menuFin() {
 }
 
 export function toggleMenu() {
+	const button = document.getElementById('change-menu-btn');
+	button.addEventListener('animationend', () => button.classList.remove('highlight2'));
+	button.classList.add('highlight2');
 	if (menuHidden) {
         let scale = Math.min(window.innerWidth, window.innerHeight) / 470;
         if (Math.min(window.innerWidth, window.innerHeight) > 768) {
@@ -188,7 +191,7 @@ export function openGalleryMenu() {
 		galleryMenu.addEventListener('animationend', galleryTransitionEnd);
 	} else {
         console.log('Gallery menu:', `${currName}Menu`);
-        console.log('Gallery menu:', galleryMenu);
+        console.log('Gallery menu:', galleryMenu);	
         oldGalleryMenu.removeEventListener('animationend', galleryTransitionEnd);
         oldGalleryMenu.removeEventListener('transitionend', galleryTransitionEnd);
 		document.querySelector('.gallery-change').style.pointerEvents = 'none';
