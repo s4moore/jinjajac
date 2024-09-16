@@ -226,7 +226,11 @@ const galleryOverlay = document.querySelector('.gallery');
 
 export function handleEnd(e) {
     const target = e.target;
-	if (target.closest('.Connect, .gallery-img, .lower-button, .upper-button, .Gallery, .EmailLink, .More, .Instagram, .Whatsapp, .gallery-change, .Concrete, .Lighting, .Digital, #change-menu-btn, .Shop')) {
+
+	if (target.closest('.Connect, .gallery-img, .lower-button, .upper-button, .Gallery, .EmailLink, .More, .Instagram, .Whatsapp, .gallery-change, .Concrete, .Lighting, .Digital, #change-menu-btn, .Shop, .close-button-fullscreen')) {
+		return ;
+	}
+	if (document.querySelector('.fullscreen')) {
 		return ;
 	}
 	e.preventDefault();

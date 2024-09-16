@@ -2,6 +2,9 @@ import { overlay } from '../script.js';
 import { collection } from './collection.js';
 import {updateOverlayImage} from './overlay.js';
 import { galleryHidden } from './gallery.js';
+import { changeCollection } from './collection.js';
+import { updateImages } from '../script.js';
+import { currentIndex } from '../script.js';
 export let slides =[];
 export var currentSlide = 0;
 
@@ -45,9 +48,10 @@ export async function createSlides(data) {
             carousel.appendChild(slide);
             slides.push(slide);
         });
+
     slides = document.querySelectorAll('.carousel-slide');
 }
-
+ let firstLoad = true;
 export async function fetchSlides(collection) {
 	console.log('Fetching slides for collection:', collection);
 	try {
@@ -55,6 +59,7 @@ export async function fetchSlides(collection) {
 	const data = await response.json();
     await createSlides(data);
 	loadingOverlay.classList.add('hidden');
+
 	} catch (error) {
 		console.error('Error fetching slides:', error);
 	}
@@ -79,6 +84,7 @@ function expandDone(event) {
     slide.classList.add('disolve');
     slide.addEventListener('animationend', disolveDone);
     nextSlide();
+
 }
 
 function disolveDone(event) {
@@ -97,6 +103,10 @@ function adjustCarouselSize() {
             carousel.style.height = `${activeSlide.naturalHeight}px`;
         };
     }
+    // if (firstLoad) {
+    //     firstLoad = false;
+    //     firstRoll();
+    // }
 }
 
 export function nextSlide() {
@@ -115,6 +125,7 @@ export function nextSlide() {
     } else {
     showSlide(currentSlide);
     }
+
 }
 
 

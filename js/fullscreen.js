@@ -13,8 +13,8 @@ export function fullScreen () {
 
     const fullScreenOverlay = document.createElement('div');
     fullScreenOverlay.classList.add('fullscreen');
+    // <div class="close-button-fullscreen"><img class="close-button-fullscreen" src="icons/Less creative close icon .png"></div>
     fullScreenOverlay.innerHTML = `
-    <div class="close-button-fullscreen"><img class="close-button-fullscreen" src="icons/Less creative close icon .png"></div>
     <div class="fullscreen">
         <img class="fullscreen-img" src="${imageUrl}">
         </div>
@@ -33,7 +33,21 @@ export function fullScreen () {
     } else if (fullScreenOverlay.msRequestFullscreen) { // IE/Edge
         fullScreenOverlay.msRequestFullscreen();
     }
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
 
+    function handleFullscreenChange () {
+        if (!document.fullscreenElement) {
+            translateX = 0;
+            translateY = 0;
+            scale = 1;
+            image.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+            console.log('Exited fullscreen mode');
+            fullScreenOverlay.remove();
+            updateViewport('no');
+            fadeInButtons();
+            return ;
+        }
+    }
     document.addEventListener('wheel', function(event) {
         if (event.ctrlKey) {
             event.preventDefault(); 
@@ -66,25 +80,25 @@ export function fullScreen () {
     let isDragging = false;
     let initialX, initialY, startX, startY;
 
-	window.addEventListener('touchstart', (event) => {
-		if (event.target.closest('.close-button-fullscreen')) {
-        console.log('Fullscreen button clicked');
-        fullScreenOverlay.remove();
-        updateViewport('no');
-        fadeInButtons();
-		return;
-		}
-	});
+	// window.addEventListener('touchstart', (event) => {
+	// 	if (event.target.closest('.close-button-fullscreen')) {
+    //     console.log('Fullscreen button clicked');
+    //     fullScreenOverlay.remove();
+    //     updateViewport('no');
+    //     fadeInButtons();
+	// 	// return;
+	// 	}
+	// });
 
-	window.addEventListener('mousedown', (event) => {
-		if (event.target.closest('.close-button-fullscreen')) {
-        console.log('Fullscreen button clicked');
-        fullScreenOverlay.remove();
-        updateViewport('no');
-        fadeInButtons();
-		return;
-		}
-	});
+	// window.addEventListener('mousedown', (event) => {
+	// 	if (event.target.closest('.close-button-fullscreen')) {
+    //     console.log('Fullscreen button clicked');
+    //     fullScreenOverlay.remove();
+    //     updateViewport('no');
+    //     fadeInButtons();
+	// 	// return;
+	// 	}
+	// });
 
 
     let initialTouch = null;
@@ -96,13 +110,13 @@ export function fullScreen () {
     let isMouseDown = false;
     
     function handleMove(event) {
-        if (event.target.closest('.close-button-fullscreen')) {
-            translateX = 0;
-            translateY = 0;
-            scale = 1;
-            image.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
-            return;
-        }
+        // if (event.target.closest('.close-button-fullscreen')) {
+        //     translateX = 0;
+        //     translateY = 0;
+        //     scale = 1;
+        //     image.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+        //     return;
+        // }
     
         let clientX, clientY;
     
@@ -160,9 +174,9 @@ export function fullScreen () {
     window.addEventListener('mousemove', handleMove);
     
     window.addEventListener('mousedown', function(event) {
-        if (event.target.closest('.close-button-fullscreen')) {
-            return;
-        }
+        // if (event.target.closest('.close-button-fullscreen')) {
+        //     return;
+        // }
         isMouseDown = true;
         initialTouch = { x: event.clientX, y: event.clientY };
         const transform = image.style.transform.match(/translate\(([^)]+)\)/);

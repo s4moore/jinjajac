@@ -224,8 +224,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         headerContainer.appendChild(headerDiv);
     });
 	headers = document.querySelectorAll('.scroll-header');
-	changeCollection('Early 24');
-    updateImages(currentIndex);
+	
+	// Use the function to wait for the hidden class and then execute your code
+	document.querySelector('.background-video').addEventListener('playing', async () => {
+		await changeCollection('Late 24');
+		updateImages(currentIndex);
+	
+		// Wait for the first changeCollection to complete before proceeding
+		await changeCollection('Mid 23');
+		updateImages(currentIndex);
+
+		await changeCollection('Late 24');
+		updateImages(currentIndex);
+	});
+
     document.addEventListener('resize', setBackgroundVideo);
     document.addEventListener('wheel', stopZooming, { passive: false });
 	document.addEventListener('touchstart', handleStart, { passive: false });

@@ -7,6 +7,7 @@ export let currentCollection = 0;
 
 export async function changeCollection(change) {
     console.log('Change:', change);
+	try {
 	let	galleryButton = document.querySelector(`${collections[currentCollection].collection}Button`);
 	galleryButton.classList.add('hidden');
 	if (!collections) {
@@ -30,4 +31,7 @@ export async function changeCollection(change) {
 	}
 	galleryButton.classList.remove('hidden');
 	nextSlide();
+} catch (error) {
+	console.error('Error changing collection:', error);
+}
 }
