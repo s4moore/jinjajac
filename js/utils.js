@@ -37,8 +37,7 @@ export function toggleMenu() {
         }
 		menu.removeEventListener('transitionend', menuFin);
 		menu.removeEventListener('animationend', menuFin);
-		menu.classList.remove('fadeOut');
-		menu.classList.remove('setOpacity');
+
         console.log('Scale:', scale);   
         setVar('--menu-scale', scale);
 		menuHidden = false;
@@ -49,6 +48,7 @@ export function toggleMenu() {
 	} else if (!menuFading) {
 		menuFading = true;
 		console.log('Menu hidden:', menuHidden);
+		// document.getElementById('change-menu-btn').style.pointerEvents = 'none';
 		menu.removeEventListener('animationend', menuFin);
 		menu.removeEventListener('transitionend', menuFin);
 		menu.classList.remove('menu-fade');
@@ -94,27 +94,27 @@ export function fadeInHeader(item) {
     });
 }
 
-// export function fadeOut(item) {
-//     item.classList.add('fadeOut');
-//     item.addEventListener('animationend', () => {
-//         item.classList.add('hidden');
-//         item.style.opacity = '0';
-//         item.classList.remove('fadeOut');
-//     });
-// }
+export function fadeOut(item) {
+    item.classList.add('fadeOut');
+    item.addEventListener('animationend', () => {
+        item.classList.add('hidden');
+        item.style.opacity = '0';
+        item.classList.remove('fadeOut');
+    });
+}
 
-// export function fadeIn(item) {
-//     item.classList.remove('hidden');      
-// 	item.classList.remove('fadeOut');            
-//     item.classList.add('fadeIn');
-//     item.style.opacity = '0';
+export function fadeIn(item) {
+    item.classList.remove('hidden');      
+	item.classList.remove('fadeOut');            
+    item.classList.add('fadeIn');
+    item.style.opacity = '0';
 
-//     item.addEventListener('animationend', () => {
-//         item.style.opacity = '1';
-//         item.classList.remove('hidden');         
-//         item.classList.remove('fadeIn');
-//     });
-// }
+    item.addEventListener('animationend', () => {
+        item.style.opacity = '1';
+        item.classList.remove('hidden');         
+        item.classList.remove('fadeIn');
+    });
+}
 const header1 = document.querySelector('.header-1');
 const header3 = document.querySelector('.header-3');
 function onAnimationEnd() {
