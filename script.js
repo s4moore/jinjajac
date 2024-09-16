@@ -4,6 +4,8 @@ import {changeCollection} from "./js/collection.js";
 
 export let overlay = null, collections = [];
 
+let firstGo = true;
+
 let fadeTimers = {};
 export let headers = null;
 export let currentIndex = 0;
@@ -125,10 +127,10 @@ function fadeOpacity(header, index) {
 	let opacity = 0.7;
 	let fadeStep = 0.1; // Adjust the step size for fading
 	let fadeInterval = 300; // Adjust the interval for fading
-	if (!firstCollectionPrinted) {
-		fadeInterval = 2000;
-        fadeStep = 0.3;
-	}
+	// if (!firstCollectionPrinted) {
+	// 	fadeInterval = 2000;
+    //     fadeStep = 0.3;
+	// }
 	function step() {
 		opacity -= fadeStep;
 		if (opacity <= 0) {
@@ -138,6 +140,8 @@ function fadeOpacity(header, index) {
 		header.style.opacity = opacity;
 		if (opacity > 0) {
 			fadeTimers[index] = setTimeout(step, fadeInterval);
+		} else {
+			fadeTimers[index] = null;
 		}
 	}
 
@@ -178,7 +182,7 @@ export function updateImages(targetIndex) {
 			opacity = 1; 
 		} else if (index === (currentIndex + 1) % headers.length || index === (currentIndex - 1 + headers.length) % headers.length ||
 		index === (currentIndex + 2) % headers.length || index === (currentIndex - 2 + headers.length) % headers.length) {
-			opacity = 0.5; 
+			opacity = 0.7; 
 			fadeOpacity(header, index);
 		} else {
 			opacity = 0; 
@@ -226,7 +230,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 	headers = document.querySelectorAll('.scroll-header');
 	
 	// Use the function to wait for the hidden class and then execute your code
-	document.querySelector('.background-video').addEventListener('playing', async () => {
+	if (firstGo) {
+		firstGo = false;
+
+	// document.querySelector('.background-video').addEventListener('playing', async () => {
 		await changeCollection('Late 24');
 		updateImages(currentIndex);
 	
@@ -236,7 +243,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 		await changeCollection('Late 24');
 		updateImages(currentIndex);
-	});
+	// });
+}
 
     document.addEventListener('resize', setBackgroundVideo);
     document.addEventListener('wheel', stopZooming, { passive: false });

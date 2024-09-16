@@ -51,7 +51,7 @@ export async function createSlides(data) {
 
     slides = document.querySelectorAll('.carousel-slide');
 }
- let firstLoad = true;
+
 export async function fetchSlides(collection) {
 	console.log('Fetching slides for collection:', collection);
 	try {
@@ -72,7 +72,6 @@ export function showSlide(index) {
             slide.classList.add('active');
             slide.classList.remove('hidden', 'disolve', 'paused');
             slide.addEventListener('animationend', expandDone);
-            // captionElement.textContent = `${edition} ${images[index].caption}`;
         }
     });
 }
@@ -103,10 +102,6 @@ function adjustCarouselSize() {
             carousel.style.height = `${activeSlide.naturalHeight}px`;
         };
     }
-    // if (firstLoad) {
-    //     firstLoad = false;
-    //     firstRoll();
-    // }
 }
 
 export function nextSlide() {
