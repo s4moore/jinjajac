@@ -198,6 +198,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 	document.querySelector('.collection-header').classList.remove('hidden');
 	document.getElementById('change-menu-btn').classList.remove('hidden');
 
+	let scale = Math.min(window.innerWidth, window.innerHeight) / 470;
+	const menu = document.querySelector('.menu');
+	if (Math.min(window.innerWidth, window.innerHeight) > 768) {
+		scale *= 0.75;
+	}
+	// menu.removeEventListener('transitionend', menuFin);
+	// menu.removeEventListener('animationend', menuFin);
+
+	console.log('Scale:', scale);   
+	setVar('--menu-scale', scale);
+
     const menuButton = document.querySelector('.menu-toggle');
     if (!menuButton) {
         console.error('menuButton element not found');

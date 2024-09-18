@@ -129,7 +129,7 @@ function handleTouchStart(event) {
         return ;
     }
     if (target.closest('.Digital')) {
-        changeCollection(0);
+        changeCollection('.Digital');
         handleClose ();
         galleryPopup.classList.add('hidden');
         // document.addEventListener('touchstart', handleStart, { passive: false });

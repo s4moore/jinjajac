@@ -84,19 +84,11 @@ function checkMenuButtons(target)
         return (true);
     }
 	if (target.closest('.Connect')) {
+		// toggleMenu();
 		toggleConnect();
 		return (true);
 	}
-	if (target.closest('.EmailLink')) {
-		const emailLink = document.getElementById('emailLink');
-		const emailAddress = 'info@jinjajac.com';
-		const subject = '';
-		const body = '';
-	
-		emailLink.href = `mailto:${emailAddress}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-		emailLink.click();
-        return (true);
-	}
+
 	if (target.closest('.More')) {
 		if (!galleryHidden) {
 			closeGallery();
@@ -108,21 +100,33 @@ function checkMenuButtons(target)
 		moreAbout();
 		return (true);
 	}
+	if (target.closest('.EmailLink')) {
+		toggleConnect();
+		toggleMenu();
+		// const emailLink = document.getElementById('emailLink');
+		// const emailAddress = 'info@jinjajac.com';
+		// const subject = '';
+		// const body = '';
+	
+		// emailLink.href = `mailto:${emailAddress}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+		// emailLink.click();
+        return (true);
+	}
 	if (target.closest('.Instagram')) {
-		const instagramLink = document.getElementById('instagramLink');
-		const instagramURL = 'https://www.instagram.com/jinjajac';
+		toggleConnect();
+		toggleMenu();
 
-		instagramLink.href = instagramURL;
-		instagramLink.click();
 		return;
 	}
 	if (target.closest('.Whatsapp')) {
-		const whatsappLink = document.getElementById('whatsappLink');
-		const phoneNumber = '027782940371'; 
-		const message = 'You\'re ugly and your mother dresses you funny';
+		toggleConnect();
+		toggleMenu();
+		// const whatsappLink = document.getElementById('whatsappLink');
+		// const phoneNumber = '027782940371'; 
+		// const message = 'You\'re ugly and your mother dresses you funny';
 
-		whatsappLink.href = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-		whatsappLink.click();
+		// whatsappLink.href = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+		// whatsappLink.click();
 		return;
 	}
 	if (target.closest('.gallery-change')) {
@@ -191,10 +195,11 @@ export function handleStart(e) {
     }
 
 
-	if (e.target.closest('.Connect')) {
-		toggleConnect();
-		return;
-	}
+	// if (e.target.closest('.Connect')) {
+	// 	toggleMenu();
+	// 	toggleConnect();
+	// 	return;
+	// }
     e.preventDefault();
 	if (document.querySelector('.overlay')) {
         fadeInButtons();
@@ -220,7 +225,6 @@ export function handleStart(e) {
         startX = e.touches ? e.touches[0].clientX : e.clientX;
         startY = e.touches ? e.touches[0].clientY : e.clientY;
 }
-let collectionsHidden = true;
 
 const galleryOverlay = document.querySelector('.gallery');
 

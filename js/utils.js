@@ -6,11 +6,6 @@ let connectHidden = true;
 const menu = document.querySelector('.menu');
 const root = document.documentElement;
 
-export function setMenuHidden() {
-    menuHidden = true;
-    menu.removeEventListener('animationend', menuFin);
-}
-
 export function setVar(variableName, value) {
     root.style.setProperty(variableName, value);
 }
@@ -29,105 +24,86 @@ function menuFin() {
 	menu.removeEventListener('transitionend', menuFin);
 }
 
+function removeHighlight() {
+	const button = document.getElementById('change-menu-btn');
+	button.classList.remove('highlight2');
+	button.removeEventListener('animationend', removeHighlight);
+}
+
 export function toggleMenu() {
 	const button = document.getElementById('change-menu-btn');
-	button.addEventListener('animationend', () => button.classList.remove('highlight2'));
+	button.addEventListener('animationend', removeHighlight);
 	button.classList.add('highlight2');
 	if (menuHidden) {
-        let scale = Math.min(window.innerWidth, window.innerHeight) / 470;
-        if (Math.min(window.innerWidth, window.innerHeight) > 768) {
-            scale *= 0.75;
-        }
-		menu.removeEventListener('transitionend', menuFin);
-		menu.removeEventListener('animationend', menuFin);
 
-        console.log('Scale:', scale);   
-        setVar('--menu-scale', scale);
 		menuHidden = false;
+		menuFading = false;
 		menu.classList.remove('hidden');
+		menu.classList.remove('fadeOut');
+		menu.classList.remove('setOpacity');
 		menu.addEventListener('animationend', menuFin);
         menu.classList.add('menu-fade');
 		void menu.offsetWidth;
 	} else if (!menuFading) {
 		menuFading = true;
+		menuHidden = false;
 		console.log('Menu hidden:', menuHidden);
-		// document.getElementById('change-menu-btn').style.pointerEvents = 'none';
+		document.getElementById('change-menu-btn').style.pointerEvents = 'none';
 		menu.removeEventListener('animationend', menuFin);
-		menu.removeEventListener('transitionend', menuFin);
-		menu.classList.remove('menu-fade');
+		// menu.removeEventListener('transitionend', menuFin);
+		// menu.classList.remove('menu-fade');
+		// menu.classList.remove('fadeOut');
+		// menu.classList.remove('setOpacity');
 		void menu.offsetWidth;
 		menu.classList.add('setOpacity');
 		void menu.offsetWidth;
 		menu.addEventListener('transitionend', menuFin);
 		menu.classList.add('fadeOut');
 		void menu.offsetWidth;
+		} else {
+			menu.classList.remove('menu-fade');
+			menu.classList.remove('fadeOut');
+			menu.classList.remove('setOpacity');
+			console.log('-----------------------------Menu transition end');
+			menu.classList.add('hidden');
+			void menu.offsetWidth;
+			menuHidden = true;
+			menuFading = false;
+			document.getElementById('change-menu-btn').style.pointerEvents = 'auto';
+			menu.removeEventListener('animationend', menuFin);
+			menu.removeEventListener('transitionend', menuFin);
 		}
+}
+
+function connectFin() {
+	const connect = document.querySelector('.Contact-area');
+
+	connect.classList.remove('connect-fade');
+	connect.classList.add('hidden');
+	connectHidden = true;
+	connect.removeEventListener('animationend', connectFin);
+	// menu.classList.remove('paused');
+	// menu.classList.remove('menu-fade');
+	menu.style.opacity = '1';
+	// fadeOut(menu);
 }
 
 export function toggleConnect() {
 	if (connectHidden) {
-		
 		connectHidden = false;
 		const connect = document.querySelector('.Contact-area');
+		connect.removeEventListener('animationend', connectFin);
+
 		connect.classList.remove('hidden');
 		connect.classList.add('connect-fade');
 		// menu.classList.add('paused');
-		function connectFin() {
-			connect.classList.remove('connect-fade');
-			connect.classList.add('hidden');
-			connectHidden = true;
-			connect.removeEventListener('animationend', connectFin);
-			// menu.classList.remove('paused');
-			// menu.classList.remove('menu-fade');
-			menu.style.opacity = '1';
-			// fadeOut(menu);
-		}
+
 		
 		connect.addEventListener('animationend', connectFin);
     }
 }
 
-export function fadeInHeader(item) {
-    item.classList.remove('hidden');         
-    item.classList.add('fadeInHeader');
-    item.addEventListener('animationend', () => {
-        item.style.opacity = '0.4';
-        item.classList.remove('hidden');         
-        item.classList.remove('fadeInHeader');
-    });
-}
 
-export function fadeOut(item) {
-    item.classList.add('fadeOut');
-    item.addEventListener('animationend', () => {
-        item.classList.add('hidden');
-        item.style.opacity = '0';
-        item.classList.remove('fadeOut');
-    });
-}
-
-export function fadeIn(item) {
-    item.classList.remove('hidden');      
-	item.classList.remove('fadeOut');            
-    item.classList.add('fadeIn');
-    item.style.opacity = '0';
-
-    item.addEventListener('animationend', () => {
-        item.style.opacity = '1';
-        item.classList.remove('hidden');         
-        item.classList.remove('fadeIn');
-    });
-}
-const header1 = document.querySelector('.header-1');
-const header3 = document.querySelector('.header-3');
-function onAnimationEnd() {
-    // header1.classList.add('hidden');
-    header1.classList.remove('fadeCollections');
-    // header3.classList.add('hidden');
-    header3.classList.remove('fadeCollections');
-    collectionsHidden = true;
-	header1.removeEventListener('animationend', onAnimationEnd);
-}
 
 export function fadeInButtons() {
     const buttons = document.querySelector('.overlay-buttons');
