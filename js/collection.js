@@ -31,7 +31,7 @@ export async function changeCollection(change) {
 	}
 	galleryButton.classList.remove('hidden');
 	nextSlide();
-} catch (error) {
-	console.error('Error changing collection:', error);
-}
+	} catch (error) {
+		console.error('Error changing collection:', error);
+	}
 }

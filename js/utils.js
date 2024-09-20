@@ -24,15 +24,18 @@ function menuFin() {
 	menu.removeEventListener('transitionend', menuFin);
 }
 
-function removeHighlight() {
-	const button = document.getElementById('change-menu-btn');
-	button.classList.remove('highlight2');
-	button.removeEventListener('animationend', removeHighlight);
-}
+// function removeHighlight() {
+// 	const button = document.getElementById('change-menu-btn');
+// 	button.classList.remove('highlight2');
+// 	button.removeEventListener('animationend', removeHighlight);
+// }
 
 export function toggleMenu() {
 	const button = document.getElementById('change-menu-btn');
-	button.addEventListener('animationend', removeHighlight);
+	// button.addEventListener('animationend', removeHighlight);
+	button.classList.remove('highlight2');
+	void button.offsetWidth;
+
 	button.classList.add('highlight2');
 	if (menuHidden) {
 
@@ -48,30 +51,18 @@ export function toggleMenu() {
 		menuFading = true;
 		menuHidden = false;
 		console.log('Menu hidden:', menuHidden);
-		document.getElementById('change-menu-btn').style.pointerEvents = 'none';
+		// document.getElementById('change-menu-btn').style.pointerEvents = 'none';
 		menu.removeEventListener('animationend', menuFin);
-		// menu.removeEventListener('transitionend', menuFin);
-		// menu.classList.remove('menu-fade');
-		// menu.classList.remove('fadeOut');
-		// menu.classList.remove('setOpacity');
-		void menu.offsetWidth;
+		menu.removeEventListener('transitionend', menuFin);
+		menu.classList.remove('menu-fade');
+		menu.classList.remove('fadeOut');
+		menu.classList.remove('setOpacity');
+		// void menu.offsetWidth;
 		menu.classList.add('setOpacity');
 		void menu.offsetWidth;
 		menu.addEventListener('transitionend', menuFin);
 		menu.classList.add('fadeOut');
 		void menu.offsetWidth;
-		} else {
-			menu.classList.remove('menu-fade');
-			menu.classList.remove('fadeOut');
-			menu.classList.remove('setOpacity');
-			console.log('-----------------------------Menu transition end');
-			menu.classList.add('hidden');
-			void menu.offsetWidth;
-			menuHidden = true;
-			menuFading = false;
-			document.getElementById('change-menu-btn').style.pointerEvents = 'auto';
-			menu.removeEventListener('animationend', menuFin);
-			menu.removeEventListener('transitionend', menuFin);
 		}
 }
 
