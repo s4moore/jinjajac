@@ -1,7 +1,7 @@
 import { collections } from '../script.js';
 import { currentCollection } from './collection.js';
 
-let menuHidden = true, menuFading = false;
+export let menuHidden = true, menuFading = false;
 let connectHidden = true;
 const menu = document.querySelector('.menu');
 const root = document.documentElement;
@@ -11,15 +11,14 @@ export function setVar(variableName, value) {
 }
 
 function menuFin() {
+	menuHidden = true;
     menu.classList.remove('menu-fade');
 	menu.classList.remove('fadeOut');
 	menu.classList.remove('setOpacity');
 	console.log('-----------------------------Menu transition end');
     menu.classList.add('hidden');
 	void menu.offsetWidth;
-    menuHidden = true;
-	menuFading = false;
-	document.getElementById('change-menu-btn').style.pointerEvents = 'auto';
+	// document.getElementById('change-menu-btn').style.pointerEvents = 'auto';
 	menu.removeEventListener('animationend', menuFin);
 	menu.removeEventListener('transitionend', menuFin);
 }
@@ -40,28 +39,24 @@ export function toggleMenu() {
 	if (menuHidden) {
 
 		menuHidden = false;
-		menuFading = false;
 		menu.classList.remove('hidden');
 		menu.classList.remove('fadeOut');
 		menu.classList.remove('setOpacity');
 		menu.addEventListener('animationend', menuFin);
         menu.classList.add('menu-fade');
 		void menu.offsetWidth;
-	} else if (!menuFading) {
-		menuFading = true;
-		menuHidden = false;
+	} else if (!menu.classList.contains('fadeOut')) {
 		console.log('Menu hidden:', menuHidden);
 		// document.getElementById('change-menu-btn').style.pointerEvents = 'none';
 		menu.removeEventListener('animationend', menuFin);
-		menu.removeEventListener('transitionend', menuFin);
 		menu.classList.remove('menu-fade');
 		menu.classList.remove('fadeOut');
 		menu.classList.remove('setOpacity');
-		// void menu.offsetWidth;
+		void menu.offsetWidth;
 		menu.classList.add('setOpacity');
 		void menu.offsetWidth;
-		menu.addEventListener('transitionend', menuFin);
 		menu.classList.add('fadeOut');
+		menu.addEventListener('transitionend', menuFin);
 		void menu.offsetWidth;
 		}
 }

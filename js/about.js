@@ -1,9 +1,10 @@
 import { handleClose } from './overlay.js';
 import {slides, nextSlide, currentSlide, pauseSlides, unPauseSlides} from './slides.js';
-import {toggleMenu } from './utils.js';
+import {toggleMenu, menuFading, menuHidden } from './utils.js';
 
 export function moreAbout () {
 		console.log('More clicked');
+
 		toggleMenu();
 		document.querySelector('.close-button-fullscreen').classList.remove('hidden');
 		document.querySelector('.gallery-button').classList.add('hidden');
