@@ -4,7 +4,10 @@ import {toggleMenu, menuFading, menuHidden } from './utils.js';
 
 export function moreAbout () {
 		console.log('More clicked');
-
+		const overlay = document.querySelector('.overlay');
+		if (overlay){
+			overlay.remove();
+		}
 		toggleMenu();
 		document.querySelector('.close-button-fullscreen').classList.remove('hidden');
 		document.querySelector('.gallery-button').classList.add('hidden');
