@@ -28,7 +28,7 @@
 	box-sizing: inherit;
 	pointer-events: auto;
 	position: absolute;
-	background: white;
+	/* background: white; */
 	bottom: 0;
 	right: 5%;
 	width: 50%;
