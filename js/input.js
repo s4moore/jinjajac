@@ -116,7 +116,7 @@ function checkMenuButtons(target)
 		toggleConnect();
 		// toggleMenu();
 
-		return;
+		return (true);
 	}
 	if (target.closest('.Whatsapp')) {
 		toggleConnect();
@@ -127,7 +127,7 @@ function checkMenuButtons(target)
 
 		// whatsappLink.href = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 		// whatsappLink.click();
-		return;
+		return (true);
 	}
 	if (target.closest('.gallery-change')) {
 		console.log('Gallery button clicked');
@@ -183,7 +183,9 @@ export function handleStart(e) {
 	if (isHandlingStart) return;
     isHandlingStart = true;
     setTimeout(() => isHandlingStart = false, 300);
-
+	if (e.target.closest('.contact-area')){
+		return ;
+	}
     if (e.target.closest('.gallery-img')) {
 		return ;
 	}
@@ -234,6 +236,9 @@ const galleryOverlay = document.querySelector('.gallery');
 export function handleEnd(e) {
     const target = e.target;
 
+	if (e.target.closest('.contact-area')){
+		return ;
+	}
 	if (target.closest('.Connect, .gallery-img, .lower-button, .upper-button, .Gallery, .EmailLink, .More, .Instagram, .Whatsapp, .gallery-change, .Concrete, .Lighting, .Digital, #change-menu-btn, .Shop, .close-button-fullscreen')) {
 		return ;
 	}
