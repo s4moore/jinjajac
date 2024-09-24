@@ -11,13 +11,13 @@
 	position: absolute;
 	top: 2%;
 	right: 2%;
-    z-index: 1050 !important;
+    /* z-index: 1050 !important; */
     /* animation: fadein 5s forwards; */
     /* transform: scale(1.4); */
     width: 4rem;
     height: 4rem;
     background: none;
-	z-index: 1050;
+	z-index: 2050;
     align-items: center;
     justify-content: center;
 }
@@ -28,7 +28,7 @@
     width: 50%;
     height: 50%;
     object-fit: contain;
-    z-index: 1050;
+    z-index: 2049;
 }
 
 .overlay-buttons{

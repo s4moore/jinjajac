@@ -190,6 +190,9 @@ export function handleStart(e) {
 	if (checkMenuButtons(e.target)) {
         return ;
     }
+	if (e.target.closest('.close-button-fullscreen')) {
+		return ;
+	}
     // if (checkGalleryButtons(e.target)) {
     //     return ;
     // }

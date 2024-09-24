@@ -10,12 +10,12 @@ export function fullScreen () {
     let translateY = 0;
     const current = slides[currentSlide];
     const imageUrl = current.getAttribute('Fullscreen');               
-
     const fullScreenOverlay = document.createElement('div');
     fullScreenOverlay.classList.add('fullscreen');
-    // <div class="close-button-fullscreen"><img class="close-button-fullscreen" src="icons/Less creative close icon .png"></div>
+    
     fullScreenOverlay.innerHTML = `
     <div class="fullscreen">
+    <div class="close-button-fullscreen"><img class="close-button-fullscreen" src="icons/Less creative close icon .png"></div>
         <img class="fullscreen-img" src="${imageUrl}">
         </div>
     </div>
@@ -23,31 +23,21 @@ export function fullScreen () {
     document.body.appendChild(fullScreenOverlay);
     const image = document.querySelector('.fullscreen-img');
     image.style.transform = 'scale(1)';
+    const menu = document.querySelector('#change-menu-btn');
+    const collectionHeader = document.querySelector('.collection-header');
+    menu.classList.add('hidden');
+    collectionHeader.classList.add('hidden');
+    // if (fullScreenOverlay.requestFullscreen) {
+    //     fullScreenOverlay.requestFullscreen();
+    // } else if (fullScreenOverlay.mozRequestFullScreen) { // Firefox
+    //     fullScreenOverlay.mozRequestFullScreen();
+    // } else if (fullScreenOverlay.webkitRequestFullscreen) { // Chrome, Safari and Opera
+    //     fullScreenOverlay.webkitRequestFullscreen();
+    // } else if (fullScreenOverlay.msRequestFullscreen) { // IE/Edge
+    //     fullScreenOverlay.msRequestFullscreen();
+    // }
+    // document.addEventListener('fullscreenchange', handleFullscreenChange);
 
-    if (fullScreenOverlay.requestFullscreen) {
-        fullScreenOverlay.requestFullscreen();
-    } else if (fullScreenOverlay.mozRequestFullScreen) { // Firefox
-        fullScreenOverlay.mozRequestFullScreen();
-    } else if (fullScreenOverlay.webkitRequestFullscreen) { // Chrome, Safari and Opera
-        fullScreenOverlay.webkitRequestFullscreen();
-    } else if (fullScreenOverlay.msRequestFullscreen) { // IE/Edge
-        fullScreenOverlay.msRequestFullscreen();
-    }
-    document.addEventListener('fullscreenchange', handleFullscreenChange);
-
-    function handleFullscreenChange () {
-        if (!document.fullscreenElement) {
-            translateX = 0;
-            translateY = 0;
-            scale = 1;
-            image.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
-            console.log('Exited fullscreen mode');
-            fullScreenOverlay.remove();
-            updateViewport('no');
-            fadeInButtons();
-            return ;
-        }
-    }
     document.addEventListener('wheel', function(event) {
         if (event.ctrlKey) {
             event.preventDefault(); 
@@ -101,6 +91,33 @@ export function fullScreen () {
 	// });
 
 
+    const closeButton = document.querySelector('.close-button-fullscreen');
+
+    document.addEventListener('touchstart', handleStart);
+    document.addEventListener('click', handleStart);
+
+    function handleStart(event) {
+        if (event.target.closest('.close-button-fullscreen')) {
+            console.log('Fullscreen button clicked');
+            handleExit();
+            return;
+        }
+    }
+    function handleExit () {
+        if (!document.fullscreenElement) {
+            menu.classList.remove('hidden');
+            collectionHeader.classList.remove('hidden');
+            translateX = 0;
+            translateY = 0;
+            scale = 1;
+            image.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+            console.log('Exited fullscreen mode');
+            fullScreenOverlay.remove();
+            // updateViewport('no');
+            fadeInButtons();
+            return ;
+        }
+    }
     let initialTouch = null;
     let initialTouches = null;
     let initialTranslateX = 0;
