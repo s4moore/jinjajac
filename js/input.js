@@ -102,7 +102,7 @@ function checkMenuButtons(target)
 	}
 	if (target.closest('.EmailLink')) {
 		toggleConnect();
-		toggleMenu();
+		// toggleMenu();
 		// const emailLink = document.getElementById('emailLink');
 		// const emailAddress = 'info@jinjajac.com';
 		// const subject = '';
@@ -114,13 +114,13 @@ function checkMenuButtons(target)
 	}
 	if (target.closest('.Instagram')) {
 		toggleConnect();
-		toggleMenu();
+		// toggleMenu();
 
 		return;
 	}
 	if (target.closest('.Whatsapp')) {
 		toggleConnect();
-		toggleMenu();
+		// toggleMenu();
 		// const whatsappLink = document.getElementById('whatsappLink');
 		// const phoneNumber = '027782940371'; 
 		// const message = 'You\'re ugly and your mother dresses you funny';
@@ -182,7 +182,7 @@ function debounce(func, wait) {
 export function handleStart(e) {
 	if (isHandlingStart) return;
     isHandlingStart = true;
-    setTimeout(() => isHandlingStart = false, 100);
+    setTimeout(() => isHandlingStart = false, 300);
 
     if (e.target.closest('.gallery-img')) {
 		return ;

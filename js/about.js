@@ -11,7 +11,7 @@ export function moreAbout () {
 		document.removeEventListener('mousedown', handleStart, { passive: false });      
 		document.removeEventListener('touchend', handleEnd, { passive: false });
 		document.removeEventListener('mouseup', handleEnd, { passive: false });
-		toggleMenu();
+		document.querySelector('.menu').classList.add('hidden');
 		document.querySelector('.close-button-fullscreen').classList.remove('hidden');
 		document.querySelector('.gallery-button').classList.add('hidden');
 		void document.querySelector('.menu').offsetWidth;

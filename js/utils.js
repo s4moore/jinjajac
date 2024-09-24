@@ -10,6 +10,12 @@ export function setVar(variableName, value) {
     root.style.setProperty(variableName, value);
 }
 
+window.addEventListener('focus', () => {
+	// menu.removeEventListener('animationend', menuFin);
+	// menu.removeEventListener('transitionend', menuFin);
+	menuFin();
+});
+
 function menuFin() {
 	menuHidden = true;
     menu.classList.remove('menu-fade');
@@ -17,7 +23,7 @@ function menuFin() {
 	menu.classList.remove('setOpacity');
 	console.log('-----------------------------Menu transition end');
     menu.classList.add('hidden');
-	void menu.offsetWidth;
+	// void menu.offsetWidth;
 	// document.getElementById('change-menu-btn').style.pointerEvents = 'auto';
 	menu.removeEventListener('animationend', menuFin);
 	menu.removeEventListener('transitionend', menuFin);
@@ -44,21 +50,23 @@ export function toggleMenu() {
 		menu.classList.remove('hidden');
 		menu.classList.remove('fadeOut');
 		menu.classList.remove('setOpacity');
-		void menu.offsetWidth;
+		// void menu.offsetWidth;
 		menu.addEventListener('animationend', menuFin);
         menu.classList.add('menu-fade');
-		void menu.offsetWidth;
-	} else if (!menu.classList.contains('fadeOut')) {
+		// void menu.offsetWidth;
+	} else  {
 		console.log('Menu hidden:', menuHidden);
 		// document.getElementById('change-menu-btn').style.pointerEvents = 'none';
 		menu.removeEventListener('animationend', menuFin);
-		menu.removeEventListener('transitionend', menuFin);		
+		menu.removeEventListener('transitionend', menuFin);
+		menuHidden = true;
 		menu.classList.remove('menu-fade');
 		menu.classList.remove('fadeOut');
 		menu.classList.remove('setOpacity');
 		void menu.offsetWidth;
 		menu.classList.add('setOpacity');
 		void menu.offsetWidth;
+		// menu.style.opacity = '0.8';
 		menu.classList.add('fadeOut');
 		menu.addEventListener('transitionend', menuFin);
 		void menu.offsetWidth;
@@ -74,7 +82,7 @@ function connectFin() {
 	connect.removeEventListener('animationend', connectFin);
 	// menu.classList.remove('paused');
 	// menu.classList.remove('menu-fade');
-	menu.style.opacity = '1';
+	// menu.style.opacity = '1';
 	// fadeOut(menu);
 }
 
