@@ -190,9 +190,9 @@ export function handleStart(e) {
 	if (checkMenuButtons(e.target)) {
         return ;
     }
-    if (checkGalleryButtons(e.target)) {
-        return ;
-    }
+    // if (checkGalleryButtons(e.target)) {
+    //     return ;
+    // }
 
 
 	// if (e.target.closest('.Connect')) {

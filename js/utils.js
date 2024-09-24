@@ -21,6 +21,7 @@ function menuFin() {
 	// document.getElementById('change-menu-btn').style.pointerEvents = 'auto';
 	menu.removeEventListener('animationend', menuFin);
 	menu.removeEventListener('transitionend', menuFin);
+	void menu.offsetWidth;
 }
 
 // function removeHighlight() {
@@ -37,11 +38,13 @@ export function toggleMenu() {
 
 	button.classList.add('highlight2');
 	if (menuHidden) {
-
+		menu.removeEventListener('animationend', menuFin);
+		menu.removeEventListener('transitionend', menuFin);
 		menuHidden = false;
 		menu.classList.remove('hidden');
 		menu.classList.remove('fadeOut');
 		menu.classList.remove('setOpacity');
+		void menu.offsetWidth;
 		menu.addEventListener('animationend', menuFin);
         menu.classList.add('menu-fade');
 		void menu.offsetWidth;
@@ -49,6 +52,7 @@ export function toggleMenu() {
 		console.log('Menu hidden:', menuHidden);
 		// document.getElementById('change-menu-btn').style.pointerEvents = 'none';
 		menu.removeEventListener('animationend', menuFin);
+		menu.removeEventListener('transitionend', menuFin);		
 		menu.classList.remove('menu-fade');
 		menu.classList.remove('fadeOut');
 		menu.classList.remove('setOpacity');
