@@ -104,7 +104,7 @@ function checkMenuButtons(target)
 		toggleConnect();
 		// toggleMenu();
 		// const emailLink = document.getElementById('emailLink');
-		// const emailAddress = 'info@jinjajac.com';
+		// const emailAddress = 'jinjajac@icloud.com';
 		// const subject = '';
 		// const body = '';
 	
